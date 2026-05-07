@@ -2,106 +2,146 @@
 
 <html lang="en">
 <head>
-<meta charset="UTF-8" />
-<meta name="viewport" content="width=device-width, initial-scale=1.0" />
-<title>Harshi's Miami Birthday</title>
-
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Harshi's Miami Birthday 🌴</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Playfair+Display:wght@600;700;800&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700;900&family=DM+Sans:wght@300;400;500;700&family=Syne:wght@700;800&display=swap" rel="stylesheet">
 
 <style>
-*{
-margin:0;
-padding:0;
-box-sizing:border-box;
-}
-
 :root{
---bg:#0f0b17;
---card:#171122;
---card2:#1d152c;
---text:#f7f0ff;
---muted:#b8abc9;
---pink:#ff69c7;
---blue:#7bc9ff;
+--bg:#120b1d;
+--bg2:#1a1028;
+--card:rgba(255,255,255,0.06);
+--card2:rgba(255,255,255,0.08);
 --border:rgba(255,255,255,0.08);
---shadow:0 20px 60px rgba(0,0,0,0.45);
+--text:#f7efff;
+--muted:#c7b8d9;
+--pink:#ff62c0;
+--blue:#7dd3fc;
+--purple:#9b87f5;
+--shadow:0 20px 50px rgba(0,0,0,.45);
+--gradient:linear-gradient(135deg,#ff62c0,#9b87f5,#7dd3fc);
 }
 
+*{margin:0;padding:0;box-sizing:border-box}
+html{scroll-behavior:smooth}
 body{
-font-family:'Inter',sans-serif;
+font-family:'DM Sans',sans-serif;
 background:
-radial-gradient(circle at top left,#26163a 0%,transparent 30%),
-radial-gradient(circle at bottom right,#18263f 0%,transparent 30%),
-#120f1d;
+radial-gradient(circle at top left,rgba(255,98,192,.12),transparent 30%),
+radial-gradient(circle at bottom right,rgba(125,211,252,.10),transparent 30%),
+var(--bg);
 color:var(--text);
 overflow-x:hidden;
 }
 
 .hero{
-min-height:65vh;
-padding:120px 24px 60px;
+min-height:72vh;
 display:flex;
 flex-direction:column;
 align-items:center;
 justify-content:center;
 text-align:center;
+padding:120px 20px 70px;
 position:relative;
+overflow:hidden;
 }
 
 .hero::before{
 content:'';
 position:absolute;
-width:500px;
-height:500px;
-background:radial-gradient(circle,var(--pink),transparent 70%);
-opacity:.12;
+width:700px;
+height:700px;
+background:radial-gradient(circle,rgba(255,98,192,.18),transparent 70%);
 filter:blur(50px);
-top:-100px;
-left:-100px;
+top:-250px;
+left:-250px;
+}
+
+.hero::after{
+content:'';
+position:absolute;
+width:600px;
+height:600px;
+background:radial-gradient(circle,rgba(125,211,252,.12),transparent 70%);
+filter:blur(50px);
+bottom:-250px;
+right:-250px;
+}
+
+.hero-tag{
+font-size:.75rem;
+letter-spacing:.25em;
+text-transform:uppercase;
+background:rgba(255,255,255,.08);
+border:1px solid rgba(255,255,255,.1);
+padding:.6rem 1rem;
+border-radius:100px;
+margin-bottom:1.5rem;
+backdrop-filter:blur(12px);
 }
 
 .hero h1{
 font-family:'Playfair Display',serif;
-font-size:clamp(3rem,7vw,6rem);
-line-height:1;
-margin-bottom:20px;
-background:linear-gradient(135deg,#fff,#ff8fda,#7bc9ff);
+font-size:clamp(3.2rem,9vw,7rem);
+line-height:.95;
+margin-bottom:1rem;
+background:var(--gradient);
 -webkit-background-clip:text;
 -webkit-text-fill-color:transparent;
 }
 
 .hero p{
-font-size:1.1rem;
-color:var(--muted);
 max-width:700px;
+font-size:1.1rem;
 line-height:1.8;
+color:var(--muted);
 }
 
 .portal-wrap{
 display:flex;
-gap:20px;
-justify-content:center;
-margin-top:40px;
+gap:18px;
+margin-top:2.5rem;
 flex-wrap:wrap;
+justify-content:center;
 }
 
 .portal-btn{
-padding:16px 28px;
+padding:16px 26px;
 border-radius:18px;
-border:1px solid var(--border);
-background:rgba(255,255,255,0.05);
-backdrop-filter:blur(10px);
+border:1px solid rgba(255,255,255,.08);
+background:rgba(255,255,255,.06);
+backdrop-filter:blur(18px);
 color:white;
 font-weight:700;
+font-size:.95rem;
 cursor:pointer;
-transition:.3s;
+transition:.35s;
+box-shadow:var(--shadow);
 }
 
 .portal-btn:hover{
-transform:translateY(-4px);
-background:rgba(255,255,255,0.08);
+transform:translateY(-4px) scale(1.02);
+background:rgba(255,255,255,.10);
+}
+
+.topbar{
+position:sticky;
+top:0;
+z-index:999;
+display:flex;
+justify-content:space-between;
+align-items:center;
+padding:18px 24px;
+background:rgba(10,8,20,.72);
+backdrop-filter:blur(18px);
+border-bottom:1px solid rgba(255,255,255,.05);
+}
+
+.topbar h2{
+font-size:.95rem;
+letter-spacing:.15em;
 }
 
 .container{
@@ -110,39 +150,20 @@ margin:auto;
 padding:20px;
 }
 
-.topbar{
-position:sticky;
-top:0;
-z-index:999;
-background:rgba(15,11,23,0.85);
-backdrop-filter:blur(14px);
-border-bottom:1px solid var(--border);
-padding:16px 24px;
-display:flex;
-justify-content:space-between;
-align-items:center;
-}
-
-.topbar h2{
-font-size:1rem;
-font-weight:800;
-letter-spacing:1px;
-}
-
 .day-section{
 margin-bottom:70px;
 }
 
 .day-header{
-margin-bottom:28px;
+margin-bottom:24px;
 }
 
 .day-label{
-font-size:.8rem;
+font-size:.75rem;
 text-transform:uppercase;
-letter-spacing:2px;
+letter-spacing:.25em;
 color:var(--pink);
-margin-bottom:8px;
+margin-bottom:.5rem;
 }
 
 .day-title{
@@ -151,22 +172,22 @@ font-family:'Playfair Display',serif;
 }
 
 .trip-card{
-background:rgba(255,255,255,0.04);
-backdrop-filter:blur(18px);
-border:1px solid rgba(255,255,255,0.06);
-border-radius:28px;
-padding:24px;
-margin-bottom:22px;
-box-shadow:0 20px 50px rgba(0,0,0,0.35);
 position:relative;
+background:rgba(255,255,255,.05);
+border:1px solid rgba(255,255,255,.08);
+border-radius:28px;
+padding:28px;
+margin-bottom:24px;
 overflow:hidden;
+backdrop-filter:blur(20px);
+box-shadow:var(--shadow);
 }
 
 .trip-card::before{
 content:'';
 position:absolute;
 inset:0;
-background:linear-gradient(135deg,rgba(255,105,199,0.06),transparent,rgba(123,201,255,0.05));
+background:linear-gradient(135deg,rgba(255,98,192,.06),transparent,rgba(125,211,252,.05));
 pointer-events:none;
 }
 
@@ -174,42 +195,41 @@ pointer-events:none;
 display:flex;
 justify-content:space-between;
 gap:20px;
-margin-bottom:18px;
+margin-bottom:22px;
 }
 
 .trip-time{
-font-size:.8rem;
-letter-spacing:2px;
+font-size:.72rem;
+letter-spacing:.2em;
 text-transform:uppercase;
 color:var(--pink);
 margin-bottom:10px;
 }
 
 .trip-card h3{
-font-size:1.5rem;
-margin-bottom:10px;
+font-size:1.6rem;
+margin-bottom:.5rem;
 }
 
 .trip-location{
 color:var(--muted);
-font-size:.95rem;
 }
 
 .vote-box{
 display:flex;
 align-items:center;
 gap:12px;
-background:rgba(255,255,255,0.05);
-padding:12px 18px;
-border-radius:18px;
+background:rgba(255,255,255,.06);
+padding:12px 16px;
+border-radius:16px;
 height:fit-content;
 }
 
 .vote-box button{
 background:none;
 border:none;
-font-size:1rem;
 color:white;
+font-size:1rem;
 cursor:pointer;
 }
 
@@ -221,32 +241,33 @@ margin:20px 0;
 }
 
 .budget-box{
-background:rgba(255,255,255,0.04);
-border:1px solid var(--border);
+background:rgba(255,255,255,.05);
+border:1px solid rgba(255,255,255,.08);
 padding:16px;
 border-radius:18px;
-min-width:160px;
+min-width:180px;
 }
 
 .budget-box span{
 display:block;
-font-size:.8rem;
+font-size:.75rem;
 color:var(--muted);
 margin-bottom:8px;
+text-transform:uppercase;
+letter-spacing:.1em;
 }
 
 .budget-box strong{
-font-size:1.4rem;
+font-size:1.5rem;
 }
 
 .route-visual{
-margin-top:14px;
-padding:14px;
+margin-top:16px;
+padding:14px 16px;
 border-radius:16px;
-background:rgba(255,255,255,0.04);
-border:1px solid rgba(255,255,255,0.08);
-font-size:.9rem;
-color:#d5cbe8;
+background:rgba(255,255,255,.05);
+border:1px solid rgba(255,255,255,.06);
+color:#ddd3ea;
 }
 
 .link-row{
@@ -258,64 +279,38 @@ margin-top:18px;
 
 .link-row a{
 text-decoration:none;
-background:rgba(255,255,255,0.06);
-padding:12px 18px;
+padding:12px 16px;
 border-radius:14px;
+background:rgba(255,255,255,.06);
 color:white;
-font-size:.9rem;
 transition:.3s;
 }
 
 .link-row a:hover{
-background:rgba(255,255,255,0.1);
+background:rgba(255,255,255,.10);
 }
 
 .notes-box{
 margin-top:18px;
-color:var(--muted);
 line-height:1.8;
+color:var(--muted);
 }
 
 .editor-row{
 display:flex;
-gap:10px;
+gap:12px;
 flex-wrap:wrap;
-margin-top:24px;
+margin-top:22px;
 }
 
-.editor-row button,
-.add-btn{
-padding:12px 18px;
-border-radius:14px;
+.editor-row button,.add-btn{
+padding:12px 16px;
 border:none;
-background:linear-gradient(135deg,#ff69c7,#7bc9ff);
+border-radius:14px;
+background:var(--gradient);
 color:white;
 font-weight:700;
 cursor:pointer;
-}
-
-.route-line{
-height:70px;
-width:2px;
-background:linear-gradient(to bottom,#ff6ec7,#7dd3fc);
-margin:0 auto;
-opacity:.5;
-}
-
-.secret-card{
-border:1px dashed rgba(255,255,255,0.15);
-background:rgba(255,255,255,0.03);
-padding:24px;
-border-radius:24px;
-margin-top:20px;
-}
-
-.secret-label{
-color:#ffd166;
-font-size:.85rem;
-margin-bottom:10px;
-letter-spacing:1px;
-text-transform:uppercase;
 }
 
 .map-frame{
@@ -323,21 +318,37 @@ width:100%;
 height:240px;
 border:none;
 border-radius:20px;
-margin-top:18px;
+margin-top:20px;
+}
+
+.route-line{
+width:2px;
+height:70px;
+background:linear-gradient(to bottom,#ff62c0,#7dd3fc);
+margin:0 auto 24px;
+opacity:.5;
+}
+
+.secret-card{
+margin-top:50px;
+padding:28px;
+background:rgba(255,255,255,.05);
+border:1px dashed rgba(255,255,255,.15);
+border-radius:28px;
+}
+
+.secret-label{
+color:#ffd166;
+text-transform:uppercase;
+font-size:.75rem;
+letter-spacing:.15em;
+margin-bottom:12px;
 }
 
 @media(max-width:768px){
-.trip-top{
-flex-direction:column;
-}
-
-.hero{
-padding-top:100px;
-}
-
-.day-title{
-font-size:2rem;
-}
+.trip-top{flex-direction:column}
+.hero{padding-top:100px}
+.day-title{font-size:2rem}
 }
 </style>
 
@@ -350,19 +361,15 @@ font-size:2rem;
 </div>
 
 <section class="hero">
+<div class="hero-tag">MIAMI • YACHTS • SUNSETS • CHAOS</div>
 <h1>Miami Birthday Escape</h1>
 <p>
-4 days of beach clubs, yacht parties, rooftop dinners, sunsets, surprises, and unforgettable memories.
+4 days of yacht parties, rooftop dinners, beach sunsets, surprise birthday moments, matching outfits, and unforgettable memories.
 </p>
 
 <div class="portal-wrap">
-<button class="portal-btn" onclick="enterBirthdayGirl()">
-🎀 Birthday Girl
-</button>
-
-<button class="portal-btn" onclick="enterAttendee()">
-🎉 Party Attendee
-</button>
+<button class="portal-btn" onclick="enterBirthdayGirl()">🎀 Birthday Girl View</button>
+<button class="portal-btn" onclick="enterAttendee()">🎉 Party Attendee View</button>
 </div>
 </section>
 
@@ -371,7 +378,6 @@ font-size:2rem;
 <script>
 
 const PARTY_PASSWORD='miamivibes';
-
 let attendeeMode=false;
 
 function enterBirthdayGirl(){
@@ -411,8 +417,8 @@ surprise:false
 },
 {
 day:'Day 1',
-label:'Arrival Day',
-title:'South Pointe Beach Sunset',
+label:'Beach Time',
+title:'South Pointe Sunset Photos',
 time:'5:30 PM',
 location:'South Pointe Park',
 maps:'https://maps.google.com/?q=South+Pointe+Park+Miami',
@@ -421,8 +427,8 @@ uber:'https://m.uber.com/',
 estimatedBudget:0,
 desiredBudget:0,
 travelTime:'8 mins from lunch',
-votes:18,
-notes:'Golden hour photos + beach content.',
+votes:20,
+notes:'Golden hour content + beach walk.',
 surprise:false
 },
 {
@@ -456,45 +462,23 @@ travelTime:'20 mins from Airbnb',
 votes:53,
 notes:'Matching outfits mandatory.',
 surprise:false
-},
-{
-day:'Day 2',
-label:'Nightlife',
-title:'LIV Nightclub',
-time:'11:30 PM',
-location:'Fontainebleau Miami Beach',
-maps:'https://maps.google.com/?q=LIV+Nightclub+Miami',
-website:'https://www.livnightclub.com/',
-uber:'https://m.uber.com/',
-estimatedBudget:90,
-desiredBudget:50,
-travelTime:'14 mins from yacht marina',
-votes:31,
-notes:'Table service possible.',
-surprise:false
 }
 ];
 
 function groupedDays(){
 const map={};
-
 activities.forEach(item=>{
 if(!map[item.day]) map[item.day]=[];
 map[item.day].push(item);
 });
-
 return map;
 }
 
 function renderCard(activity,index,total){
-
-if(activity.surprise && !attendeeMode){
-return '';
-}
+if(activity.surprise && !attendeeMode){return ''}
 
 return `
 <div class="trip-card">
-
 <div class="trip-top">
 <div>
 <div class="trip-time">${activity.time}</div>
@@ -504,7 +488,7 @@ return `
 
 <div class="vote-box">
 <button onclick="upvote(${index})">⬆</button>
-<span id="votes-${index}">${activity.votes}</span>
+<span>${activity.votes}</span>
 <button onclick="downvote(${index})">⬇</button>
 </div>
 </div>
@@ -526,26 +510,20 @@ return `
 </div>
 
 <div class="link-row">
-<a href="${activity.maps}" target="_blank">📍 Open Maps</a>
+<a href="${activity.maps}" target="_blank">📍 Maps</a>
 <a href="${activity.website}" target="_blank">🌐 Website</a>
 <a href="${activity.uber}" target="_blank">🚗 Uber</a>
 </div>
 
-<div class="notes-box">
-${activity.notes}
-</div>
+<div class="notes-box">${activity.notes}</div>
 
-<iframe
-class="map-frame"
-src="https://www.google.com/maps?q=${encodeURIComponent(activity.location)}&output=embed">
-</iframe>
+<iframe class="map-frame" src="https://www.google.com/maps?q=${encodeURIComponent(activity.location)}&output=embed"></iframe>
 
 <div class="editor-row">
 <button onclick="editActivity(${index})">✏ Edit</button>
 <button onclick="deleteActivity(${index})">🗑 Remove</button>
 <button onclick="replaceIdea(${index})">🔄 Replace</button>
 </div>
-
 </div>
 
 ${total-1!==index?'<div class="route-line"></div>':''}
@@ -553,17 +531,13 @@ ${total-1!==index?'<div class="route-line"></div>':''}
 }
 
 function renderAll(){
-
 const app=document.getElementById('main-app');
 const grouped=groupedDays();
-
 let html='';
 
 Object.keys(grouped).forEach(day=>{
-
 html+=`
 <div class="day-section">
-
 <div class="day-header">
 <div class="day-label">Miami Birthday Weekend</div>
 <div class="day-title">${day}</div>
@@ -571,17 +545,11 @@ html+=`
 `;
 
 const list=grouped[day];
-
 list.forEach((item,index)=>{
 html+=renderCard(item,activities.indexOf(item),list.length);
 });
 
-html+=`
-<button class="add-btn" onclick="addActivity('${day}')">
-+ Add New Activity
-</button>
-`;
-
+html+=`<button class="add-btn" onclick="addActivity('${day}')">+ Add Activity</button>`;
 html+='</div>';
 });
 
@@ -590,11 +558,9 @@ html+=`
 <div class="secret-card">
 <div class="secret-label">Attendee Exclusive</div>
 <h2>🎁 Secret Birthday Operations</h2>
-<p style="margin-top:12px;color:var(--muted);line-height:1.8;">
-This section is hidden from the Birthday Girl view.
-You can add surprise setups, secret dinner plans, decoration notes, or private coordination details here.
+<p style="margin-top:14px;color:var(--muted);line-height:1.8;">
+This section is hidden from the Birthday Girl view. Add decorations, surprises, reservations, cakes, gifts, or secret plans here.
 </p>
-
 <div class="editor-row" style="margin-top:20px;">
 <button onclick="addSecret()">+ Add Surprise</button>
 </div>
@@ -605,30 +571,18 @@ You can add surprise setups, secret dinner plans, decoration notes, or private c
 app.innerHTML=html;
 }
 
-function upvote(index){
-activities[index].votes++;
-renderAll();
-}
-
-function downvote(index){
-activities[index].votes--;
-renderAll();
-}
+function upvote(index){activities[index].votes++;renderAll();}
+function downvote(index){activities[index].votes--;renderAll();}
 
 function deleteActivity(index){
-
-const confirmDelete=confirm('Delete this activity?');
-
-if(confirmDelete){
+if(confirm('Delete this activity?')){
 activities.splice(index,1);
 renderAll();
 }
 }
 
 function replaceIdea(index){
-
 const replacement=prompt('Replace with what?');
-
 if(replacement){
 activities[index].title=replacement;
 renderAll();
@@ -636,60 +590,44 @@ renderAll();
 }
 
 function editActivity(index){
-
 const item=activities[index];
-
-const newTitle=prompt('Edit title',item.title);
-if(newTitle!==null) item.title=newTitle;
-
-const newLocation=prompt('Edit location',item.location);
-if(newLocation!==null) item.location=newLocation;
-
-const newBudget=prompt('Edit estimated budget',item.estimatedBudget);
-if(newBudget!==null) item.estimatedBudget=newBudget;
-
-const newDesired=prompt('Edit desired budget',item.desiredBudget);
-if(newDesired!==null) item.desiredBudget=newDesired;
-
-const newNotes=prompt('Edit notes',item.notes);
-if(newNotes!==null) item.notes=newNotes;
-
+const title=prompt('Edit title',item.title);
+if(title!==null) item.title=title;
+const location=prompt('Edit location',item.location);
+if(location!==null) item.location=location;
+const budget=prompt('Edit budget',item.estimatedBudget);
+if(budget!==null) item.estimatedBudget=budget;
+const desired=prompt('Edit desired budget',item.desiredBudget);
+if(desired!==null) item.desiredBudget=desired;
 renderAll();
 }
 
 function addActivity(day){
-
 const title=prompt('Activity title');
 if(!title) return;
-
 const location=prompt('Location');
-const budget=prompt('Estimated Budget');
-
 activities.push({
 day,
 label:'Custom',
 title,
 time:'TBD',
-location:location || 'Unknown',
+location:location||'Unknown',
 maps:'https://maps.google.com/',
 website:'#',
 uber:'https://m.uber.com/',
-estimatedBudget:budget || 0,
-desiredBudget:budget || 0,
+estimatedBudget:0,
+desiredBudget:0,
 travelTime:'Unknown',
 votes:0,
-notes:'New custom activity.',
+notes:'Custom activity.',
 surprise:false
 });
-
 renderAll();
 }
 
 function addSecret(){
-
 const title=prompt('Secret surprise title');
 if(!title) return;
-
 activities.push({
 day:'Secret Plans',
 label:'Secret',
@@ -706,12 +644,10 @@ votes:0,
 notes:'Hidden from Birthday Girl.',
 surprise:true
 });
-
 renderAll();
 }
 
 renderAll();
-
 </script>
 
 </body>
