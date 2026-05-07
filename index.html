@@ -353,7 +353,7 @@ margin-bottom:12px;
 </style>
 
 </head>
-<body>
+<body style="margin:0;background:#0f0a18;color:white;font-family:'DM Sans',sans-serif;overflow:hidden;">
 
 <div id="landing-screen" class="landing-screen">
   <div class="landing-overlay"></div>
@@ -647,6 +647,17 @@ renderAll();
 }
 
 function renderAll(){
+if(typeof groupedDays !== 'function'){
+window.groupedDays=function(){
+return {
+'Day 1 · Arrival': activities?.[0] || [],
+'Day 2 · Yacht Party': activities?.[1] || [],
+'Day 3 · Explore': activities?.[2] || [],
+'Day 4 · Departure': activities?.[3] || []
+};
+}
+}
+
 const wrap=document.getElementById('horizontal-scroll');
 const grouped=groupedDays();
 
@@ -663,7 +674,13 @@ html+=`<div class="day-page">
 const list=grouped[day];
 
 list.forEach((item,index)=>{
-html+=renderCard(item,activities.indexOf(item),list.length);
+html+=(typeof renderCard==='function' ? renderCard(item,activities.indexOf(item),list.length) : `
+<div style="background:rgba(255,255,255,.05);border:1px solid rgba(255,255,255,.08);padding:24px;border-radius:24px;margin-top:20px;backdrop-filter:blur(10px)">
+<h3 style="font-size:1.4rem;margin-bottom:10px;">${item.title||'Event'}</h3>
+<p style="color:#cfcfe7;line-height:1.8;">${item.detail||''}</p>
+<div style="margin-top:14px;color:#8bd3ff;">⏰ ${item.time||''}</div>
+</div>
+`);
 });
 
 if(attendeeMode){
