@@ -1,653 +1,1704 @@
 <!DOCTYPE html>
-
 <html lang="en">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta charset="UTF-8" />
+<meta
+  name="viewport"
+  content="width=device-width, initial-scale=1.0, maximum-scale=1.0"
+/>
+
 <title>Harshi's Miami Birthday 🌴</title>
-<link rel="preconnect" href="https://fonts.googleapis.com">
-<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700;900&family=DM+Sans:wght@300;400;500;700&family=Syne:wght@700;800&display=swap" rel="stylesheet">
+
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link
+  href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;600;700;800&family=Inter:wght@300;400;500;600;700&display=swap"
+  rel="stylesheet"
+/>
 
 <style>
 :root{
---bg:#120b1d;
---bg2:#1a1028;
---card:rgba(255,255,255,0.06);
---card2:rgba(255,255,255,0.08);
---border:rgba(255,255,255,0.08);
---text:#f7efff;
---muted:#c7b8d9;
---pink:#ff62c0;
---blue:#7dd3fc;
---purple:#9b87f5;
---shadow:0 20px 50px rgba(0,0,0,.45);
---gradient:linear-gradient(135deg,#ff62c0,#9b87f5,#7dd3fc);
+  --bg:#f5eef5;
+  --surface:rgba(255,255,255,0.82);
+  --surface-solid:#ffffff;
+  --surface2:#f8f4fa;
+
+  --text:#24152f;
+  --text-muted:#7c6b88;
+
+  --accent:#d14b91;
+  --accent2:#7aa6d9;
+
+  --border:rgba(70,40,80,0.08);
+
+  --shadow:
+    0 10px 40px rgba(0,0,0,0.05);
+
+  --gradient:
+    linear-gradient(
+      135deg,
+      #d14b91,
+      #8f79ff,
+      #7aa6d9
+    );
 }
 
-*{margin:0;padding:0;box-sizing:border-box}
-html{scroll-behavior:smooth}
+*{
+  margin:0;
+  padding:0;
+  box-sizing:border-box;
+}
+
+html{
+  scroll-behavior:smooth;
+}
+
 body{
-font-family:'DM Sans',sans-serif;
-background:
-radial-gradient(circle at top left,rgba(255,98,192,.12),transparent 30%),
-radial-gradient(circle at bottom right,rgba(125,211,252,.10),transparent 30%),
-var(--bg);
-color:var(--text);
-overflow-x:hidden;
+  font-family:'Inter',sans-serif;
+  background:
+    radial-gradient(
+      circle at top left,
+      rgba(209,75,145,0.08),
+      transparent 30%
+    ),
+    radial-gradient(
+      circle at bottom right,
+      rgba(122,166,217,0.10),
+      transparent 30%
+    ),
+    var(--bg);
+
+  color:var(--text);
+  min-height:100vh;
+  overflow-x:hidden;
 }
 
-.hero{
-min-height:72vh;
-display:flex;
-flex-direction:column;
-align-items:center;
-justify-content:center;
-text-align:center;
-padding:120px 20px 70px;
-position:relative;
-overflow:hidden;
+/* -------------------------------- */
+/* LANDING */
+/* -------------------------------- */
+
+.landing{
+  min-height:100vh;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  padding:24px;
 }
 
-.hero::before{
-content:'';
-position:absolute;
-width:700px;
-height:700px;
-background:radial-gradient(circle,rgba(255,98,192,.18),transparent 70%);
-filter:blur(50px);
-top:-250px;
-left:-250px;
+.landing-card{
+  width:min(520px,100%);
+  background:rgba(255,255,255,0.72);
+  backdrop-filter:blur(18px);
+
+  border:1px solid rgba(255,255,255,0.5);
+
+  border-radius:34px;
+
+  padding:44px 36px;
+
+  box-shadow:
+    0 20px 60px rgba(0,0,0,0.08);
+
+  text-align:center;
+
+  position:relative;
+  overflow:hidden;
 }
 
-.hero::after{
-content:'';
-position:absolute;
-width:600px;
-height:600px;
-background:radial-gradient(circle,rgba(125,211,252,.12),transparent 70%);
-filter:blur(50px);
-bottom:-250px;
-right:-250px;
+.landing-card::before{
+  content:"";
+  position:absolute;
+  inset:0;
+
+  background:
+    radial-gradient(
+      circle at top right,
+      rgba(209,75,145,0.14),
+      transparent 30%
+    );
+
+  pointer-events:none;
 }
 
-.hero-tag{
-font-size:.75rem;
-letter-spacing:.25em;
-text-transform:uppercase;
-background:rgba(255,255,255,.08);
-border:1px solid rgba(255,255,255,.1);
-padding:.6rem 1rem;
-border-radius:100px;
-margin-bottom:1.5rem;
-backdrop-filter:blur(12px);
+.emoji{
+  font-size:52px;
+  margin-bottom:18px;
 }
 
-.hero h1{
-font-family:'Playfair Display',serif;
-font-size:clamp(3.2rem,9vw,7rem);
-line-height:.95;
-margin-bottom:1rem;
-background:var(--gradient);
--webkit-background-clip:text;
--webkit-text-fill-color:transparent;
+.landing-sub{
+  font-size:12px;
+  letter-spacing:.22em;
+  text-transform:uppercase;
+  color:var(--accent);
+  font-weight:700;
+  margin-bottom:16px;
 }
 
-.hero p{
-max-width:700px;
-font-size:1.1rem;
-line-height:1.8;
-color:var(--muted);
+.landing-title{
+  font-family:'Playfair Display',serif;
+  font-size:58px;
+  line-height:0.95;
+  margin-bottom:16px;
+  font-weight:800;
 }
 
-.portal-wrap{
-display:flex;
-gap:18px;
-margin-top:2.5rem;
-flex-wrap:wrap;
-justify-content:center;
+.landing-desc{
+  color:var(--text-muted);
+  line-height:1.7;
+  margin-bottom:34px;
+  font-size:15px;
 }
 
-.portal-btn{
-padding:16px 26px;
-border-radius:18px;
-border:1px solid rgba(255,255,255,.08);
-background:rgba(255,255,255,.06);
-backdrop-filter:blur(18px);
-color:white;
-font-weight:700;
-font-size:.95rem;
-cursor:pointer;
-transition:.35s;
-box-shadow:var(--shadow);
+.choice-grid{
+  display:grid;
+  grid-template-columns:1fr 1fr;
+  gap:16px;
 }
 
-.portal-btn:hover{
-transform:translateY(-4px) scale(1.02);
-background:rgba(255,255,255,.10);
+.choice{
+  border:none;
+  cursor:pointer;
+
+  border-radius:24px;
+
+  padding:28px 18px;
+
+  transition:.25s;
+
+  background:white;
+
+  border:1px solid var(--border);
+
+  box-shadow:var(--shadow);
+}
+
+.choice:hover{
+  transform:translateY(-4px);
+}
+
+.choice-icon{
+  font-size:36px;
+  margin-bottom:12px;
+}
+
+.choice-title{
+  font-weight:700;
+  font-size:16px;
+  margin-bottom:6px;
+}
+
+.choice-text{
+  font-size:13px;
+  line-height:1.5;
+  color:var(--text-muted);
+}
+
+.password-modal{
+  position:fixed;
+  inset:0;
+  background:rgba(18,10,24,0.5);
+
+  backdrop-filter:blur(10px);
+
+  display:none;
+  align-items:center;
+  justify-content:center;
+  z-index:1000;
+  padding:20px;
+}
+
+.password-modal.open{
+  display:flex;
+}
+
+.password-card{
+  width:min(420px,100%);
+  background:white;
+  border-radius:28px;
+  padding:32px;
+  box-shadow:0 30px 80px rgba(0,0,0,0.18);
+}
+
+.password-title{
+  font-family:'Playfair Display',serif;
+  font-size:32px;
+  margin-bottom:10px;
+}
+
+.password-desc{
+  color:var(--text-muted);
+  line-height:1.6;
+  margin-bottom:20px;
+  font-size:14px;
+}
+
+.password-input{
+  width:100%;
+  border:none;
+  outline:none;
+
+  background:#f7f4fa;
+
+  padding:16px 18px;
+
+  border-radius:16px;
+
+  font-size:15px;
+
+  margin-bottom:14px;
+}
+
+.password-btn{
+  width:100%;
+  border:none;
+  cursor:pointer;
+
+  background:var(--gradient);
+  color:white;
+
+  font-weight:700;
+
+  padding:15px;
+
+  border-radius:16px;
+
+  font-size:15px;
+}
+
+.error{
+  color:#d9386e;
+  font-size:13px;
+  margin-top:10px;
+  display:none;
+}
+
+/* -------------------------------- */
+/* APP */
+/* -------------------------------- */
+
+.app{
+  display:none;
+}
+
+.app.active{
+  display:block;
 }
 
 .topbar{
-position:sticky;
-top:0;
-z-index:999;
-display:flex;
-justify-content:space-between;
-align-items:center;
-padding:18px 24px;
-background:rgba(10,8,20,.72);
-backdrop-filter:blur(18px);
-border-bottom:1px solid rgba(255,255,255,.05);
+  position:fixed;
+  top:18px;
+  left:50%;
+  transform:translateX(-50%);
+
+  width:min(1150px,94%);
+  z-index:200;
 }
 
-.topbar h2{
-font-size:.95rem;
-letter-spacing:.15em;
+.topbar-inner{
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+
+  background:rgba(255,255,255,0.75);
+
+  backdrop-filter:blur(18px);
+
+  border:1px solid rgba(255,255,255,0.5);
+
+  border-radius:22px;
+
+  padding:14px 18px;
+
+  box-shadow:0 12px 50px rgba(0,0,0,0.06);
 }
 
-.container{
-max-width:1200px;
-margin:auto;
-padding:20px;
+.brand{
+  display:flex;
+  align-items:center;
+  gap:14px;
 }
 
-.day-section{
-margin-bottom:70px;
+.brand-badge{
+  width:44px;
+  height:44px;
+  border-radius:14px;
+
+  background:var(--gradient);
+
+  display:flex;
+  align-items:center;
+  justify-content:center;
+
+  color:white;
+  font-size:22px;
 }
 
-.day-header{
-margin-bottom:24px;
+.brand-title{
+  font-weight:700;
+  font-size:15px;
 }
 
-.day-label{
-font-size:.75rem;
-text-transform:uppercase;
-letter-spacing:.25em;
-color:var(--pink);
-margin-bottom:.5rem;
+.brand-sub{
+  color:var(--text-muted);
+  font-size:12px;
+  margin-top:2px;
+}
+
+.top-actions{
+  display:flex;
+  align-items:center;
+  gap:10px;
+}
+
+.top-btn{
+  border:none;
+  cursor:pointer;
+
+  background:white;
+
+  border:1px solid var(--border);
+
+  padding:11px 16px;
+
+  border-radius:14px;
+
+  font-size:13px;
+  font-weight:600;
+
+  transition:.2s;
+}
+
+.top-btn:hover{
+  transform:translateY(-2px);
+}
+
+.hero{
+  padding-top:120px;
+  padding-bottom:20px;
+}
+
+.hero-wrap{
+  width:min(1150px,94%);
+  margin:auto;
+}
+
+.hero-card{
+  position:relative;
+
+  overflow:hidden;
+
+  border-radius:36px;
+
+  min-height:320px;
+
+  padding:44px;
+
+  background:
+    linear-gradient(
+      135deg,
+      rgba(209,75,145,0.95),
+      rgba(143,121,255,0.88),
+      rgba(122,166,217,0.9)
+    );
+
+  color:white;
+
+  box-shadow:
+    0 30px 90px rgba(100,50,120,0.18);
+}
+
+.hero-card::after{
+  content:"";
+  position:absolute;
+  inset:0;
+
+  background:
+    radial-gradient(
+      circle at top right,
+      rgba(255,255,255,0.20),
+      transparent 30%
+    );
+
+  pointer-events:none;
+}
+
+.hero-mini{
+  letter-spacing:.2em;
+  text-transform:uppercase;
+  font-size:12px;
+  opacity:.8;
+  margin-bottom:14px;
+}
+
+.hero-title{
+  font-family:'Playfair Display',serif;
+  font-size:clamp(44px,7vw,82px);
+  line-height:0.95;
+  font-weight:800;
+  margin-bottom:16px;
+}
+
+.hero-sub{
+  font-size:16px;
+  opacity:.92;
+  max-width:520px;
+  line-height:1.7;
+  margin-bottom:26px;
+}
+
+.countdown{
+  display:flex;
+  flex-wrap:wrap;
+  gap:14px;
+}
+
+.count{
+  min-width:90px;
+
+  background:rgba(255,255,255,0.16);
+
+  border:1px solid rgba(255,255,255,0.2);
+
+  border-radius:18px;
+
+  padding:14px;
+}
+
+.count-num{
+  font-size:30px;
+  font-weight:800;
+}
+
+.count-label{
+  margin-top:4px;
+  font-size:11px;
+  letter-spacing:.12em;
+  text-transform:uppercase;
+  opacity:.8;
+}
+
+.main{
+  width:min(1150px,94%);
+  margin:auto;
+  padding-bottom:100px;
+}
+
+.tabs{
+  display:flex;
+  gap:12px;
+  overflow:auto;
+
+  margin:24px 0 28px;
+}
+
+.tabs::-webkit-scrollbar{
+  display:none;
+}
+
+.tab{
+  border:none;
+  cursor:pointer;
+
+  background:rgba(255,255,255,0.65);
+
+  border:1px solid rgba(255,255,255,0.5);
+
+  backdrop-filter:blur(14px);
+
+  padding:14px 18px;
+
+  border-radius:16px;
+
+  white-space:nowrap;
+
+  font-weight:600;
+  color:var(--text-muted);
+
+  transition:.2s;
+}
+
+.tab.active{
+  background:white;
+  color:var(--text);
+  box-shadow:var(--shadow);
+}
+
+.grid{
+  display:grid;
+  grid-template-columns:1fr 340px;
+  gap:24px;
+}
+
+.section{
+  display:none;
+}
+
+.section.active{
+  display:block;
+}
+
+.day-head{
+  margin-bottom:22px;
+}
+
+.day-tag{
+  color:var(--accent);
+  letter-spacing:.18em;
+  text-transform:uppercase;
+  font-size:11px;
+  font-weight:700;
+  margin-bottom:10px;
 }
 
 .day-title{
-font-size:2.5rem;
-font-family:'Playfair Display',serif;
+  font-family:'Playfair Display',serif;
+  font-size:44px;
+  line-height:1;
+  margin-bottom:10px;
 }
 
-.trip-card{
-position:relative;
-background:rgba(255,255,255,.05);
-border:1px solid rgba(255,255,255,.08);
-border-radius:28px;
-padding:28px;
-margin-bottom:24px;
-overflow:hidden;
-backdrop-filter:blur(20px);
-box-shadow:var(--shadow);
+.day-desc{
+  color:var(--text-muted);
+  line-height:1.6;
 }
 
-.trip-card::before{
-content:'';
-position:absolute;
-inset:0;
-background:linear-gradient(135deg,rgba(255,98,192,.06),transparent,rgba(125,211,252,.05));
-pointer-events:none;
+.card{
+  background:var(--surface);
+
+  backdrop-filter:blur(16px);
+
+  border:1px solid rgba(255,255,255,0.45);
+
+  border-radius:28px;
+
+  padding:24px;
+
+  margin-bottom:18px;
+
+  box-shadow:var(--shadow);
+
+  transition:.25s;
 }
 
-.trip-top{
-display:flex;
-justify-content:space-between;
-gap:20px;
-margin-bottom:22px;
+.card:hover{
+  transform:translateY(-4px);
 }
 
-.trip-time{
-font-size:.72rem;
-letter-spacing:.2em;
-text-transform:uppercase;
-color:var(--pink);
-margin-bottom:10px;
+.card-top{
+  display:flex;
+  justify-content:space-between;
+  gap:20px;
 }
 
-.trip-card h3{
-font-size:1.6rem;
-margin-bottom:.5rem;
+.time{
+  font-size:13px;
+  color:var(--accent);
+  font-weight:700;
+  margin-bottom:10px;
 }
 
-.trip-location{
-color:var(--muted);
+.title{
+  font-size:22px;
+  font-weight:700;
+  margin-bottom:10px;
 }
 
-.vote-box{
-display:flex;
-align-items:center;
-gap:12px;
-background:rgba(255,255,255,.06);
-padding:12px 16px;
-border-radius:16px;
-height:fit-content;
+.detail{
+  color:var(--text-muted);
+  line-height:1.7;
+  font-size:14px;
 }
 
-.vote-box button{
-background:none;
-border:none;
-color:white;
-font-size:1rem;
-cursor:pointer;
+.tags{
+  display:flex;
+  flex-wrap:wrap;
+  gap:8px;
+  margin-bottom:14px;
 }
 
-.budget-row{
-display:flex;
-gap:18px;
-flex-wrap:wrap;
-margin:20px 0;
+.tag{
+  font-size:11px;
+  font-weight:700;
+
+  letter-spacing:.08em;
+  text-transform:uppercase;
+
+  padding:8px 12px;
+
+  border-radius:100px;
 }
 
-.budget-box{
-background:rgba(255,255,255,.05);
-border:1px solid rgba(255,255,255,.08);
-padding:16px;
-border-radius:18px;
-min-width:180px;
+.food{
+  background:rgba(122,166,217,0.12);
+  color:#4f84c2;
 }
 
-.budget-box span{
-display:block;
-font-size:.75rem;
-color:var(--muted);
-margin-bottom:8px;
-text-transform:uppercase;
-letter-spacing:.1em;
+.party{
+  background:rgba(209,75,145,0.12);
+  color:#cf4d90;
 }
 
-.budget-box strong{
-font-size:1.5rem;
+.activity{
+  background:rgba(141,121,255,0.10);
+  color:#7d6bf2;
 }
 
-.route-visual{
-margin-top:16px;
-padding:14px 16px;
-border-radius:16px;
-background:rgba(255,255,255,.05);
-border:1px solid rgba(255,255,255,.06);
-color:#ddd3ea;
+.fancy{
+  background:rgba(255,215,140,0.18);
+  color:#af7d22;
 }
 
-.link-row{
-display:flex;
-gap:12px;
-flex-wrap:wrap;
-margin-top:18px;
+.bottom{
+  margin-top:18px;
+
+  display:flex;
+  align-items:center;
+  gap:12px;
+  flex-wrap:wrap;
 }
 
-.link-row a{
-text-decoration:none;
-padding:12px 16px;
-border-radius:14px;
-background:rgba(255,255,255,.06);
-color:white;
-transition:.3s;
+.cost{
+  background:#fff;
+  border-radius:12px;
+  padding:10px 14px;
+  font-size:13px;
+  border:1px solid var(--border);
 }
 
-.link-row a:hover{
-background:rgba(255,255,255,.10);
+.uber{
+  border:none;
+  text-decoration:none;
+
+  background:var(--gradient);
+
+  color:white;
+
+  padding:11px 14px;
+
+  border-radius:12px;
+
+  font-size:13px;
+  font-weight:700;
 }
 
-.notes-box{
-margin-top:18px;
-line-height:1.8;
-color:var(--muted);
+.sidebar{
+  position:sticky;
+  top:110px;
+  height:fit-content;
 }
 
-.editor-row{
-display:flex;
-gap:12px;
-flex-wrap:wrap;
-margin-top:22px;
+.side-card{
+  background:var(--surface);
+
+  backdrop-filter:blur(16px);
+
+  border:1px solid rgba(255,255,255,0.45);
+
+  border-radius:28px;
+
+  padding:24px;
+
+  box-shadow:var(--shadow);
+
+  margin-bottom:18px;
 }
 
-.editor-row button,.add-btn{
-padding:12px 16px;
-border:none;
-border-radius:14px;
-background:var(--gradient);
-color:white;
-font-weight:700;
-cursor:pointer;
+.side-title{
+  font-family:'Playfair Display',serif;
+  font-size:28px;
+  margin-bottom:16px;
 }
 
-.map-frame{
-width:100%;
-height:240px;
-border:none;
-border-radius:20px;
-margin-top:20px;
+.budget{
+  font-size:54px;
+  font-weight:800;
+  line-height:1;
+  margin-bottom:8px;
 }
 
-.route-line{
-width:2px;
-height:70px;
-background:linear-gradient(to bottom,#ff62c0,#7dd3fc);
-margin:0 auto 24px;
-opacity:.5;
+.side-text{
+  color:var(--text-muted);
+  line-height:1.7;
+  font-size:14px;
 }
 
-.secret-card{
-margin-top:50px;
-padding:28px;
-background:rgba(255,255,255,.05);
-border:1px dashed rgba(255,255,255,.15);
-border-radius:28px;
+.secret{
+  margin-top:14px;
+
+  background:
+    linear-gradient(
+      135deg,
+      rgba(209,75,145,0.12),
+      rgba(122,166,217,0.12)
+    );
+
+  border-radius:20px;
+
+  padding:18px;
 }
 
-.secret-label{
-color:#ffd166;
-text-transform:uppercase;
-font-size:.75rem;
-letter-spacing:.15em;
-margin-bottom:12px;
+.secret-title{
+  font-weight:700;
+  margin-bottom:8px;
 }
 
-@media(max-width:768px){
-.trip-top{flex-direction:column}
-.hero{padding-top:100px}
-.day-title{font-size:2rem}
+.secret-text{
+  color:var(--text-muted);
+  font-size:14px;
+  line-height:1.7;
+}
+
+.footer{
+  text-align:center;
+  padding:50px 20px 80px;
+  color:var(--text-muted);
+  font-size:13px;
+}
+
+@media(max-width:980px){
+
+  .grid{
+    grid-template-columns:1fr;
+  }
+
+  .sidebar{
+    position:relative;
+    top:auto;
+  }
+
+  .hero-card{
+    padding:34px 28px;
+  }
+
+  .landing-title{
+    font-size:48px;
+  }
+}
+
+@media(max-width:640px){
+
+  .choice-grid{
+    grid-template-columns:1fr;
+  }
+
+  .hero-title{
+    font-size:54px;
+  }
+
+  .day-title{
+    font-size:34px;
+  }
+
+  .topbar-inner{
+    padding:12px;
+  }
+
+  .brand-sub{
+    display:none;
+  }
+
+  .landing-card{
+    padding:34px 24px;
+  }
 }
 </style>
-
 </head>
+
 <body>
 
-<div class="topbar">
-<h2>🌴 HARSHI'S MIAMI BIRTHDAY</h2>
-<div>Luxury Miami Weekend</div>
-</div>
+<!-- LANDING -->
 
-<section class="hero">
-<div class="hero-tag">MIAMI • YACHTS • SUNSETS • CHAOS</div>
-<h1>Miami Birthday Escape</h1>
-<p>
-4 days of yacht parties, rooftop dinners, beach sunsets, surprise birthday moments, matching outfits, and unforgettable memories.
-</p>
+<section class="landing" id="landing">
 
-<div class="portal-wrap">
-<button class="portal-btn" onclick="enterBirthdayGirl()">🎀 Birthday Girl View</button>
-<button class="portal-btn" onclick="enterAttendee()">🎉 Party Attendee View</button>
-</div>
+  <div class="landing-card">
+
+    <div class="emoji">🌴</div>
+
+    <div class="landing-sub">
+      Miami • June 2025
+    </div>
+
+    <h1 class="landing-title">
+      Harshi's<br />
+      Birthday
+    </h1>
+
+    <p class="landing-desc">
+      A luxury girls trip filled with beach days,
+      rooftop dinners, yacht chaos, sunset photos,
+      and birthday energy ✨
+    </p>
+
+    <div class="choice-grid">
+
+      <button class="choice" onclick="openBirthdayGirl()">
+
+        <div class="choice-icon">👑</div>
+
+        <div class="choice-title">
+          Birthday Girl
+        </div>
+
+        <div class="choice-text">
+          Elegant itinerary view with the full trip schedule.
+        </div>
+
+      </button>
+
+      <button class="choice" onclick="openPassword()">
+
+        <div class="choice-icon">🍾</div>
+
+        <div class="choice-title">
+          Party Attendee
+        </div>
+
+        <div class="choice-text">
+          Unlock the attendee experience with surprises and secret missions.
+        </div>
+
+      </button>
+
+    </div>
+
+  </div>
+
 </section>
 
-<div class="container" id="main-app"></div>
+<!-- PASSWORD -->
+
+<div class="password-modal" id="passwordModal">
+
+  <div class="password-card">
+
+    <div class="password-title">
+      Attendee Access 🍸
+    </div>
+
+    <div class="password-desc">
+      Enter the party password to unlock
+      the special attendee version.
+    </div>
+
+    <input
+      type="password"
+      class="password-input"
+      id="passwordInput"
+      placeholder="Enter password..."
+    />
+
+    <button class="password-btn" onclick="unlockAttendee()">
+      Unlock Experience ✨
+    </button>
+
+    <div class="error" id="passwordError">
+      Wrong password 💅
+    </div>
+
+  </div>
+
+</div>
+
+<!-- APP -->
+
+<div class="app" id="app">
+
+  <!-- TOPBAR -->
+
+  <div class="topbar">
+
+    <div class="topbar-inner">
+
+      <div class="brand">
+
+        <div class="brand-badge">
+          🌊
+        </div>
+
+        <div>
+          <div class="brand-title">
+            Harshi's Miami Birthday
+          </div>
+
+          <div class="brand-sub" id="modeText">
+            Birthday Girl Experience
+          </div>
+        </div>
+
+      </div>
+
+      <div class="top-actions">
+
+        <button class="top-btn" onclick="launchConfetti()">
+          🎊 Confetti
+        </button>
+
+        <button class="top-btn" onclick="toggleDark()">
+          🌙 Theme
+        </button>
+
+      </div>
+
+    </div>
+
+  </div>
+
+  <!-- HERO -->
+
+  <section class="hero">
+
+    <div class="hero-wrap">
+
+      <div class="hero-card">
+
+        <div class="hero-mini">
+          Miami • June 20–23
+        </div>
+
+        <div class="hero-title">
+          4 Days of<br />
+          Birthday Chaos
+        </div>
+
+        <div class="hero-sub">
+          Sunsets, yacht parties, rooftop dinners,
+          matching outfits, and enough photo dumps
+          to crash everyone's camera roll.
+        </div>
+
+        <div class="countdown">
+
+          <div class="count">
+            <div class="count-num" id="days">--</div>
+            <div class="count-label">Days</div>
+          </div>
+
+          <div class="count">
+            <div class="count-num" id="hours">--</div>
+            <div class="count-label">Hours</div>
+          </div>
+
+          <div class="count">
+            <div class="count-num" id="mins">--</div>
+            <div class="count-label">Minutes</div>
+          </div>
+
+          <div class="count">
+            <div class="count-num" id="secs">--</div>
+            <div class="count-label">Seconds</div>
+          </div>
+
+        </div>
+
+      </div>
+
+    </div>
+
+  </section>
+
+  <!-- MAIN -->
+
+  <main class="main">
+
+    <div class="tabs">
+
+      <button class="tab active" onclick="switchDay(0,this)">
+        Day 1 • Arrival
+      </button>
+
+      <button class="tab" onclick="switchDay(1,this)">
+        Day 2 • Yacht
+      </button>
+
+      <button class="tab" onclick="switchDay(2,this)">
+        Day 3 • Explore
+      </button>
+
+      <button class="tab" onclick="switchDay(3,this)">
+        Day 4 • Goodbye
+      </button>
+
+    </div>
+
+    <div class="grid">
+
+      <!-- LEFT -->
+
+      <div>
+
+        <!-- DAY 1 -->
+
+        <section class="section active" id="day-0">
+
+          <div class="day-head">
+
+            <div class="day-tag">
+              Day 1 • Arrival
+            </div>
+
+            <div class="day-title">
+              South Beach Kickoff 🌅
+            </div>
+
+            <div class="day-desc">
+              Beach day energy, rooftop dinners,
+              and the official beginning of the chaos.
+            </div>
+
+          </div>
+
+          <div class="card">
+
+            <div class="time">
+              9:00 AM
+            </div>
+
+            <div class="tags">
+              <div class="tag activity">Activity</div>
+            </div>
+
+            <div class="title">
+              Check into Airbnb
+            </div>
+
+            <div class="detail">
+              Everyone gets settled in South Beach
+              while one person handles check-in.
+            </div>
+
+            <div class="bottom">
+
+              <div class="cost">
+                Arrival Day
+              </div>
+
+            </div>
+
+          </div>
+
+          <div class="card">
+
+            <div class="time">
+              12:30 PM
+            </div>
+
+            <div class="tags">
+              <div class="tag food">Food</div>
+              <div class="tag fancy">Fancy</div>
+            </div>
+
+            <div class="title">
+              Cute Lunch Moment
+            </div>
+
+            <div class="detail">
+              Casual lunch in South Beach before
+              heading to the beach and taking photos.
+            </div>
+
+            <div class="bottom">
+
+              <div class="cost">
+                ~$35/person
+              </div>
+
+            </div>
+
+          </div>
+
+          <div class="card">
+
+            <div class="time">
+              8:00 PM
+            </div>
+
+            <div class="tags">
+              <div class="tag food">Food</div>
+              <div class="tag fancy">Fancy</div>
+            </div>
+
+            <div class="title">
+              Dinner at Kiki on the River
+            </div>
+
+            <div class="detail">
+              Dress up. Birthday energy only.
+              Miami river views + iconic dinner vibes.
+            </div>
+
+            <div class="bottom">
+
+              <div class="cost">
+                ~$80/person
+              </div>
+
+              <a class="uber" href="#">
+                🚗 Uber
+              </a>
+
+            </div>
+
+          </div>
+
+        </section>
+
+        <!-- DAY 2 -->
+
+        <section class="section" id="day-1">
+
+          <div class="day-head">
+
+            <div class="day-tag">
+              Day 2 • Main Event
+            </div>
+
+            <div class="day-title">
+              Yacht Party 🛥️
+            </div>
+
+            <div class="day-desc">
+              The biggest day of the trip.
+              Matching outfits mandatory.
+            </div>
+
+          </div>
+
+          <div class="card">
+
+            <div class="time">
+              11:30 AM
+            </div>
+
+            <div class="tags">
+              <div class="tag food">Food</div>
+              <div class="tag fancy">Fancy</div>
+            </div>
+
+            <div class="title">
+              Brunch at Nikki Beach
+            </div>
+
+            <div class="detail">
+              Beachside brunch, cocktails,
+              music, and main character energy.
+            </div>
+
+            <div class="bottom">
+
+              <div class="cost">
+                ~$50/person
+              </div>
+
+            </div>
+
+          </div>
+
+          <div class="card">
+
+            <div class="time">
+              1:30 PM
+            </div>
+
+            <div class="tags">
+              <div class="tag party">Party</div>
+              <div class="tag activity">Activity</div>
+            </div>
+
+            <div class="title">
+              Yacht + Jet Skis
+            </div>
+
+            <div class="detail">
+              Luxury yacht experience with music,
+              drinks, photos, and birthday chaos.
+            </div>
+
+            <div class="bottom">
+
+              <div class="cost">
+                ~$100/person
+              </div>
+
+            </div>
+
+          </div>
+
+          <div class="card">
+
+            <div class="time">
+              11:30 PM
+            </div>
+
+            <div class="tags">
+              <div class="tag party">Party</div>
+            </div>
+
+            <div class="title">
+              LIV Nightclub
+            </div>
+
+            <div class="detail">
+              Because sleep is not part of the itinerary.
+            </div>
+
+            <div class="bottom">
+
+              <div class="cost">
+                ~$40/person
+              </div>
+
+            </div>
+
+          </div>
+
+        </section>
+
+        <!-- DAY 3 -->
+
+        <section class="section" id="day-2">
+
+          <div class="day-head">
+
+            <div class="day-tag">
+              Day 3 • Explore
+            </div>
+
+            <div class="day-title">
+              Wynwood + Sunset 🎨
+            </div>
+
+            <div class="day-desc">
+              Murals, shopping, coffee,
+              and photo dump content.
+            </div>
+
+          </div>
+
+          <div class="card">
+
+            <div class="time">
+              10:00 AM
+            </div>
+
+            <div class="tags">
+              <div class="tag food">Food</div>
+            </div>
+
+            <div class="title">
+              Coffee + Breakfast
+            </div>
+
+            <div class="detail">
+              Starting slow after yacht recovery.
+            </div>
+
+          </div>
+
+          <div class="card">
+
+            <div class="time">
+              11:30 AM
+            </div>
+
+            <div class="tags">
+              <div class="tag activity">Activity</div>
+            </div>
+
+            <div class="title">
+              Wynwood Walls
+            </div>
+
+            <div class="detail">
+              Content day. Everyone better charge their phones.
+            </div>
+
+          </div>
+
+          <div class="card">
+
+            <div class="time">
+              8:30 PM
+            </div>
+
+            <div class="tags">
+              <div class="tag food">Food</div>
+              <div class="tag party">Party</div>
+            </div>
+
+            <div class="title">
+              Dinner at Baoli
+            </div>
+
+            <div class="detail">
+              Restaurant transforms into a party later.
+              Exactly the energy we need.
+            </div>
+
+            <div class="bottom">
+
+              <div class="cost">
+                ~$80/person
+              </div>
+
+            </div>
+
+          </div>
+
+        </section>
+
+        <!-- DAY 4 -->
+
+        <section class="section" id="day-3">
+
+          <div class="day-head">
+
+            <div class="day-tag">
+              Day 4 • Departure
+            </div>
+
+            <div class="day-title">
+              Recovery & Goodbye 🥹
+            </div>
+
+            <div class="day-desc">
+              One last brunch before everyone
+              returns to reality.
+            </div>
+
+          </div>
+
+          <div class="card">
+
+            <div class="time">
+              10:00 AM
+            </div>
+
+            <div class="tags">
+              <div class="tag food">Food</div>
+            </div>
+
+            <div class="title">
+              Recovery Brunch
+            </div>
+
+            <div class="detail">
+              Healthy food and emotional support.
+            </div>
+
+          </div>
+
+          <div class="card">
+
+            <div class="time">
+              2:00 PM
+            </div>
+
+            <div class="tags">
+              <div class="tag activity">Activity</div>
+            </div>
+
+            <div class="title">
+              Airport Time ✈️
+            </div>
+
+            <div class="detail">
+              The end of an era.
+            </div>
+
+          </div>
+
+        </section>
+
+      </div>
+
+      <!-- RIGHT -->
+
+      <aside class="sidebar">
+
+        <div class="side-card">
+
+          <div class="side-title">
+            Trip Budget
+          </div>
+
+          <div class="budget">
+            $610
+          </div>
+
+          <div class="side-text">
+            Estimated total per person
+            for food, activities, nightlife,
+            and yacht plans.
+          </div>
+
+        </div>
+
+        <div class="side-card" id="secretCard">
+
+          <div class="side-title">
+            Attendee Secrets 👀
+          </div>
+
+          <div class="secret">
+
+            <div class="secret-title">
+              Mission #1
+            </div>
+
+            <div class="secret-text">
+              Get Harshi to dance on a table.
+            </div>
+
+          </div>
+
+          <div class="secret">
+
+            <div class="secret-title">
+              Mission #2
+            </div>
+
+            <div class="secret-text">
+              Someone must secretly order
+              birthday shots at dinner.
+            </div>
+
+          </div>
+
+          <div class="secret">
+
+            <div class="secret-title">
+              Mission #3
+            </div>
+
+            <div class="secret-text">
+              Make sure nobody loses their phone.
+            </div>
+
+          </div>
+
+        </div>
+
+      </aside>
+
+    </div>
+
+  </main>
+
+  <div class="footer">
+    made with chaos, glitter, and poor financial decisions ✨
+  </div>
+
+</div>
 
 <script>
 
-const PARTY_PASSWORD='miamivibes';
-let attendeeMode=false;
+const PASSWORD = "miami2025";
 
-function enterBirthdayGirl(){
-attendeeMode=false;
-renderAll();
-window.scrollTo({top:700,behavior:'smooth'});
+let attendeeMode = false;
+
+function openBirthdayGirl(){
+
+  attendeeMode = false;
+
+  document.getElementById("landing").style.display = "none";
+  document.getElementById("app").classList.add("active");
+
+  document.getElementById("modeText").innerText =
+    "Birthday Girl Experience";
+
+  document.getElementById("secretCard").style.display = "none";
 }
 
-function enterAttendee(){
-const pass=prompt('Enter attendee password');
-
-if(pass===PARTY_PASSWORD){
-attendeeMode=true;
-renderAll();
-window.scrollTo({top:700,behavior:'smooth'});
-}else{
-alert('Wrong password');
-}
+function openPassword(){
+  document
+    .getElementById("passwordModal")
+    .classList.add("open");
 }
 
-const activities=[
-{
-day:'Day 1',
-label:'Arrival Day',
-title:'Cute Lunch Moment',
-time:'12:30 PM',
-location:'The Social Club Miami',
-maps:'https://maps.google.com/?q=The+Social+Club+Miami',
-website:'https://www.thesocialclub.com/',
-uber:'https://m.uber.com/',
-estimatedBudget:40,
-desiredBudget:25,
-travelTime:'12 mins from Airbnb',
-votes:12,
-notes:'Vote if we should replace this brunch idea.',
-surprise:false
-},
-{
-day:'Day 1',
-label:'Beach Time',
-title:'South Pointe Sunset Photos',
-time:'5:30 PM',
-location:'South Pointe Park',
-maps:'https://maps.google.com/?q=South+Pointe+Park+Miami',
-website:'https://www.miamiandbeaches.com/',
-uber:'https://m.uber.com/',
-estimatedBudget:0,
-desiredBudget:0,
-travelTime:'8 mins from lunch',
-votes:20,
-notes:'Golden hour content + beach walk.',
-surprise:false
-},
-{
-day:'Day 1',
-label:'Secret Surprise',
-title:'Luxury Birthday Setup',
-time:'8:00 PM',
-location:'Private Villa',
-maps:'https://maps.google.com/',
-website:'#',
-uber:'https://m.uber.com/',
-estimatedBudget:250,
-desiredBudget:180,
-travelTime:'15 mins from beach',
-votes:42,
-notes:'DO NOT SHOW TO HARSHI.',
-surprise:true
-},
-{
-day:'Day 2',
-label:'Yacht Day',
-title:'Private Yacht Party',
-time:'1:00 PM',
-location:'Miami Marina',
-maps:'https://maps.google.com/?q=Miami+Marina',
-website:'https://www.getmyboat.com/',
-uber:'https://m.uber.com/',
-estimatedBudget:120,
-desiredBudget:90,
-travelTime:'20 mins from Airbnb',
-votes:53,
-notes:'Matching outfits mandatory.',
-surprise:false
-}
-];
+function unlockAttendee(){
 
-function groupedDays(){
-const map={};
-activities.forEach(item=>{
-if(!map[item.day]) map[item.day]=[];
-map[item.day].push(item);
-});
-return map;
+  const val =
+    document.getElementById("passwordInput").value;
+
+  if(val === PASSWORD){
+
+    attendeeMode = true;
+
+    document
+      .getElementById("passwordModal")
+      .classList.remove("open");
+
+    document.getElementById("landing").style.display =
+      "none";
+
+    document.getElementById("app").classList.add("active");
+
+    document.getElementById("modeText").innerText =
+      "Attendee Experience ✨";
+
+    launchConfetti();
+
+  }else{
+    document.getElementById("passwordError").style.display =
+      "block";
+  }
 }
 
-function renderCard(activity,index,total){
-if(activity.surprise && !attendeeMode){return ''}
+function switchDay(index,el){
 
-return `
-<div class="trip-card">
-<div class="trip-top">
-<div>
-<div class="trip-time">${activity.time}</div>
-<h3>${activity.title}</h3>
-<div class="trip-location">📍 ${activity.location}</div>
-</div>
+  document
+    .querySelectorAll(".section")
+    .forEach(section=>{
+      section.classList.remove("active");
+    });
 
-<div class="vote-box">
-<button onclick="upvote(${index})">⬆</button>
-<span>${activity.votes}</span>
-<button onclick="downvote(${index})">⬇</button>
-</div>
-</div>
+  document
+    .querySelectorAll(".tab")
+    .forEach(tab=>{
+      tab.classList.remove("active");
+    });
 
-<div class="budget-row">
-<div class="budget-box">
-<span>Estimated Budget</span>
-<strong>$${activity.estimatedBudget}</strong>
-</div>
+  document
+    .getElementById(`day-${index}`)
+    .classList.add("active");
 
-<div class="budget-box">
-<span>Desired Budget</span>
-<strong>$${activity.desiredBudget}</strong>
-</div>
-</div>
-
-<div class="route-visual">
-🚗 Approx Travel Time: ${activity.travelTime}
-</div>
-
-<div class="link-row">
-<a href="${activity.maps}" target="_blank">📍 Maps</a>
-<a href="${activity.website}" target="_blank">🌐 Website</a>
-<a href="${activity.uber}" target="_blank">🚗 Uber</a>
-</div>
-
-<div class="notes-box">${activity.notes}</div>
-
-<iframe class="map-frame" src="https://www.google.com/maps?q=${encodeURIComponent(activity.location)}&output=embed"></iframe>
-
-<div class="editor-row">
-<button onclick="editActivity(${index})">✏ Edit</button>
-<button onclick="deleteActivity(${index})">🗑 Remove</button>
-<button onclick="replaceIdea(${index})">🔄 Replace</button>
-</div>
-</div>
-
-${total-1!==index?'<div class="route-line"></div>':''}
-`;
+  el.classList.add("active");
 }
 
-function renderAll(){
-const app=document.getElementById('main-app');
-const grouped=groupedDays();
-let html='';
+const tripDate = new Date("2025-06-20T09:00:00");
 
-Object.keys(grouped).forEach(day=>{
-html+=`
-<div class="day-section">
-<div class="day-header">
-<div class="day-label">Miami Birthday Weekend</div>
-<div class="day-title">${day}</div>
-</div>
-`;
+function updateCountdown(){
 
-const list=grouped[day];
-list.forEach((item,index)=>{
-html+=renderCard(item,activities.indexOf(item),list.length);
-});
+  const now = new Date();
+  const diff = tripDate - now;
 
-html+=`<button class="add-btn" onclick="addActivity('${day}')">+ Add Activity</button>`;
-html+='</div>';
-});
+  if(diff <= 0) return;
 
-if(attendeeMode){
-html+=`
-<div class="secret-card">
-<div class="secret-label">Attendee Exclusive</div>
-<h2>🎁 Secret Birthday Operations</h2>
-<p style="margin-top:14px;color:var(--muted);line-height:1.8;">
-This section is hidden from the Birthday Girl view. Add decorations, surprises, reservations, cakes, gifts, or secret plans here.
-</p>
-<div class="editor-row" style="margin-top:20px;">
-<button onclick="addSecret()">+ Add Surprise</button>
-</div>
-</div>
-`;
+  const d = Math.floor(diff / 1000 / 60 / 60 / 24);
+  const h = Math.floor((diff / 1000 / 60 / 60) % 24);
+  const m = Math.floor((diff / 1000 / 60) % 60);
+  const s = Math.floor((diff / 1000) % 60);
+
+  document.getElementById("days").innerText = d;
+  document.getElementById("hours").innerText = h;
+  document.getElementById("mins").innerText = m;
+  document.getElementById("secs").innerText = s;
 }
 
-app.innerHTML=html;
+setInterval(updateCountdown,1000);
+updateCountdown();
+
+let dark = false;
+
+function toggleDark(){
+
+  dark = !dark;
+
+  if(dark){
+
+    document.documentElement.style.setProperty(
+      "--bg",
+      "#120f16"
+    );
+
+    document.documentElement.style.setProperty(
+      "--surface",
+      "rgba(32,28,40,0.82)"
+    );
+
+    document.documentElement.style.setProperty(
+      "--text",
+      "#f7f2fb"
+    );
+
+    document.documentElement.style.setProperty(
+      "--text-muted",
+      "#b9aec6"
+    );
+
+  }else{
+
+    document.documentElement.style.setProperty(
+      "--bg",
+      "#f5eef5"
+    );
+
+    document.documentElement.style.setProperty(
+      "--surface",
+      "rgba(255,255,255,0.82)"
+    );
+
+    document.documentElement.style.setProperty(
+      "--text",
+      "#24152f"
+    );
+
+    document.documentElement.style.setProperty(
+      "--text-muted",
+      "#7c6b88"
+    );
+  }
 }
 
-function upvote(index){activities[index].votes++;renderAll();}
-function downvote(index){activities[index].votes--;renderAll();}
+/* simple confetti */
 
-function deleteActivity(index){
-if(confirm('Delete this activity?')){
-activities.splice(index,1);
-renderAll();
-}
-}
+function launchConfetti(){
 
-function replaceIdea(index){
-const replacement=prompt('Replace with what?');
-if(replacement){
-activities[index].title=replacement;
-renderAll();
-}
-}
+  const duration = 2000;
+  const end = Date.now() + duration;
 
-function editActivity(index){
-const item=activities[index];
-const title=prompt('Edit title',item.title);
-if(title!==null) item.title=title;
-const location=prompt('Edit location',item.location);
-if(location!==null) item.location=location;
-const budget=prompt('Edit budget',item.estimatedBudget);
-if(budget!==null) item.estimatedBudget=budget;
-const desired=prompt('Edit desired budget',item.desiredBudget);
-if(desired!==null) item.desiredBudget=desired;
-renderAll();
-}
+  const colors = [
+    "#d14b91",
+    "#8f79ff",
+    "#7aa6d9",
+    "#ffffff"
+  ];
 
-function addActivity(day){
-const title=prompt('Activity title');
-if(!title) return;
-const location=prompt('Location');
-activities.push({
-day,
-label:'Custom',
-title,
-time:'TBD',
-location:location||'Unknown',
-maps:'https://maps.google.com/',
-website:'#',
-uber:'https://m.uber.com/',
-estimatedBudget:0,
-desiredBudget:0,
-travelTime:'Unknown',
-votes:0,
-notes:'Custom activity.',
-surprise:false
-});
-renderAll();
-}
+  (function frame(){
 
-function addSecret(){
-const title=prompt('Secret surprise title');
-if(!title) return;
-activities.push({
-day:'Secret Plans',
-label:'Secret',
-title,
-time:'Secret Time',
-location:'Hidden Location',
-maps:'https://maps.google.com/',
-website:'#',
-uber:'https://m.uber.com/',
-estimatedBudget:0,
-desiredBudget:0,
-travelTime:'Hidden',
-votes:0,
-notes:'Hidden from Birthday Girl.',
-surprise:true
-});
-renderAll();
+    const confetti = document.createElement("div");
+
+    confetti.style.position = "fixed";
+    confetti.style.width = "10px";
+    confetti.style.height = "10px";
+    confetti.style.borderRadius = "50%";
+    confetti.style.background =
+      colors[Math.floor(Math.random()*colors.length)];
+
+    confetti.style.left =
+      Math.random()*100 + "vw";
+
+    confetti.style.top = "-20px";
+
+    confetti.style.zIndex = "9999";
+
+    confetti.style.pointerEvents = "none";
+
+    document.body.appendChild(confetti);
+
+    const fall =
+      setInterval(()=>{
+
+        confetti.style.top =
+          confetti.offsetTop + 8 + "px";
+
+        confetti.style.transform =
+          `translateX(${Math.sin(Date.now()/100)*20}px)`;
+
+        if(confetti.offsetTop > window.innerHeight){
+
+          clearInterval(fall);
+          confetti.remove();
+        }
+
+      },16);
+
+    if(Date.now() < end){
+      requestAnimationFrame(frame);
+    }
+
+  })();
 }
 
-renderAll();
 </script>
 
 </body>
