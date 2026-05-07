@@ -615,6 +615,28 @@ background:rgba(255,255,255,.04);
 
 <script>
 const PARTY_PASSWORD='miamivibes';
+
+/* SAFE FALLBACK DATA */
+const activities = window.activities || {
+0:[
+{time:'9:00 AM',title:'Check In + South Beach Arrival',detail:'Luxury Airbnb check-in and welcome drinks.'},
+{time:'1:00 PM',title:'Cute Lunch Moment',detail:'Beachfront lunch and content photos.'},
+{time:'8:00 PM',title:'Dinner at Kiki on the River',detail:'Dress up dinner experience on the water.'}
+],
+1:[
+{time:'11:00 AM',title:'Nikki Beach Brunch',detail:'Miami birthday brunch experience.'},
+{time:'2:00 PM',title:'Yacht Party',detail:'Yacht day with music, drinks, and jet skis.'},
+{time:'11:30 PM',title:'Club Night',detail:'Late-night birthday chaos in Miami.'}
+],
+2:[
+{time:'10:00 AM',title:'Wynwood Exploring',detail:'Murals, cafes, and shopping.'},
+{time:'8:00 PM',title:'Baoli Dinner',detail:'Luxury dinner that turns into nightlife.'}
+],
+3:[
+{time:'10:00 AM',title:'Recovery Brunch',detail:'Final brunch before departure.'},
+{time:'2:00 PM',title:'Airport Departure',detail:'End of the Miami birthday weekend.'}
+]
+};
 let attendeeMode=false;
 
 const comments={};
