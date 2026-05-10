@@ -210,6 +210,23 @@ body.dark .side-card{border-color:rgba(255,255,255,0.07);}
 .add-opt-input:focus{border-color:var(--accent);}
 .add-opt-confirm{border:none;cursor:pointer;background:var(--gradient);color:white;font-size:12px;font-weight:700;padding:10px 16px;border-radius:10px;}
 .add-opt-cancel{border:none;cursor:pointer;background:var(--input-bg);color:var(--text-muted);font-size:12px;font-weight:600;padding:10px 14px;border-radius:10px;}
+.add-activity-btn{
+  width:100%;border:none;cursor:pointer;
+  background:transparent;
+  border:2px dashed var(--accent);
+  color:var(--accent);
+  font-size:14px;font-weight:700;
+  padding:16px;border-radius:22px;
+  margin-bottom:18px;
+  transition:.2s;
+  display:flex;align-items:center;justify-content:center;gap:8px;
+}
+.add-activity-btn:hover{background:rgba(209,75,145,0.06);transform:translateY(-2px);}
+.tag-picker{display:flex;flex-wrap:wrap;gap:8px;margin-bottom:16px;}
+.tag-pick{border:1.5px solid var(--border);background:var(--btn-bg);color:var(--text-muted);font-size:12px;font-weight:700;padding:7px 14px;border-radius:100px;cursor:pointer;transition:.2s;letter-spacing:.06em;text-transform:uppercase;}
+.tag-pick.selected{border-color:var(--accent);background:rgba(209,75,145,0.1);color:var(--accent);}
+.delete-card-btn{border:none;cursor:pointer;background:transparent;color:rgba(209,75,145,0.35);font-size:13px;font-weight:600;padding:6px 10px;border-radius:8px;transition:.2s;flex-shrink:0;}
+.delete-card-btn:hover{color:#d9386e;background:rgba(217,56,110,0.08);}
 @media(max-width:980px){.grid{grid-template-columns:1fr;}.sidebar{position:relative;top:auto;}.hero-card{padding:34px 28px;}}
 @media(max-width:640px){.choice-grid{grid-template-columns:1fr;}.hero-title{font-size:54px;}.day-title{font-size:34px;}.topbar-inner{padding:12px;}.brand-sub{display:none;}.landing-card{padding:34px 24px;}.edit-btn{opacity:1;}}
 </style>
@@ -284,7 +301,33 @@ body.dark .side-card{border-color:rgba(255,255,255,0.07);}
   </div>
 </div>
 
-<div class="app" id="app">
+<div class="modal-overlay" id="addActivityModal">
+  <div class="modal-card">
+    <div class="modal-title">New Activity ✨</div>
+    <label class="field-label">Time</label>
+    <input type="text" class="field-input" id="na-time" placeholder="e.g. 3:00 PM"/>
+    <label class="field-label">Activity Name</label>
+    <input type="text" class="field-input" id="na-title" placeholder="e.g. Sunset Cruise"/>
+    <label class="field-label">Details / Notes</label>
+    <textarea class="field-textarea" id="na-detail" placeholder="What's happening…"></textarea>
+    <label class="field-label">Estimated Cost</label>
+    <input type="text" class="field-input" id="na-cost" placeholder="e.g. ~$40/person"/>
+    <label class="field-label">Link (optional)</label>
+    <input type="text" class="field-input" id="na-link" placeholder="https://…"/>
+    <label class="field-label">Tags</label>
+    <div class="tag-picker">
+      <button class="tag-pick" data-tag="food" onclick="toggleTagPick(this)">🍽️ Food</button>
+      <button class="tag-pick" data-tag="party" onclick="toggleTagPick(this)">🎉 Party</button>
+      <button class="tag-pick" data-tag="activity" onclick="toggleTagPick(this)">⚡ Activity</button>
+      <button class="tag-pick" data-tag="fancy" onclick="toggleTagPick(this)">✨ Fancy</button>
+      <button class="tag-pick" data-tag="surprise" onclick="toggleTagPick(this)">🎁 Surprise</button>
+    </div>
+    <div class="modal-actions">
+      <button class="btn-secondary" onclick="closeAddActivity()">Cancel</button>
+      <button class="btn-primary" onclick="saveNewActivity()">Add to Day ✨</button>
+    </div>
+  </div>
+</div>
   <div class="topbar">
     <div class="topbar-inner">
       <div class="brand">
@@ -388,6 +431,8 @@ body.dark .side-card{border-color:rgba(255,255,255,0.07);}
             </div>
             <div class="card-bottom"><span class="cost-pill" id="cost-0-5">~$40/person</span></div>
           </div>
+          <button class="add-activity-btn" onclick="openAddActivity(0)">＋ Add Activity to Day 1</button>
+          <div id="custom-cards-0"></div>
         </section>
 
         <!-- DAY 2 -->
@@ -437,6 +482,8 @@ body.dark .side-card{border-color:rgba(255,255,255,0.07);}
             </div>
             <div class="card-bottom"><span class="cost-pill" id="cost-1-3">~$40/person</span></div>
           </div>
+          <button class="add-activity-btn" onclick="openAddActivity(1)">＋ Add Activity to Day 2</button>
+          <div id="custom-cards-1"></div>
         </section>
 
         <!-- DAY 3 -->
@@ -501,6 +548,8 @@ body.dark .side-card{border-color:rgba(255,255,255,0.07);}
             </div>
             <div class="card-bottom"><span class="cost-pill" id="cost-2-6">~$80/person</span><a class="uber-btn" href="https://m.uber.com/looking" target="_blank">🚗 Uber</a></div>
           </div>
+          <button class="add-activity-btn" onclick="openAddActivity(2)">＋ Add Activity to Day 3</button>
+          <div id="custom-cards-2"></div>
         </section>
 
         <!-- DAY 4 -->
@@ -537,6 +586,8 @@ body.dark .side-card{border-color:rgba(255,255,255,0.07);}
             <div class="card-detail" id="detail-3-2">The end of an era. Allow enough buffer time for MIA.</div>
             <div class="card-bottom"><span class="cost-pill" id="cost-3-2">Departure</span><a class="link-btn" href="https://m.uber.com/looking" target="_blank">🚗 Uber to MIA</a></div>
           </div>
+          <button class="add-activity-btn" onclick="openAddActivity(3)">＋ Add Activity to Day 4</button>
+          <div id="custom-cards-3"></div>
         </section>
 
       </div>
@@ -583,7 +634,7 @@ import { getDatabase, ref, onValue, set, update, push, remove, get }
 const firebaseConfig = {
   apiKey:            "AIzaSyBay-316WMd4eaG-NBybzF5gSvOPKuJ1zI",
   authDomain:        "miami-database.firebaseapp.com",
-  databaseURL:       "https://miami-database-default-rtdb.firebaseio.com/",
+  databaseURL:       "https://miami-database-default-rtdb.firebaseio.com",
   projectId:         "miami-database",
   storageBucket:     "miami-database.firebasestorage.app",
   messagingSenderId: "1006900825588",
@@ -931,6 +982,118 @@ function confettiBurst() {
   for (let i = 0; i < 16; i++) { setTimeout(() => { const c = document.createElement('div'); c.style.cssText = `position:fixed;width:8px;height:8px;border-radius:50%;background:${colors[~~(Math.random()*colors.length)]};left:${25+Math.random()*50}vw;top:${15+Math.random()*40}vh;z-index:9999;pointer-events:none;transition:all 1s ease;opacity:1;`; document.body.appendChild(c); setTimeout(() => { c.style.top = parseInt(c.style.top) + 120 + 'px'; c.style.opacity = '0'; }, 50); setTimeout(() => c.remove(), 1150); }, i * 40); }
 }
 
+// ─── ADD ACTIVITY ─────────────────────────────────────────
+let addActivityDay = 0;
+
+function openAddActivity(dayIdx) {
+  addActivityDay = dayIdx;
+  document.getElementById('na-time').value = '';
+  document.getElementById('na-title').value = '';
+  document.getElementById('na-detail').value = '';
+  document.getElementById('na-cost').value = '';
+  document.getElementById('na-link').value = '';
+  document.querySelectorAll('.tag-pick').forEach(b => b.classList.remove('selected'));
+  document.getElementById('addActivityModal').classList.add('open');
+}
+function closeAddActivity() { document.getElementById('addActivityModal').classList.remove('open'); }
+
+function toggleTagPick(btn) { btn.classList.toggle('selected'); }
+
+function renderCustomCard(card) {
+  const container = document.getElementById(`custom-cards-${card.day}`);
+  if (!container) return;
+  // remove existing render of this card if already there
+  const existing = document.getElementById(`ccard-${card.id}`);
+  if (existing) existing.remove();
+
+  const tagMap = { food:'food', party:'party', activity:'activity', fancy:'fancy', surprise:'surprise-tag' };
+  const tagLabels = { food:'Food', party:'Party', activity:'Activity', fancy:'Fancy', surprise:'🎁 Surprise' };
+  const tagsHtml = (card.tags || []).map(t => `<span class="tag ${tagMap[t]||'activity'}">${tagLabels[t]||t}</span>`).join('');
+
+  const div = document.createElement('div');
+  div.className = 'card';
+  div.id = `ccard-${card.id}`;
+  div.innerHTML = `
+    <div class="card-header">
+      <span class="time-badge">${card.time || ''}</span>
+      <div style="display:flex;gap:8px;align-items:center">
+        <button class="edit-btn" style="opacity:1" onclick="openEditCustom('${card.id}')">✏️ Edit</button>
+        <button class="delete-card-btn" onclick="deleteCustomCard('${card.id}')">🗑️ Delete</button>
+      </div>
+    </div>
+    <div class="tags">${tagsHtml}</div>
+    <div class="card-title" id="cctitle-${card.id}">${card.title}</div>
+    <div class="card-detail">${card.detail || ''}</div>
+    ${card.cost || card.link ? `<div class="card-bottom">
+      ${card.cost ? `<span class="cost-pill">${card.cost}</span>` : ''}
+      ${card.link ? `<a class="link-btn" href="${card.link}" target="_blank">🔗 Link</a>` : ''}
+    </div>` : ''}`;
+  container.appendChild(div);
+}
+
+async function deleteCustomCard(id) {
+  await remove(ref(db, `customCards/${id}`));
+  const el = document.getElementById(`ccard-${id}`);
+  if (el) el.remove();
+  showStatus('Activity deleted');
+}
+
+// Edit custom card — reuse the add modal
+let editingCustomId = null;
+async function openEditCustom(id) {
+  const snap = await get(ref(db, `customCards/${id}`));
+  if (!snap.exists()) return;
+  const card = snap.val();
+  editingCustomId = id;
+  addActivityDay = card.day;
+  document.getElementById('na-time').value = card.time || '';
+  document.getElementById('na-title').value = card.title || '';
+  document.getElementById('na-detail').value = card.detail || '';
+  document.getElementById('na-cost').value = card.cost || '';
+  document.getElementById('na-link').value = card.link || '';
+  document.querySelectorAll('.tag-pick').forEach(b => {
+    b.classList.toggle('selected', (card.tags || []).includes(b.dataset.tag));
+  });
+  document.getElementById('addActivityModal').classList.add('open');
+}
+
+// ─── SAVE NEW / EDIT ACTIVITY ─────────────────────────────
+async function saveNewActivity() {
+  const title = document.getElementById('na-title').value.trim();
+  if (!title) return;
+  const tags = [...document.querySelectorAll('.tag-pick.selected')].map(b => b.dataset.tag);
+  const activity = {
+    time:   document.getElementById('na-time').value.trim(),
+    title,
+    detail: document.getElementById('na-detail').value.trim(),
+    cost:   document.getElementById('na-cost').value.trim(),
+    link:   document.getElementById('na-link').value.trim(),
+    tags,
+    day:    addActivityDay,
+  };
+  if (editingCustomId) {
+    await update(ref(db, `customCards/${editingCustomId}`), activity);
+    editingCustomId = null;
+    showStatus('Activity updated ✨');
+  } else {
+    const newRef = push(ref(db, 'customCards'));
+    await set(newRef, { ...activity, id: newRef.key });
+    showStatus('Activity added 🎉');
+  }
+  closeAddActivity();
+}
+
+// Listen for custom cards from Firebase
+onValue(ref(db, 'customCards'), snap => {
+  // Clear all custom card containers first
+  [0,1,2,3].forEach(i => {
+    const c = document.getElementById(`custom-cards-${i}`);
+    if (c) c.innerHTML = '';
+  });
+  const cards = snap.val() || {};
+  Object.values(cards).forEach(card => renderCustomCard(card));
+});
+
 // ─── EXPOSE TO GLOBAL SCOPE (required for onclick= attributes in modules) ──
 window.openBirthdayGirl  = openBirthdayGirl;
 window.openPassword      = openPassword;
@@ -953,6 +1116,12 @@ window.deleteMission     = deleteMission;
 window.toggleMissionDone = toggleMissionDone;
 window.toggleMissionEdit = toggleMissionEdit;
 window.saveMissionEdit   = saveMissionEdit;
+window.openAddActivity   = openAddActivity;
+window.closeAddActivity  = closeAddActivity;
+window.saveNewActivity   = saveNewActivity;
+window.toggleTagPick     = toggleTagPick;
+window.deleteCustomCard  = deleteCustomCard;
+window.openEditCustom    = openEditCustom;
 </script>
 </body>
 </html>
