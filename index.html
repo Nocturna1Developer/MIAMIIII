@@ -219,7 +219,8 @@ body.dark .side-card{border-color:rgba(255,255,255,0.07);}
   padding:16px;border-radius:22px;
   margin-bottom:18px;
   transition:.2s;
-  display:flex;align-items:center;justify-content:center;gap:8px;
+  display:none;
+  align-items:center;justify-content:center;gap:8px;
 }
 .add-activity-btn:hover{background:rgba(209,75,145,0.06);transform:translateY(-2px);}
 .tag-picker{display:flex;flex-wrap:wrap;gap:8px;margin-bottom:16px;}
@@ -742,6 +743,7 @@ function startListeners() {
   onValue(ref(db, 'cardEdits'), snap => {
     liveCardEdits = snap.val() || {};
     Object.entries(liveCardEdits).forEach(([id, e]) => applyCardEdit(id, e));
+    sortAllDays();
   });
 }
 
@@ -821,21 +823,7 @@ async function addVoteOption(groupId) {
   showStatus('Option added 🎉');
 }
 
-// ─── CARD EDITS ───────────────────────────────────────────
-function applyCardEdit(id, e) {
-  if (!e) return;
-  const setText = (elId, val) => { const el = document.getElementById(elId); if (el && val) el.textContent = val; };
-  setText('time-' + id, e.time); setText('title-' + id, e.title);
-  setText('detail-' + id, e.detail); setText('cost-' + id, e.cost);
-  if (e.link) {
-    const card = document.getElementById('card-' + id); if (!card) return;
-    let bot = card.querySelector('.card-bottom');
-    if (!bot) { bot = document.createElement('div'); bot.className = 'card-bottom'; card.appendChild(bot); }
-    let a = bot.querySelector('.custom-link');
-    if (!a) { a = document.createElement('a'); a.className = 'link-btn custom-link'; a.target = '_blank'; a.textContent = '🔗 Link'; bot.appendChild(a); }
-    a.href = e.link;
-  }
-}
+// ─── CARD EDITS (applyCardEdit defined later with _hidden support) ───────────
 function openEdit(id) {
   editTarget = id;
   document.getElementById('edit-time').value = document.getElementById('time-' + id)?.textContent.trim() || '';
@@ -852,6 +840,7 @@ async function saveEdit() {
   const edit = { time: g('edit-time'), title: g('edit-title'), detail: g('edit-detail'), cost: g('edit-cost'), link: g('edit-link').trim() };
   await set(ref(db, `cardEdits/${editTarget.replace(/-/g,'_')}`), edit);
   closeEdit(); confettiBurst(); showStatus('Saved ✨');
+  sortAllDays();
 }
 
 // ─── MISSIONS ─────────────────────────────────────────────
@@ -926,8 +915,13 @@ function enterApp(asAttendee, doConfetti = true) {
   document.getElementById('secretCard').style.display = asAttendee ? 'block' : 'none';
   document.getElementById('bdaySidebar').style.display = asAttendee ? 'none' : 'block';
   document.querySelectorAll('.surprise-card').forEach(el => el.style.display = asAttendee ? 'block' : 'none');
-  document.querySelectorAll('.edit-btn').forEach(el => el.style.pointerEvents = asAttendee ? 'auto' : 'none');
-  if (asAttendee) renderMissions();
+  document.querySelectorAll('.edit-btn').forEach(el => el.style.pointerEvents = 'auto');
+  document.querySelectorAll('.add-activity-btn').forEach(el => el.style.display = asAttendee ? 'flex' : 'none');
+  if (asAttendee) {
+    renderMissions();
+    // Small delay so DOM is ready before we add buttons and sort
+    setTimeout(() => { addDeleteButtonsToStaticCards(); sortAllDays(); }, 100);
+  }
   if (doConfetti) launchConfetti();
 }
 function openBirthdayGirl() { enterApp(false, false); }
@@ -1002,7 +996,6 @@ function toggleTagPick(btn) { btn.classList.toggle('selected'); }
 function renderCustomCard(card) {
   const container = document.getElementById(`custom-cards-${card.day}`);
   if (!container) return;
-  // remove existing render of this card if already there
   const existing = document.getElementById(`ccard-${card.id}`);
   if (existing) existing.remove();
 
@@ -1013,6 +1006,7 @@ function renderCustomCard(card) {
   const div = document.createElement('div');
   div.className = 'card';
   div.id = `ccard-${card.id}`;
+  div.setAttribute('data-time', card.time || '');
   div.innerHTML = `
     <div class="card-header">
       <span class="time-badge">${card.time || ''}</span>
@@ -1022,7 +1016,7 @@ function renderCustomCard(card) {
       </div>
     </div>
     <div class="tags">${tagsHtml}</div>
-    <div class="card-title" id="cctitle-${card.id}">${card.title}</div>
+    <div class="card-title">${card.title}</div>
     <div class="card-detail">${card.detail || ''}</div>
     ${card.cost || card.link ? `<div class="card-bottom">
       ${card.cost ? `<span class="cost-pill">${card.cost}</span>` : ''}
@@ -1031,11 +1025,89 @@ function renderCustomCard(card) {
   container.appendChild(div);
 }
 
+// ─── TIME SORTING ──────────────────────────────────────────
+function parseTime(str) {
+  if (!str) return 9999;
+  const m = str.match(/(\d+):(\d+)\s*(AM|PM)/i);
+  if (!m) return 9999;
+  let h = parseInt(m[1]), min = parseInt(m[2]);
+  const pm = m[3].toUpperCase() === 'PM';
+  if (pm && h !== 12) h += 12;
+  if (!pm && h === 12) h = 0;
+  return h * 60 + min;
+}
+
+function sortDayCards(dayIdx) {
+  const section = document.getElementById(`day-${dayIdx}`);
+  if (!section) return;
+  // collect all .card elements in this section (static + custom)
+  const allCards = [...section.querySelectorAll('.card')];
+  // sort by their time-badge text
+  allCards.sort((a, b) => {
+    const ta = a.querySelector('.time-badge')?.textContent.trim() || '';
+    const tb = b.querySelector('.time-badge')?.textContent.trim() || '';
+    return parseTime(ta) - parseTime(tb);
+  });
+  // re-append in order (before the add-activity-btn which is outside section)
+  allCards.forEach(c => section.appendChild(c));
+}
+
+function sortAllDays() { [0,1,2,3].forEach(i => sortDayCards(i)); }
+
 async function deleteCustomCard(id) {
   await remove(ref(db, `customCards/${id}`));
   const el = document.getElementById(`ccard-${id}`);
   if (el) el.remove();
   showStatus('Activity deleted');
+}
+
+// ─── DELETE STATIC CARDS ──────────────────────────────────
+async function deleteStaticCard(id) {
+  // Store a hidden flag in cardEdits so it persists across sessions
+  await set(ref(db, `cardEdits/${id.replace(/-/g,'_')}`), { _hidden: true });
+  const el = document.getElementById(`card-${id}`);
+  if (el) el.style.display = 'none';
+  showStatus('Activity removed');
+}
+
+// Apply hidden flag when cardEdits loads
+function applyCardEdit(id, e) {
+  if (!e) return;
+  const dbId = id.replace(/_/g, '-');
+  if (e._hidden) {
+    const el = document.getElementById(`card-${dbId}`);
+    if (el) el.style.display = 'none';
+    return;
+  }
+  const setText = (elId, val) => { const el = document.getElementById(elId); if (el && val) el.textContent = val; };
+  setText('time-' + dbId, e.time); setText('title-' + dbId, e.title);
+  setText('detail-' + dbId, e.detail); setText('cost-' + dbId, e.cost);
+  if (e.link) {
+    const card = document.getElementById('card-' + dbId); if (!card) return;
+    let bot = card.querySelector('.card-bottom');
+    if (!bot) { bot = document.createElement('div'); bot.className = 'card-bottom'; card.appendChild(bot); }
+    let a = bot.querySelector('.custom-link');
+    if (!a) { a = document.createElement('a'); a.className = 'link-btn custom-link'; a.target = '_blank'; a.textContent = '🔗 Link'; bot.appendChild(a); }
+    a.href = e.link;
+  }
+}
+
+// Add delete button to static cards (attendee mode only)
+function addDeleteButtonsToStaticCards() {
+  document.querySelectorAll('.card[id^="card-"]').forEach(card => {
+    if (card.querySelector('.delete-card-btn')) return; // already added
+    const cardId = card.id.replace('card-', '');
+    const header = card.querySelector('.card-header');
+    if (!header) return;
+    const btn = document.createElement('button');
+    btn.className = 'delete-card-btn';
+    btn.textContent = '🗑️ Delete';
+    btn.onclick = () => deleteStaticCard(cardId);
+    header.appendChild(btn);
+    // also tag card with data-time for sorting
+    const timeEl = card.querySelector('.time-badge');
+    if (timeEl) card.setAttribute('data-time', timeEl.textContent.trim());
+  });
 }
 
 // Edit custom card — reuse the add modal
@@ -1085,13 +1157,13 @@ async function saveNewActivity() {
 
 // Listen for custom cards from Firebase
 onValue(ref(db, 'customCards'), snap => {
-  // Clear all custom card containers first
   [0,1,2,3].forEach(i => {
     const c = document.getElementById(`custom-cards-${i}`);
     if (c) c.innerHTML = '';
   });
   const cards = snap.val() || {};
   Object.values(cards).forEach(card => renderCustomCard(card));
+  sortAllDays();
 });
 
 // ─── EXPOSE TO GLOBAL SCOPE (required for onclick= attributes in modules) ──
@@ -1122,6 +1194,7 @@ window.saveNewActivity   = saveNewActivity;
 window.toggleTagPick     = toggleTagPick;
 window.deleteCustomCard  = deleteCustomCard;
 window.openEditCustom    = openEditCustom;
+window.deleteStaticCard  = deleteStaticCard;
 </script>
 </body>
 </html>
