@@ -583,7 +583,7 @@ import { getDatabase, ref, onValue, set, update, push, remove, get }
 const firebaseConfig = {
   apiKey:            "AIzaSyBay-316WMd4eaG-NBybzF5gSvOPKuJ1zI",
   authDomain:        "miami-database.firebaseapp.com",
-  databaseURL:       "https://miami-database-default-rtdb.firebaseio.com/",
+  databaseURL:       "PASTE_YOUR_REALTIME_DB_URL_HERE",
   projectId:         "miami-database",
   storageBucket:     "miami-database.firebasestorage.app",
   messagingSenderId: "1006900825588",
@@ -930,6 +930,29 @@ function confettiBurst() {
   const colors = ["#d14b91","#8f79ff","#7aa6d9"];
   for (let i = 0; i < 16; i++) { setTimeout(() => { const c = document.createElement('div'); c.style.cssText = `position:fixed;width:8px;height:8px;border-radius:50%;background:${colors[~~(Math.random()*colors.length)]};left:${25+Math.random()*50}vw;top:${15+Math.random()*40}vh;z-index:9999;pointer-events:none;transition:all 1s ease;opacity:1;`; document.body.appendChild(c); setTimeout(() => { c.style.top = parseInt(c.style.top) + 120 + 'px'; c.style.opacity = '0'; }, 50); setTimeout(() => c.remove(), 1150); }, i * 40); }
 }
+
+// ─── EXPOSE TO GLOBAL SCOPE (required for onclick= attributes in modules) ──
+window.openBirthdayGirl  = openBirthdayGirl;
+window.openPassword      = openPassword;
+window.unlockAttendee    = unlockAttendee;
+window.switchDay         = switchDay;
+window.toggleDark        = toggleDark;
+window.launchConfetti    = launchConfetti;
+window.openEdit          = openEdit;
+window.closeEdit         = closeEdit;
+window.saveEdit          = saveEdit;
+window.castVote          = castVote;
+window.deleteVoteOption  = deleteVoteOption;
+window.toggleAddForm     = toggleAddForm;
+window.addVoteOption     = addVoteOption;
+window.addBudgetRow      = addBudgetRow;
+window.deleteBudgetRow   = deleteBudgetRow;
+window.updateBudgetRow   = updateBudgetRow;
+window.saveMission       = saveMission;
+window.deleteMission     = deleteMission;
+window.toggleMissionDone = toggleMissionDone;
+window.toggleMissionEdit = toggleMissionEdit;
+window.saveMissionEdit   = saveMissionEdit;
 </script>
 </body>
 </html>
