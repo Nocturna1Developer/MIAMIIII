@@ -59,8 +59,6 @@ body.dark{
     radial-gradient(circle at bottom right,rgba(122,166,217,0.05),transparent 30%),
     var(--bg);
 }
-
-/* LANDING */
 .landing{min-height:100vh;display:flex;align-items:center;justify-content:center;padding:24px;}
 .landing-card{width:min(520px,100%);background:rgba(255,255,255,0.72);backdrop-filter:blur(18px);border:1px solid rgba(255,255,255,0.5);border-radius:34px;padding:44px 36px;box-shadow:0 20px 60px rgba(0,0,0,0.08);text-align:center;position:relative;overflow:hidden;}
 body.dark .landing-card{background:rgba(26,18,40,0.85);border-color:rgba(255,255,255,0.08);}
@@ -76,8 +74,6 @@ body.dark .choice{background:#231933;}
 .choice-icon{font-size:36px;margin-bottom:12px;}
 .choice-title{font-weight:700;font-size:16px;margin-bottom:6px;color:var(--text);}
 .choice-text{font-size:13px;line-height:1.5;color:var(--text-muted);}
-
-/* MODALS */
 .modal-overlay{position:fixed;inset:0;background:rgba(18,10,24,0.6);backdrop-filter:blur(10px);display:none;align-items:center;justify-content:center;z-index:1000;padding:20px;}
 .modal-overlay.open{display:flex;}
 .modal-card{width:min(460px,100%);background:var(--surface-solid);border-radius:28px;padding:32px;box-shadow:0 30px 80px rgba(0,0,0,0.22);max-height:90vh;overflow-y:auto;}
@@ -95,12 +91,8 @@ body.dark .modal-card{background:#1e1430;}
 .btn-secondary{border:none;cursor:pointer;background:var(--input-bg);color:var(--text-muted);font-weight:700;padding:14px 18px;border-radius:14px;font-size:14px;transition:.2s;}
 .btn-secondary:hover{opacity:.75;}
 .pw-error{color:#d9386e;font-size:13px;margin-top:10px;display:none;}
-
-/* APP */
 .app{display:none;}
 .app.active{display:block;}
-
-/* TOPBAR */
 .topbar{position:fixed;top:18px;left:50%;transform:translateX(-50%);width:min(1150px,94%);z-index:200;}
 .topbar-inner{display:flex;align-items:center;justify-content:space-between;background:var(--topbar-bg);backdrop-filter:blur(18px);border:1px solid rgba(255,255,255,0.3);border-radius:22px;padding:14px 18px;box-shadow:0 12px 50px rgba(0,0,0,0.08);transition:background .3s;}
 body.dark .topbar-inner{border-color:rgba(255,255,255,0.07);}
@@ -111,8 +103,6 @@ body.dark .topbar-inner{border-color:rgba(255,255,255,0.07);}
 .top-actions{display:flex;align-items:center;gap:10px;}
 .top-btn{border:none;cursor:pointer;background:var(--btn-bg);border:1px solid var(--border);padding:11px 16px;border-radius:14px;font-size:13px;font-weight:600;color:var(--text);transition:.2s;}
 .top-btn:hover{transform:translateY(-2px);}
-
-/* HERO */
 .hero{padding-top:120px;padding-bottom:20px;}
 .hero-wrap{width:min(1150px,94%);margin:auto;}
 .hero-card{position:relative;overflow:hidden;border-radius:36px;min-height:320px;padding:44px;background:linear-gradient(135deg,rgba(209,75,145,0.95),rgba(143,121,255,0.88),rgba(122,166,217,0.9));color:white;box-shadow:0 30px 90px rgba(100,50,120,0.18);}
@@ -124,8 +114,6 @@ body.dark .topbar-inner{border-color:rgba(255,255,255,0.07);}
 .count{min-width:90px;background:rgba(255,255,255,0.16);border:1px solid rgba(255,255,255,0.2);border-radius:18px;padding:14px;}
 .count-num{font-size:30px;font-weight:800;}
 .count-label{margin-top:4px;font-size:11px;letter-spacing:.12em;text-transform:uppercase;opacity:.8;}
-
-/* MAIN */
 .main{width:min(1150px,94%);margin:auto;padding-bottom:100px;}
 .tabs{display:flex;gap:12px;overflow:auto;margin:24px 0 28px;}
 .tabs::-webkit-scrollbar{display:none;}
@@ -140,22 +128,12 @@ body.dark .tab.active{background:#231933;}
 .day-tag{color:var(--accent);letter-spacing:.18em;text-transform:uppercase;font-size:11px;font-weight:700;margin-bottom:10px;}
 .day-title{font-family:'Playfair Display',serif;font-size:44px;line-height:1;margin-bottom:10px;}
 .day-desc{color:var(--text-muted);line-height:1.6;}
-
-/* CARDS */
 .card{background:var(--card-bg);backdrop-filter:blur(16px);border:1px solid rgba(255,255,255,0.45);border-radius:28px;padding:24px;margin-bottom:18px;box-shadow:var(--shadow);transition:.25s;position:relative;}
 body.dark .card{border-color:rgba(255,255,255,0.07);}
 .card:hover{transform:translateY(-3px);}
 .card-header{display:flex;justify-content:space-between;align-items:flex-start;gap:10px;margin-bottom:4px;}
 .time-badge{font-size:13px;color:var(--accent);font-weight:700;}
-.edit-btn{
-  border:none;cursor:pointer;
-  background:var(--gradient);
-  color:white;
-  padding:7px 14px;border-radius:10px;
-  font-size:12px;font-weight:700;
-  transition:.2s;flex-shrink:0;
-  opacity:0;
-}
+.edit-btn{border:none;cursor:pointer;background:var(--gradient);color:white;padding:7px 14px;border-radius:10px;font-size:12px;font-weight:700;transition:.2s;flex-shrink:0;opacity:0;}
 .card:hover .edit-btn{opacity:1;}
 .tags{display:flex;flex-wrap:wrap;gap:8px;margin:10px 0 12px;}
 .tag{font-size:11px;font-weight:700;letter-spacing:.08em;text-transform:uppercase;padding:7px 12px;border-radius:100px;}
@@ -171,8 +149,6 @@ body.dark .card{border-color:rgba(255,255,255,0.07);}
 .link-btn{display:inline-flex;align-items:center;gap:5px;text-decoration:none;background:rgba(122,166,217,0.12);color:#4f84c2;border:1px solid rgba(122,166,217,0.22);padding:9px 14px;border-radius:12px;font-size:13px;font-weight:600;transition:.2s;}
 .link-btn:hover{background:rgba(122,166,217,0.22);}
 .uber-btn{text-decoration:none;background:var(--gradient);color:white;padding:10px 14px;border-radius:12px;font-size:13px;font-weight:700;}
-
-/* VOTE */
 .vote-section{margin-top:16px;padding:16px;background:var(--vote-bg);border:1px solid var(--vote-border);border-radius:18px;}
 .vote-label{font-size:11px;font-weight:700;color:var(--accent);letter-spacing:.12em;text-transform:uppercase;margin-bottom:12px;}
 .vote-option{display:flex;align-items:center;justify-content:space-between;background:var(--surface-solid);border:1.5px solid var(--border);border-radius:14px;padding:11px 14px;margin-bottom:8px;gap:8px;transition:.2s;}
@@ -192,19 +168,12 @@ body.dark .vote-option{background:#231933;}
 .add-vote-btn:hover{background:var(--vote-bg);}
 .del-vote-btn{border:none;cursor:pointer;background:transparent;color:rgba(209,75,145,0.4);font-size:14px;padding:2px 6px;border-radius:6px;transition:.2s;flex-shrink:0;}
 .del-vote-btn:hover{color:var(--accent);background:rgba(209,75,145,0.1);}
-
-/* SIDEBAR */
 .sidebar{position:sticky;top:110px;height:fit-content;}
 .side-card{background:var(--card-bg);backdrop-filter:blur(16px);border:1px solid rgba(255,255,255,0.45);border-radius:28px;padding:24px;box-shadow:var(--shadow);margin-bottom:18px;}
 body.dark .side-card{border-color:rgba(255,255,255,0.07);}
 .side-title{font-family:'Playfair Display',serif;font-size:26px;margin-bottom:16px;color:var(--text);}
-
-/* BUDGET */
-.budget-big{font-size:50px;font-weight:800;line-height:1;margin-bottom:6px;background:var(--gradient);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;}
 .budget-sub{color:var(--text-muted);font-size:13px;line-height:1.6;margin-bottom:16px;}
-.budget-inputs{display:flex;flex-direction:column;gap:8px;}
-.budget-row{display:flex;align-items:center;gap:8px;background:var(--input-bg);border-radius:14px;padding:10px 14px;border:1px solid var(--border);}
-.budget-name{font-size:13px;font-weight:600;color:var(--text);flex:1;}
+.budget-row{display:flex;align-items:center;gap:8px;background:var(--input-bg);border-radius:14px;padding:10px 14px;border:1px solid var(--border);margin-bottom:8px;}
 .budget-amt{width:70px;border:none;outline:none;background:transparent;font-size:14px;font-weight:700;color:var(--accent);text-align:right;font-family:'Inter',sans-serif;}
 .budget-del{border:none;cursor:pointer;background:transparent;color:rgba(209,75,145,0.4);font-size:14px;transition:.2s;}
 .budget-del:hover{color:var(--accent);}
@@ -213,8 +182,6 @@ body.dark .side-card{border-color:rgba(255,255,255,0.07);}
 .budget-avg{margin-top:12px;padding:14px;background:var(--gradient);border-radius:16px;text-align:center;color:white;}
 .budget-avg-label{font-size:11px;letter-spacing:.1em;text-transform:uppercase;opacity:.85;margin-bottom:4px;}
 .budget-avg-num{font-size:28px;font-weight:800;}
-
-/* SECRET MISSIONS */
 .secret-pill{background:linear-gradient(135deg,rgba(209,75,145,0.10),rgba(122,166,217,0.10));border-radius:18px;padding:14px 16px;margin-top:10px;border:1px solid rgba(209,75,145,0.1);}
 .secret-pill-header{display:flex;align-items:center;justify-content:space-between;gap:8px;margin-bottom:6px;}
 .secret-pill-title-wrap{display:flex;align-items:center;gap:8px;flex:1;}
@@ -232,14 +199,10 @@ body.dark .side-card{border-color:rgba(255,255,255,0.07);}
 .secret-edit-btn{border:none;cursor:pointer;background:transparent;color:var(--accent2);font-size:12px;font-weight:600;}
 .add-mission-btn{width:100%;border:none;cursor:pointer;background:transparent;border:1.5px dashed rgba(209,75,145,0.25);color:var(--accent);font-size:13px;font-weight:600;padding:10px;border-radius:14px;margin-top:10px;transition:.2s;}
 .add-mission-btn:hover{background:rgba(209,75,145,0.06);}
-
 .extras-pill{background:linear-gradient(135deg,rgba(122,166,217,0.1),rgba(141,121,255,0.08));border-radius:18px;padding:14px 16px;margin-top:10px;}
 .extras-title{font-weight:700;font-size:14px;margin-bottom:6px;color:var(--text);}
 .extras-text{font-size:13px;color:var(--text-muted);line-height:1.6;}
-
 .footer{text-align:center;padding:50px 20px 80px;color:var(--text-muted);font-size:13px;}
-
-/* ADD OPTION INLINE FORM */
 .add-option-form{display:none;margin-top:8px;padding:12px;background:var(--input-bg);border-radius:14px;border:1px solid var(--border);}
 .add-option-form.open{display:block;}
 .add-opt-row{display:flex;gap:8px;flex-wrap:wrap;}
@@ -247,14 +210,12 @@ body.dark .side-card{border-color:rgba(255,255,255,0.07);}
 .add-opt-input:focus{border-color:var(--accent);}
 .add-opt-confirm{border:none;cursor:pointer;background:var(--gradient);color:white;font-size:12px;font-weight:700;padding:10px 16px;border-radius:10px;}
 .add-opt-cancel{border:none;cursor:pointer;background:var(--input-bg);color:var(--text-muted);font-size:12px;font-weight:600;padding:10px 14px;border-radius:10px;}
-
 @media(max-width:980px){.grid{grid-template-columns:1fr;}.sidebar{position:relative;top:auto;}.hero-card{padding:34px 28px;}}
 @media(max-width:640px){.choice-grid{grid-template-columns:1fr;}.hero-title{font-size:54px;}.day-title{font-size:34px;}.topbar-inner{padding:12px;}.brand-sub{display:none;}.landing-card{padding:34px 24px;}.edit-btn{opacity:1;}}
 </style>
 </head>
 <body>
 
-<!-- LANDING -->
 <section class="landing" id="landing">
   <div class="landing-card">
     <div class="emoji">🌴</div>
@@ -276,7 +237,6 @@ body.dark .side-card{border-color:rgba(255,255,255,0.07);}
   </div>
 </section>
 
-<!-- PASSWORD MODAL -->
 <div class="modal-overlay" id="passwordModal">
   <div class="modal-card">
     <div class="modal-title">Attendee Access 🍸</div>
@@ -290,7 +250,6 @@ body.dark .side-card{border-color:rgba(255,255,255,0.07);}
   </div>
 </div>
 
-<!-- EDIT MODAL -->
 <div class="modal-overlay" id="editOverlay">
   <div class="modal-card">
     <div class="modal-title">Edit Activity ✏️</div>
@@ -311,7 +270,6 @@ body.dark .side-card{border-color:rgba(255,255,255,0.07);}
   </div>
 </div>
 
-<!-- ADD MISSION MODAL -->
 <div class="modal-overlay" id="addMissionModal">
   <div class="modal-card">
     <div class="modal-title">New Mission 🎯</div>
@@ -326,10 +284,7 @@ body.dark .side-card{border-color:rgba(255,255,255,0.07);}
   </div>
 </div>
 
-<!-- APP -->
 <div class="app" id="app">
-
-  <!-- TOPBAR -->
   <div class="topbar">
     <div class="topbar-inner">
       <div class="brand">
@@ -346,7 +301,6 @@ body.dark .side-card{border-color:rgba(255,255,255,0.07);}
     </div>
   </div>
 
-  <!-- HERO -->
   <section class="hero">
     <div class="hero-wrap">
       <div class="hero-card">
@@ -370,7 +324,6 @@ body.dark .side-card{border-color:rgba(255,255,255,0.07);}
       <button class="tab" onclick="switchDay(2,this)">Day 3 • Explore</button>
       <button class="tab" onclick="switchDay(3,this)">Day 4 • Goodbye</button>
     </div>
-
     <div class="grid">
       <div>
 
@@ -381,18 +334,13 @@ body.dark .side-card{border-color:rgba(255,255,255,0.07);}
             <div class="day-title">South Beach Kickoff 🌅</div>
             <div class="day-desc">Beach day energy, rooftop dinners, and the official beginning of the chaos.</div>
           </div>
-
           <div class="card" id="card-0-0">
             <div class="card-header"><span class="time-badge" id="time-0-0">9:00 AM</span><button class="edit-btn" onclick="openEdit('0-0')">✏️ Edit</button></div>
             <div class="tags"><span class="tag activity">Activity</span></div>
             <div class="card-title" id="title-0-0">Check into Airbnb</div>
             <div class="card-detail" id="detail-0-0">Everyone gets settled in South Beach while one person handles check-in. Look for South Beach locations for the full experience — check if early check-in is available!</div>
-            <div class="card-bottom">
-              <span class="cost-pill" id="cost-0-0">Arrival Day</span>
-              <a class="link-btn" href="https://www.airbnb.com/s/South-Beach--Miami-Beach--FL/homes" target="_blank">🏠 Browse Airbnbs</a>
-            </div>
+            <div class="card-bottom"><span class="cost-pill" id="cost-0-0">Arrival Day</span><a class="link-btn" href="https://www.airbnb.com/s/South-Beach--Miami-Beach--FL/homes" target="_blank">🏠 Browse Airbnbs</a></div>
           </div>
-
           <div class="card" id="card-0-1">
             <div class="card-header"><span class="time-badge" id="time-0-1">12:30 PM</span><button class="edit-btn" onclick="openEdit('0-1')">✏️ Edit</button></div>
             <div class="tags"><span class="tag food">Food</span><span class="tag fancy">Fancy</span></div>
@@ -402,52 +350,31 @@ body.dark .side-card{border-color:rgba(255,255,255,0.07);}
               <div class="vote-label">🗳️ Lunch Spot</div>
               <div id="vopts-lunch"></div>
               <button class="add-vote-btn" onclick="toggleAddForm('lunch')">+ Add a suggestion</button>
-              <div class="add-option-form" id="addform-lunch">
-                <div class="add-opt-row">
-                  <input class="add-opt-input" id="addname-lunch" placeholder="Restaurant name"/>
-                  <input class="add-opt-input" id="addlink-lunch" placeholder="Link (optional)"/>
-                  <button class="add-opt-confirm" onclick="addVoteOption('lunch')">Add</button>
-                  <button class="add-opt-cancel" onclick="toggleAddForm('lunch')">✕</button>
-                </div>
-              </div>
+              <div class="add-option-form" id="addform-lunch"><div class="add-opt-row"><input class="add-opt-input" id="addname-lunch" placeholder="Restaurant name"/><input class="add-opt-input" id="addlink-lunch" placeholder="Link (optional)"/><button class="add-opt-confirm" onclick="addVoteOption('lunch')">Add</button><button class="add-opt-cancel" onclick="toggleAddForm('lunch')">✕</button></div></div>
             </div>
             <div class="card-bottom"><span class="cost-pill" id="cost-0-1">~$35/person</span></div>
           </div>
-
           <div class="card" id="card-0-2">
             <div class="card-header"><span class="time-badge" id="time-0-2">1:30 PM</span><button class="edit-btn" onclick="openEdit('0-2')">✏️ Edit</button></div>
             <div class="tags"><span class="tag activity">Activity</span></div>
             <div class="card-title" id="title-0-2">Beach + South Pointe Park Pier</div>
             <div class="card-detail" id="detail-0-2">Beach time and iconic photos at South Pointe Park Pier. Best spot for golden hour content.</div>
-            <div class="card-bottom">
-              <span class="cost-pill" id="cost-0-2">Free 🌊</span>
-              <a class="link-btn" href="https://www.google.com/maps/search/South+Pointe+Park+Pier+Miami" target="_blank">📍 Directions</a>
-            </div>
+            <div class="card-bottom"><span class="cost-pill" id="cost-0-2">Free 🌊</span><a class="link-btn" href="https://www.google.com/maps/search/South+Pointe+Park+Pier+Miami" target="_blank">📍 Directions</a></div>
           </div>
-
           <div class="card" id="card-0-3">
             <div class="card-header"><span class="time-badge" id="time-0-3">5:00 PM</span><button class="edit-btn" onclick="openEdit('0-3')">✏️ Edit</button></div>
             <div class="tags"><span class="tag activity">Activity</span></div>
             <div class="card-title" id="title-0-3">Rooftop Cinema Club</div>
             <div class="card-detail" id="detail-0-3">Outdoor rooftop movies in South Beach. Cute vibe for pre-dinner entertainment.</div>
-            <div class="card-bottom">
-              <span class="cost-pill" id="cost-0-3">~$20/person</span>
-              <a class="link-btn" href="https://rooftopcinemaclub.com/miami/" target="_blank">🎬 Book Tickets</a>
-            </div>
+            <div class="card-bottom"><span class="cost-pill" id="cost-0-3">~$20/person</span><a class="link-btn" href="https://rooftopcinemaclub.com/miami/" target="_blank">🎬 Book Tickets</a></div>
           </div>
-
           <div class="card" id="card-0-4">
             <div class="card-header"><span class="time-badge" id="time-0-4">8:00 PM</span><button class="edit-btn" onclick="openEdit('0-4')">✏️ Edit</button></div>
             <div class="tags"><span class="tag food">Food</span><span class="tag fancy">Fancy</span></div>
             <div class="card-title" id="title-0-4">Dinner at Kiki on the River</div>
             <div class="card-detail" id="detail-0-4">Dress up. Birthday energy only. Miami river views + iconic dinner vibes. Mediterranean cuisine. 450 NW North River Dr.</div>
-            <div class="card-bottom">
-              <span class="cost-pill" id="cost-0-4">~$80/person</span>
-              <a class="link-btn" href="https://www.kikimiami.com" target="_blank">🍽️ Reservations</a>
-              <a class="uber-btn" href="https://m.uber.com/looking" target="_blank">🚗 Uber</a>
-            </div>
+            <div class="card-bottom"><span class="cost-pill" id="cost-0-4">~$80/person</span><a class="link-btn" href="https://www.kikimiami.com" target="_blank">🍽️ Reservations</a><a class="uber-btn" href="https://m.uber.com/looking" target="_blank">🚗 Uber</a></div>
           </div>
-
           <div class="card" id="card-0-5">
             <div class="card-header"><span class="time-badge" id="time-0-5">10:30 PM</span><button class="edit-btn" onclick="openEdit('0-5')">✏️ Edit</button></div>
             <div class="tags"><span class="tag party">Party</span><span class="tag fancy">Fancy</span></div>
@@ -457,14 +384,7 @@ body.dark .side-card{border-color:rgba(255,255,255,0.07);}
               <div class="vote-label">🗳️ After-Dinner Spot</div>
               <div id="vopts-after"></div>
               <button class="add-vote-btn" onclick="toggleAddForm('after')">+ Add a suggestion</button>
-              <div class="add-option-form" id="addform-after">
-                <div class="add-opt-row">
-                  <input class="add-opt-input" id="addname-after" placeholder="Venue name"/>
-                  <input class="add-opt-input" id="addlink-after" placeholder="Link (optional)"/>
-                  <button class="add-opt-confirm" onclick="addVoteOption('after')">Add</button>
-                  <button class="add-opt-cancel" onclick="toggleAddForm('after')">✕</button>
-                </div>
-              </div>
+              <div class="add-option-form" id="addform-after"><div class="add-opt-row"><input class="add-opt-input" id="addname-after" placeholder="Venue name"/><input class="add-opt-input" id="addlink-after" placeholder="Link (optional)"/><button class="add-opt-confirm" onclick="addVoteOption('after')">Add</button><button class="add-opt-cancel" onclick="toggleAddForm('after')">✕</button></div></div>
             </div>
             <div class="card-bottom"><span class="cost-pill" id="cost-0-5">~$40/person</span></div>
           </div>
@@ -477,18 +397,13 @@ body.dark .side-card{border-color:rgba(255,255,255,0.07);}
             <div class="day-title">Yacht Party 🛥️</div>
             <div class="day-desc">The biggest day of the trip. Matching outfits mandatory.</div>
           </div>
-
           <div class="card" id="card-1-0">
             <div class="card-header"><span class="time-badge" id="time-1-0">11:30 AM</span><button class="edit-btn" onclick="openEdit('1-0')">✏️ Edit</button></div>
             <div class="tags"><span class="tag food">Food</span><span class="tag fancy">Fancy</span></div>
             <div class="card-title" id="title-1-0">Brunch at Nikki Beach</div>
             <div class="card-detail" id="detail-1-0">Beachside brunch, cocktails, music, and main character energy. The iconic Nikki Beach experience. 1 Ocean Drive.</div>
-            <div class="card-bottom">
-              <span class="cost-pill" id="cost-1-0">~$50/person</span>
-              <a class="link-btn" href="https://www.nikkibeach.com/miami-beach/" target="_blank">🍸 View Menu</a>
-            </div>
+            <div class="card-bottom"><span class="cost-pill" id="cost-1-0">~$50/person</span><a class="link-btn" href="https://www.nikkibeach.com/miami-beach/" target="_blank">🍸 View Menu</a></div>
           </div>
-
           <div class="card" id="card-1-1">
             <div class="card-header"><span class="time-badge" id="time-1-1">1:30 PM</span><button class="edit-btn" onclick="openEdit('1-1')">✏️ Edit</button></div>
             <div class="tags"><span class="tag party">Party</span><span class="tag activity">Activity</span></div>
@@ -498,29 +413,17 @@ body.dark .side-card{border-color:rgba(255,255,255,0.07);}
               <div class="vote-label">🗳️ Yacht Option</div>
               <div id="vopts-yacht"></div>
               <button class="add-vote-btn" onclick="toggleAddForm('yacht')">+ Add a suggestion</button>
-              <div class="add-option-form" id="addform-yacht">
-                <div class="add-opt-row">
-                  <input class="add-opt-input" id="addname-yacht" placeholder="Option name"/>
-                  <input class="add-opt-input" id="addlink-yacht" placeholder="Link (optional)"/>
-                  <button class="add-opt-confirm" onclick="addVoteOption('yacht')">Add</button>
-                  <button class="add-opt-cancel" onclick="toggleAddForm('yacht')">✕</button>
-                </div>
-              </div>
+              <div class="add-option-form" id="addform-yacht"><div class="add-opt-row"><input class="add-opt-input" id="addname-yacht" placeholder="Option name"/><input class="add-opt-input" id="addlink-yacht" placeholder="Link (optional)"/><button class="add-opt-confirm" onclick="addVoteOption('yacht')">Add</button><button class="add-opt-cancel" onclick="toggleAddForm('yacht')">✕</button></div></div>
             </div>
             <div class="card-bottom"><span class="cost-pill" id="cost-1-1">~$60–100/person</span></div>
           </div>
-
           <div class="card surprise-card" id="card-1-2" style="display:none">
             <div class="card-header"><span class="time-badge" id="time-1-2">8:00 PM</span><button class="edit-btn" onclick="openEdit('1-2')">✏️ Edit</button></div>
             <div class="tags"><span class="tag surprise-tag">🎁 Surprise #2</span></div>
             <div class="card-title" id="title-1-2">Harshi Surprise #2: Sushi Boat 🍣</div>
             <div class="card-detail" id="detail-1-2">A private sushi boat delivery to the Airbnb! Get ready back at the house with this catered surprise. Cost: ~$250 total / $50 per person. Someone needs to handle ordering secretly!</div>
-            <div class="card-bottom">
-              <span class="cost-pill" id="cost-1-2">~$50/person</span>
-              <a class="link-btn" href="https://www.ubereats.com/miami" target="_blank">🍣 Order Sushi</a>
-            </div>
+            <div class="card-bottom"><span class="cost-pill" id="cost-1-2">~$50/person</span><a class="link-btn" href="https://www.ubereats.com/miami" target="_blank">🍣 Order Sushi</a></div>
           </div>
-
           <div class="card" id="card-1-3">
             <div class="card-header"><span class="time-badge" id="time-1-3">11:30 PM</span><button class="edit-btn" onclick="openEdit('1-3')">✏️ Edit</button></div>
             <div class="tags"><span class="tag party">Party</span></div>
@@ -530,14 +433,7 @@ body.dark .side-card{border-color:rgba(255,255,255,0.07);}
               <div class="vote-label">🗳️ Club Night</div>
               <div id="vopts-club"></div>
               <button class="add-vote-btn" onclick="toggleAddForm('club')">+ Add a suggestion</button>
-              <div class="add-option-form" id="addform-club">
-                <div class="add-opt-row">
-                  <input class="add-opt-input" id="addname-club" placeholder="Club name"/>
-                  <input class="add-opt-input" id="addlink-club" placeholder="Link (optional)"/>
-                  <button class="add-opt-confirm" onclick="addVoteOption('club')">Add</button>
-                  <button class="add-opt-cancel" onclick="toggleAddForm('club')">✕</button>
-                </div>
-              </div>
+              <div class="add-option-form" id="addform-club"><div class="add-opt-row"><input class="add-opt-input" id="addname-club" placeholder="Club name"/><input class="add-opt-input" id="addlink-club" placeholder="Link (optional)"/><button class="add-opt-confirm" onclick="addVoteOption('club')">Add</button><button class="add-opt-cancel" onclick="toggleAddForm('club')">✕</button></div></div>
             </div>
             <div class="card-bottom"><span class="cost-pill" id="cost-1-3">~$40/person</span></div>
           </div>
@@ -550,7 +446,6 @@ body.dark .side-card{border-color:rgba(255,255,255,0.07);}
             <div class="day-title">Wynwood + Sunset 🎨</div>
             <div class="day-desc">Murals, shopping, coffee, and photo dump content.</div>
           </div>
-
           <div class="card" id="card-2-0">
             <div class="card-header"><span class="time-badge" id="time-2-0">10:00 AM</span><button class="edit-btn" onclick="openEdit('2-0')">✏️ Edit</button></div>
             <div class="tags"><span class="tag food">Food</span></div>
@@ -558,62 +453,41 @@ body.dark .side-card{border-color:rgba(255,255,255,0.07);}
             <div class="card-detail" id="detail-2-0">Starting slow after yacht recovery. Cute coffee shops all around Wynwood.</div>
             <div class="card-bottom"><span class="cost-pill" id="cost-2-0">~$15/person</span></div>
           </div>
-
           <div class="card surprise-card" id="card-2-1" style="display:none">
             <div class="card-header"><span class="time-badge" id="time-2-1">11:00 AM</span><button class="edit-btn" onclick="openEdit('2-1')">✏️ Edit</button></div>
             <div class="tags"><span class="tag surprise-tag">🎁 Surprise #3</span></div>
             <div class="card-title" id="title-2-1">Harshi Surprise #3: Porsche Taycan 🏎️</div>
             <div class="card-detail" id="detail-2-1">Her dream car! Rental pickup near Wynwood / Design District. Book on Turo before the trip — keep it completely secret!</div>
-            <div class="card-bottom">
-              <span class="cost-pill" id="cost-2-1">TBD</span>
-              <a class="link-btn" href="https://turo.com/us/en/search#address=Miami%2C%20FL&vehicle=porsche%20taycan" target="_blank">🚗 Browse Turo</a>
-            </div>
+            <div class="card-bottom"><span class="cost-pill" id="cost-2-1">TBD</span><a class="link-btn" href="https://turo.com/us/en/search#address=Miami%2C%20FL&vehicle=porsche%20taycan" target="_blank">🚗 Browse Turo</a></div>
           </div>
-
           <div class="card" id="card-2-2">
             <div class="card-header"><span class="time-badge" id="time-2-2">11:30 AM</span><button class="edit-btn" onclick="openEdit('2-2')">✏️ Edit</button></div>
             <div class="tags"><span class="tag activity">Activity</span></div>
             <div class="card-title" id="title-2-2">Wynwood Walls</div>
             <div class="card-detail" id="detail-2-2">Content day. Everyone better charge their phones. World-famous street art murals. 2516 NW 2nd Ave.</div>
-            <div class="card-bottom">
-              <span class="cost-pill" id="cost-2-2">~$10/person</span>
-              <a class="link-btn" href="https://www.thewynwoodwalls.com" target="_blank">🎨 Wynwood Walls</a>
-            </div>
+            <div class="card-bottom"><span class="cost-pill" id="cost-2-2">~$10/person</span><a class="link-btn" href="https://www.thewynwoodwalls.com" target="_blank">🎨 Wynwood Walls</a></div>
           </div>
-
           <div class="card" id="card-2-3">
             <div class="card-header"><span class="time-badge" id="time-2-3">1:00 PM</span><button class="edit-btn" onclick="openEdit('2-3')">✏️ Edit</button></div>
             <div class="tags"><span class="tag food">Food</span></div>
             <div class="card-title" id="title-2-3">Lunch at Coyo Taco</div>
             <div class="card-detail" id="detail-2-3">Amazing tacos right next to Wynwood Walls. 250 NW 23rd St.</div>
-            <div class="card-bottom">
-              <span class="cost-pill" id="cost-2-3">~$20/person</span>
-              <a class="link-btn" href="https://www.coyotaco.com/wynwood" target="_blank">🌮 Menu</a>
-            </div>
+            <div class="card-bottom"><span class="cost-pill" id="cost-2-3">~$20/person</span><a class="link-btn" href="https://www.coyotaco.com/wynwood" target="_blank">🌮 Menu</a></div>
           </div>
-
           <div class="card" id="card-2-4">
             <div class="card-header"><span class="time-badge" id="time-2-4">2:30 PM</span><button class="edit-btn" onclick="openEdit('2-4')">✏️ Edit</button></div>
             <div class="tags"><span class="tag activity">Activity</span><span class="tag fancy">Fancy</span></div>
             <div class="card-title" id="title-2-4">Design District Shopping</div>
             <div class="card-detail" id="detail-2-4">Luxury shopping with designer boutiques and galleries. 140 NE 39th St.</div>
-            <div class="card-bottom">
-              <span class="cost-pill" id="cost-2-4">💸 Damage varies</span>
-              <a class="link-btn" href="https://www.miamidesigndistrict.net" target="_blank">🛍️ Explore</a>
-            </div>
+            <div class="card-bottom"><span class="cost-pill" id="cost-2-4">💸 Damage varies</span><a class="link-btn" href="https://www.miamidesigndistrict.net" target="_blank">🛍️ Explore</a></div>
           </div>
-
           <div class="card" id="card-2-5">
             <div class="card-header"><span class="time-badge" id="time-2-5">6:00 PM</span><button class="edit-btn" onclick="openEdit('2-5')">✏️ Edit</button></div>
             <div class="tags"><span class="tag activity">Activity</span></div>
             <div class="card-title" id="title-2-5">South Pointe Park Sunset</div>
             <div class="card-detail" id="detail-2-5">Golden hour at the best spot in Miami. Iconic sunset photos guaranteed. 1 Washington Ave.</div>
-            <div class="card-bottom">
-              <span class="cost-pill" id="cost-2-5">Free 🌅</span>
-              <a class="link-btn" href="https://www.google.com/maps/search/South+Pointe+Park+Miami" target="_blank">📍 Directions</a>
-            </div>
+            <div class="card-bottom"><span class="cost-pill" id="cost-2-5">Free 🌅</span><a class="link-btn" href="https://www.google.com/maps/search/South+Pointe+Park+Miami" target="_blank">📍 Directions</a></div>
           </div>
-
           <div class="card" id="card-2-6">
             <div class="card-header"><span class="time-badge" id="time-2-6">8:30 PM</span><button class="edit-btn" onclick="openEdit('2-6')">✏️ Edit</button></div>
             <div class="tags"><span class="tag food">Food</span><span class="tag party">Party</span></div>
@@ -623,19 +497,9 @@ body.dark .side-card{border-color:rgba(255,255,255,0.07);}
               <div class="vote-label">🗳️ Dinner Spot</div>
               <div id="vopts-dinner3"></div>
               <button class="add-vote-btn" onclick="toggleAddForm('dinner3')">+ Add a suggestion</button>
-              <div class="add-option-form" id="addform-dinner3">
-                <div class="add-opt-row">
-                  <input class="add-opt-input" id="addname-dinner3" placeholder="Restaurant name"/>
-                  <input class="add-opt-input" id="addlink-dinner3" placeholder="Link (optional)"/>
-                  <button class="add-opt-confirm" onclick="addVoteOption('dinner3')">Add</button>
-                  <button class="add-opt-cancel" onclick="toggleAddForm('dinner3')">✕</button>
-                </div>
-              </div>
+              <div class="add-option-form" id="addform-dinner3"><div class="add-opt-row"><input class="add-opt-input" id="addname-dinner3" placeholder="Restaurant name"/><input class="add-opt-input" id="addlink-dinner3" placeholder="Link (optional)"/><button class="add-opt-confirm" onclick="addVoteOption('dinner3')">Add</button><button class="add-opt-cancel" onclick="toggleAddForm('dinner3')">✕</button></div></div>
             </div>
-            <div class="card-bottom">
-              <span class="cost-pill" id="cost-2-6">~$80/person</span>
-              <a class="uber-btn" href="https://m.uber.com/looking" target="_blank">🚗 Uber</a>
-            </div>
+            <div class="card-bottom"><span class="cost-pill" id="cost-2-6">~$80/person</span><a class="uber-btn" href="https://m.uber.com/looking" target="_blank">🚗 Uber</a></div>
           </div>
         </section>
 
@@ -646,18 +510,13 @@ body.dark .side-card{border-color:rgba(255,255,255,0.07);}
             <div class="day-title">Recovery & Goodbye 🥹</div>
             <div class="day-desc">One last brunch before everyone returns to reality.</div>
           </div>
-
           <div class="card" id="card-3-0">
             <div class="card-header"><span class="time-badge" id="time-3-0">10:00 AM</span><button class="edit-btn" onclick="openEdit('3-0')">✏️ Edit</button></div>
             <div class="tags"><span class="tag food">Food</span></div>
             <div class="card-title" id="title-3-0">Recovery Brunch at Pura Vida</div>
             <div class="card-detail" id="detail-3-0">Healthy food and emotional support. 110 Washington Ave, Miami Beach.</div>
-            <div class="card-bottom">
-              <span class="cost-pill" id="cost-3-0">~$25/person</span>
-              <a class="link-btn" href="https://www.puravidamiami.com" target="_blank">🥑 Menu</a>
-            </div>
+            <div class="card-bottom"><span class="cost-pill" id="cost-3-0">~$25/person</span><a class="link-btn" href="https://www.puravidamiami.com" target="_blank">🥑 Menu</a></div>
           </div>
-
           <div class="card" id="card-3-1">
             <div class="card-header"><span class="time-badge" id="time-3-1">11:30 AM</span><button class="edit-btn" onclick="openEdit('3-1')">✏️ Edit</button></div>
             <div class="tags"><span class="tag activity">Activity</span></div>
@@ -667,36 +526,22 @@ body.dark .side-card{border-color:rgba(255,255,255,0.07);}
               <div class="vote-label">🗳️ Last Activity</div>
               <div id="vopts-lastday"></div>
               <button class="add-vote-btn" onclick="toggleAddForm('lastday')">+ Add a suggestion</button>
-              <div class="add-option-form" id="addform-lastday">
-                <div class="add-opt-row">
-                  <input class="add-opt-input" id="addname-lastday" placeholder="Activity name"/>
-                  <input class="add-opt-input" id="addlink-lastday" placeholder="Link (optional)"/>
-                  <button class="add-opt-confirm" onclick="addVoteOption('lastday')">Add</button>
-                  <button class="add-opt-cancel" onclick="toggleAddForm('lastday')">✕</button>
-                </div>
-              </div>
+              <div class="add-option-form" id="addform-lastday"><div class="add-opt-row"><input class="add-opt-input" id="addname-lastday" placeholder="Activity name"/><input class="add-opt-input" id="addlink-lastday" placeholder="Link (optional)"/><button class="add-opt-confirm" onclick="addVoteOption('lastday')">Add</button><button class="add-opt-cancel" onclick="toggleAddForm('lastday')">✕</button></div></div>
             </div>
             <div class="card-bottom"><span class="cost-pill" id="cost-3-1">TBD</span></div>
           </div>
-
           <div class="card" id="card-3-2">
             <div class="card-header"><span class="time-badge" id="time-3-2">2:00 PM</span><button class="edit-btn" onclick="openEdit('3-2')">✏️ Edit</button></div>
             <div class="tags"><span class="tag activity">Activity</span></div>
             <div class="card-title" id="title-3-2">Airport Time ✈️</div>
             <div class="card-detail" id="detail-3-2">The end of an era. Allow enough buffer time for MIA.</div>
-            <div class="card-bottom">
-              <span class="cost-pill" id="cost-3-2">Departure</span>
-              <a class="link-btn" href="https://m.uber.com/looking" target="_blank">🚗 Uber to MIA</a>
-            </div>
+            <div class="card-bottom"><span class="cost-pill" id="cost-3-2">Departure</span><a class="link-btn" href="https://m.uber.com/looking" target="_blank">🚗 Uber to MIA</a></div>
           </div>
         </section>
 
       </div>
 
-      <!-- SIDEBAR -->
       <aside class="sidebar">
-
-        <!-- BUDGET -->
         <div class="side-card">
           <div class="side-title">Trip Budget 💰</div>
           <div class="budget-avg">
@@ -705,394 +550,386 @@ body.dark .side-card{border-color:rgba(255,255,255,0.07);}
           </div>
           <div style="margin-top:14px">
             <div class="budget-sub">Add everyone's budget and we'll average it out!</div>
-            <div class="budget-inputs" id="budget-list"></div>
+            <div id="budget-list"></div>
             <button class="add-budget-btn" onclick="addBudgetRow()">+ Add person's budget</button>
           </div>
         </div>
-
-        <!-- BIRTHDAY GIRL EXTRAS -->
         <div class="side-card" id="bdaySidebar">
           <div class="side-title">Trip Extras 🌟</div>
-          <div class="extras-pill">
-            <div class="extras-title">👗 Matching Outfits</div>
-            <div class="extras-text">Plan your matching look for Day 2 — Yacht Party day! Best photo content of the trip.</div>
-          </div>
-          <div class="extras-pill">
-            <div class="extras-title">🏠 Airbnb Tips</div>
-            <div class="extras-text">Book in South Beach for the full Miami experience. Request early check-in for Day 1!</div>
-          </div>
+          <div class="extras-pill"><div class="extras-title">👗 Matching Outfits</div><div class="extras-text">Plan your matching look for Day 2 — Yacht Party day! Best photo content of the trip.</div></div>
+          <div class="extras-pill"><div class="extras-title">🏠 Airbnb Tips</div><div class="extras-text">Book in South Beach for the full Miami experience. Request early check-in for Day 1!</div></div>
         </div>
-
-        <!-- SECRET MISSIONS (attendee only) -->
         <div class="side-card" id="secretCard" style="display:none">
           <div class="side-title">Secret Missions 🤫</div>
           <div id="mission-list"></div>
           <button class="add-mission-btn" onclick="document.getElementById('addMissionModal').classList.add('open')">+ Add a mission</button>
         </div>
-
       </aside>
     </div>
   </main>
-
   <div class="footer">made with chaos, glitter, and poor financial decisions ✨</div>
 </div>
 
-<script>
-// ─── STATE ──────────────────────────────────────────────
+<!-- Firebase SDKs -->
+<script type="module">
+import { initializeApp } from "https://www.gstatic.com/firebasejs/11.0.1/firebase-app.js";
+import { getDatabase, ref, onValue, set, update, push, remove, get }
+  from "https://www.gstatic.com/firebasejs/11.0.1/firebase-database.js";
+
+// ─────────────────────────────────────────────────────────
+// 🔧 PASTE YOUR FIREBASE CONFIG HERE
+// Go to: Firebase Console → Project Settings → Your Apps → SDK setup
+// ─────────────────────────────────────────────────────────
+const firebaseConfig = {
+  apiKey:            "AIzaSyBay-316WMd4eaG-NBybzF5gSvOPKuJ1zI",
+  authDomain:        "miami-database.firebaseapp.com",
+  databaseURL:       "https://miami-database-default-rtdb.firebaseio.com/",
+  projectId:         "miami-database",
+  storageBucket:     "miami-database.firebasestorage.app",
+  messagingSenderId: "1006900825588",
+  appId:             "1:1006900825588:web:7ace3fbddc7a01c6c2bda1",
+};
+// ─────────────────────────────────────────────────────────
+
 const PASSWORD = "miami2025";
-let attendeeMode = false;
-let dark = false;
+
+// ─── DEFAULT DATA (written to Firebase once on first load) ─
+const DEFAULTS = {
+  votes: {
+    lunch:   { options:[{name:'The Social Club',link:'https://www.thesocialclubmiami.com',votes:0},{name:'Watr Rooftop — 1 Hotel',link:'https://www.1hotels.com/south-beach/taste/watr-rooftop',votes:0}] },
+    after:   { options:[{name:'Komodo',link:'https://www.komodorestaurant.com',votes:0},{name:'Sexy Fish Miami',link:'https://www.sexyfishmiami.com',votes:0},{name:'Bayside Marketplace',link:'https://www.baysidemarketplace.com',votes:0}] },
+    yacht:   { options:[{name:'$100/pp — Yacht + 2 Jet Skis (4hr)',link:'https://www.viator.com/tours/Miami/Private-Luxury-Yacht-55-Tour-for-13-Pax-to-Star-and-Fisher-Island/d662-5606753P3',votes:0},{name:'$60/pp — Yacht Only (3hr)',link:'https://www.viator.com/Miami/d662-ttd',votes:0},{name:'Pool Party at Fontainebleau',link:'https://www.fontainebleau.com/miami-beach/pool/',votes:0}] },
+    club:    { options:[{name:'LIV Nightclub',link:'https://www.livnightclub.com',votes:0},{name:'E11EVEN Miami (24/7!)',link:'https://www.11miami.com',votes:0}] },
+    dinner3: { options:[{name:'Baoli Miami',link:'https://www.baoli-miami.com',votes:0},{name:'Komodo',link:'https://www.komodorestaurant.com',votes:0},{name:'Sexy Fish Miami',link:'https://www.sexyfishmiami.com',votes:0}] },
+    lastday: { options:[{name:'Hotel Spa',link:'https://www.spafinder.com/spa-travel/miami-beach-fl',votes:0},{name:'Last Beach Walk',link:'https://www.google.com/maps/search/South+Beach+Miami',votes:0}] },
+  },
+  missions: {
+    m1:{id:'m1',title:'Mission #1 🎊',body:"Scavenger hunt for her gifts — each of you leaves a clue leading to your present. Plan before Day 1!",done:false},
+    m2:{id:'m2',title:'Mission #2 🍣',body:"Secretly coordinate the sushi boat delivery to the Airbnb on Day 2 (~$250 total). One person owns this!",done:false},
+    m3:{id:'m3',title:'Mission #3 🏎️',body:"Book the Porsche Taycan rental on Turo for Day 3. Her dream car!",done:false},
+    m4:{id:'m4',title:'Mission #4 🎂',body:"Secretly order birthday shots at dinner. Don't let her see you!",done:false},
+    m5:{id:'m5',title:'Mission #5 🕺',body:"Get Harshi to dance on a table. Team effort required.",done:false},
+    m6:{id:'m6',title:'Mission #6 📱',body:"Make sure nobody loses their phone. Assign a phone keeper each night!",done:false},
+    m7:{id:'m7',title:'Mission #7 🏠',body:"Decorate the Airbnb before she arrives. Distract Harshi while others set it up!",done:false},
+  },
+  cardEdits: {},
+  budget: {},
+  dark: false,
+};
+
+// ─── INIT FIREBASE ────────────────────────────────────────
+const app = initializeApp(firebaseConfig);
+const db  = getDatabase(app);
+
+// Per-user vote tracking (localStorage only — which poll option *I* voted for)
+const MY_VOTES_KEY = 'harshi_my_votes';
+let myVotes = {}; // { groupId: optionIndex }
+try { myVotes = JSON.parse(localStorage.getItem(MY_VOTES_KEY) || '{}'); } catch(e) {}
+function saveMyVotes() { localStorage.setItem(MY_VOTES_KEY, JSON.stringify(myVotes)); }
+
+// My dark mode preference
+let darkPref = localStorage.getItem('harshi_dark') === 'true';
+if (darkPref) document.body.classList.add('dark');
+
+// Per-user mode (birthday girl vs attendee) — local only
+let myMode = localStorage.getItem('harshi_mode'); // 'bday' | 'attendee' | null
+
+// Runtime
 let editTarget = null;
+let liveVotes = {}; // mirror of DB votes node
+let liveMissions = {}; // mirror of DB missions node
+let liveBudget = {}; // mirror of DB budget node
+let liveCardEdits = {}; // mirror of DB cardEdits node
 
-// VOTES: {groupId: {options:[{name,link,votes}], myVote: idx|null}}
-const voteState = {};
-
-// MISSIONS
-let missions = [
-  {id:1, title:"Mission #1 🎊", body:"Scavenger hunt for her gifts — each of you leaves a clue leading to your present. Plan before Day 1!", done:false},
-  {id:2, title:"Mission #2 🍣", body:"Secretly coordinate the sushi boat delivery to the Airbnb on Day 2 (~$250 total). One person owns this!", done:false},
-  {id:3, title:"Mission #3 🏎️", body:"Book the Porsche Taycan rental on Turo for Day 3. Her dream car!", done:false},
-  {id:4, title:"Mission #4 🎂", body:"Secretly order birthday shots at dinner. Don't let her see you!", done:false},
-  {id:5, title:"Mission #5 🕺", body:"Get Harshi to dance on a table. Team effort required.", done:false},
-  {id:6, title:"Mission #6 📱", body:"Make sure nobody loses their phone. Assign a phone keeper each night!", done:false},
-  {id:7, title:"Mission #7 🏠", body:"Decorate the Airbnb before she arrives. Distract Harshi while others set it up!", done:false},
-];
-let missionIdCounter = 8;
-
-// BUDGET
-let budgetRows = [];
-let budgetIdCounter = 0;
-
-// ─── VOTE GROUPS INIT ────────────────────────────────────
-function initVotes(){
-  registerVoteGroup('lunch',[
-    {name:'The Social Club', link:'https://www.thesocialclubmiami.com'},
-    {name:'Watr Rooftop — 1 Hotel', link:'https://www.1hotels.com/south-beach/taste/watr-rooftop'},
-  ]);
-  registerVoteGroup('after',[
-    {name:'Komodo', link:'https://www.komodorestaurant.com'},
-    {name:'Sexy Fish Miami', link:'https://www.sexyfishmiami.com'},
-    {name:'Bayside Marketplace', link:'https://www.baysidemarketplace.com'},
-  ]);
-  registerVoteGroup('yacht',[
-    {name:'$100/pp — Yacht + 2 Jet Skis (4hr)', link:'https://www.viator.com/tours/Miami/Private-Luxury-Yacht-55-Tour-for-13-Pax-to-Star-and-Fisher-Island/d662-5606753P3'},
-    {name:'$60/pp — Yacht Only (3hr)', link:'https://www.viator.com/Miami/d662-ttd'},
-    {name:'Pool Party at Fontainebleau', link:'https://www.fontainebleau.com/miami-beach/pool/'},
-  ]);
-  registerVoteGroup('club',[
-    {name:'LIV Nightclub', link:'https://www.livnightclub.com'},
-    {name:'E11EVEN Miami (24/7!)', link:'https://www.11miami.com'},
-  ]);
-  registerVoteGroup('dinner3',[
-    {name:'Baoli Miami', link:'https://www.baoli-miami.com'},
-    {name:'Komodo', link:'https://www.komodorestaurant.com'},
-    {name:'Sexy Fish Miami', link:'https://www.sexyfishmiami.com'},
-  ]);
-  registerVoteGroup('lastday',[
-    {name:'Hotel Spa', link:'https://www.spafinder.com/spa-travel/miami-beach-fl'},
-    {name:'Last Beach Walk', link:'https://www.google.com/maps/search/South+Beach+Miami'},
-  ]);
+// ─── SHOW LOADING INDICATOR ───────────────────────────────
+function showStatus(msg) {
+  let el = document.getElementById('fb-status');
+  if (!el) {
+    el = document.createElement('div');
+    el.id = 'fb-status';
+    el.style.cssText = 'position:fixed;bottom:24px;left:50%;transform:translateX(-50%);background:var(--gradient);color:white;padding:10px 20px;border-radius:100px;font-size:13px;font-weight:700;z-index:9999;box-shadow:0 8px 30px rgba(0,0,0,0.2);transition:opacity .5s;';
+    document.body.appendChild(el);
+  }
+  el.textContent = msg; el.style.opacity = '1';
+  clearTimeout(el._t);
+  el._t = setTimeout(() => { el.style.opacity = '0'; }, 2000);
 }
 
-function registerVoteGroup(id, options){
-  voteState[id] = {options: options.map(o=>({...o, votes:0})), myVote: null};
-  renderVoteGroup(id);
+// ─── SEED DEFAULTS IF FIRST LOAD ─────────────────────────
+async function seedIfNeeded() {
+  const snap = await get(ref(db, 'initialized'));
+  if (!snap.exists()) {
+    await set(ref(db, 'votes'), DEFAULTS.votes);
+    await set(ref(db, 'missions'), DEFAULTS.missions);
+    await set(ref(db, 'cardEdits'), DEFAULTS.cardEdits);
+    await set(ref(db, 'budget'), DEFAULTS.budget);
+    await set(ref(db, 'initialized'), true);
+  }
 }
 
-function renderVoteGroup(id){
-  const container = document.getElementById(`vopts-${id}`);
-  if(!container) return;
-  const state = voteState[id];
-  const total = state.options.reduce((s,o)=>s+o.votes,0);
-  container.innerHTML = '';
-  state.options.forEach((opt,i)=>{
-    const isMe = state.myVote === i;
-    const pct = total > 0 ? Math.round(opt.votes/total*100) : 0;
+// ─── LIVE LISTENERS ───────────────────────────────────────
+function startListeners() {
+  // VOTES
+  onValue(ref(db, 'votes'), snap => {
+    liveVotes = snap.val() || {};
+    Object.keys(liveVotes).forEach(g => renderVoteGroup(g));
+  });
+
+  // MISSIONS
+  onValue(ref(db, 'missions'), snap => {
+    liveMissions = snap.val() || {};
+    if (document.getElementById('secretCard')?.style.display !== 'none') renderMissions();
+  });
+
+  // BUDGET
+  onValue(ref(db, 'budget'), snap => {
+    liveBudget = snap.val() || {};
+    renderBudget();
+  });
+
+  // CARD EDITS
+  onValue(ref(db, 'cardEdits'), snap => {
+    liveCardEdits = snap.val() || {};
+    Object.entries(liveCardEdits).forEach(([id, e]) => applyCardEdit(id, e));
+  });
+}
+
+// ─── BOOT ────────────────────────────────────────────────
+window.addEventListener('DOMContentLoaded', async () => {
+  try {
+    await seedIfNeeded();
+    startListeners();
+    // Restore mode
+    if (myMode === 'attendee') enterApp(true, false);
+    else if (myMode === 'bday') enterApp(false, false);
+  } catch(e) {
+    console.error('Firebase error:', e);
+    document.getElementById('landing').innerHTML += `<div style="margin-top:20px;padding:16px;background:#ffe0e0;border-radius:16px;font-size:13px;color:#c00">⚠️ Firebase not configured yet. Open the HTML file and paste your Firebase config keys at the top of the &lt;script&gt; block.</div>`;
+  }
+});
+
+// ─── VOTES ────────────────────────────────────────────────
+function renderVoteGroup(groupId) {
+  const c = document.getElementById('vopts-' + groupId); if (!c) return;
+  const group = liveVotes[groupId]; if (!group) return;
+  const options = group.options || [];
+  const total = options.reduce((t, o) => t + (o.votes || 0), 0);
+  const myIdx = myVotes[groupId] ?? null;
+  c.innerHTML = '';
+  options.forEach((opt, i) => {
+    const isMe = myIdx === i;
+    const pct = total > 0 ? Math.round((opt.votes || 0) / total * 100) : 0;
     const div = document.createElement('div');
     div.className = 'vote-option' + (isMe ? ' my-pick' : '');
-    div.id = `vopt-${id}-${i}`;
-    div.innerHTML = `
-      <div style="flex:1;min-width:0">
-        <div class="vote-opt-name">${opt.name}</div>
-        ${opt.link ? `<a class="vote-opt-link" href="${opt.link}" target="_blank">↗ View</a>` : ''}
-      </div>
-      <div class="vote-right">
-        <div class="vote-bar-wrap"><div class="vote-bar" style="width:${pct}%"></div></div>
-        <div class="vote-count">${opt.votes}</div>
-        <button class="vote-cast-btn ${isMe?'voted':''}" onclick="castVote('${id}',${i})">${isMe?'✓ Voted':'Vote'}</button>
-        <button class="del-vote-btn" onclick="deleteVoteOption('${id}',${i})" title="Remove option">✕</button>
-      </div>`;
-    container.appendChild(div);
+    div.innerHTML = `<div style="flex:1;min-width:0"><div class="vote-opt-name">${opt.name}</div>${opt.link ? `<a class="vote-opt-link" href="${opt.link}" target="_blank">↗ View</a>` : ''}</div><div class="vote-right"><div class="vote-bar-wrap"><div class="vote-bar" style="width:${pct}%"></div></div><div class="vote-count">${opt.votes||0}</div><button class="vote-cast-btn ${isMe?'voted':''}" onclick="castVote('${groupId}',${i})">${isMe?'✓ Voted':'Vote'}</button><button class="del-vote-btn" onclick="deleteVoteOption('${groupId}',${i})" title="Remove">✕</button></div>`;
+    c.appendChild(div);
   });
 }
 
-function castVote(groupId, idx){
-  const state = voteState[groupId];
-  if(state.myVote === idx){
+async function castVote(groupId, idx) {
+  const group = liveVotes[groupId]; if (!group) return;
+  const options = [...(group.options || [])];
+  const prev = myVotes[groupId] ?? null;
+  if (prev === idx) {
     // UNVOTE
-    state.options[idx].votes = Math.max(0, state.options[idx].votes - 1);
-    state.myVote = null;
+    options[idx] = { ...options[idx], votes: Math.max(0, (options[idx].votes||0) - 1) };
+    myVotes[groupId] = null;
   } else {
-    // Remove old vote
-    if(state.myVote !== null){
-      state.options[state.myVote].votes = Math.max(0, state.options[state.myVote].votes - 1);
-    }
-    state.options[idx].votes++;
-    state.myVote = idx;
+    if (prev !== null && options[prev]) options[prev] = { ...options[prev], votes: Math.max(0, (options[prev].votes||0) - 1) };
+    options[idx] = { ...options[idx], votes: (options[idx].votes||0) + 1 };
+    myVotes[groupId] = idx;
   }
-  renderVoteGroup(groupId);
+  saveMyVotes();
+  await set(ref(db, `votes/${groupId}/options`), options);
+  showStatus('Vote saved ✨');
 }
 
-function deleteVoteOption(groupId, idx){
-  const state = voteState[groupId];
-  if(state.myVote === idx) state.myVote = null;
-  else if(state.myVote !== null && state.myVote > idx) state.myVote--;
-  state.options.splice(idx,1);
-  renderVoteGroup(groupId);
+async function deleteVoteOption(groupId, idx) {
+  const group = liveVotes[groupId]; if (!group) return;
+  const options = [...(group.options || [])];
+  // Adjust my vote index
+  if (myVotes[groupId] === idx) myVotes[groupId] = null;
+  else if (myVotes[groupId] !== null && myVotes[groupId] > idx) myVotes[groupId]--;
+  options.splice(idx, 1);
+  saveMyVotes();
+  await set(ref(db, `votes/${groupId}/options`), options);
+  showStatus('Option removed');
 }
 
-function toggleAddForm(id){
-  const form = document.getElementById(`addform-${id}`);
-  form.classList.toggle('open');
+function toggleAddForm(id) { document.getElementById('addform-' + id).classList.toggle('open'); }
+
+async function addVoteOption(groupId) {
+  const n = document.getElementById('addname-' + groupId);
+  const l = document.getElementById('addlink-' + groupId);
+  if (!n.value.trim()) return;
+  const group = liveVotes[groupId] || { options: [] };
+  const options = [...(group.options || []), { name: n.value.trim(), link: l.value.trim(), votes: 0 }];
+  n.value = ''; l.value = '';
+  document.getElementById('addform-' + groupId).classList.remove('open');
+  await set(ref(db, `votes/${groupId}/options`), options);
+  showStatus('Option added 🎉');
 }
 
-function addVoteOption(groupId){
-  const nameEl = document.getElementById(`addname-${groupId}`);
-  const linkEl = document.getElementById(`addlink-${groupId}`);
-  const name = nameEl.value.trim();
-  if(!name) return;
-  voteState[groupId].options.push({name, link: linkEl.value.trim(), votes:0});
-  nameEl.value = ''; linkEl.value = '';
-  document.getElementById(`addform-${groupId}`).classList.remove('open');
-  renderVoteGroup(groupId);
+// ─── CARD EDITS ───────────────────────────────────────────
+function applyCardEdit(id, e) {
+  if (!e) return;
+  const setText = (elId, val) => { const el = document.getElementById(elId); if (el && val) el.textContent = val; };
+  setText('time-' + id, e.time); setText('title-' + id, e.title);
+  setText('detail-' + id, e.detail); setText('cost-' + id, e.cost);
+  if (e.link) {
+    const card = document.getElementById('card-' + id); if (!card) return;
+    let bot = card.querySelector('.card-bottom');
+    if (!bot) { bot = document.createElement('div'); bot.className = 'card-bottom'; card.appendChild(bot); }
+    let a = bot.querySelector('.custom-link');
+    if (!a) { a = document.createElement('a'); a.className = 'link-btn custom-link'; a.target = '_blank'; a.textContent = '🔗 Link'; bot.appendChild(a); }
+    a.href = e.link;
+  }
 }
-
-// ─── EDIT ────────────────────────────────────────────────
-function openEdit(id){
+function openEdit(id) {
   editTarget = id;
-  document.getElementById('edit-time').value = document.getElementById(`time-${id}`)?.textContent.trim()||'';
-  document.getElementById('edit-title').value = document.getElementById(`title-${id}`)?.textContent.trim()||'';
-  document.getElementById('edit-detail').value = document.getElementById(`detail-${id}`)?.textContent.trim()||'';
-  document.getElementById('edit-cost').value = document.getElementById(`cost-${id}`)?.textContent.trim()||'';
-  document.getElementById('edit-link').value = '';
+  document.getElementById('edit-time').value = document.getElementById('time-' + id)?.textContent.trim() || '';
+  document.getElementById('edit-title').value = document.getElementById('title-' + id)?.textContent.trim() || '';
+  document.getElementById('edit-detail').value = document.getElementById('detail-' + id)?.textContent.trim() || '';
+  document.getElementById('edit-cost').value = document.getElementById('cost-' + id)?.textContent.trim() || '';
+  document.getElementById('edit-link').value = (liveCardEdits[id] || {}).link || '';
   document.getElementById('editOverlay').classList.add('open');
 }
-function closeEdit(){ document.getElementById('editOverlay').classList.remove('open'); editTarget=null; }
-function saveEdit(){
-  if(!editTarget) return;
-  const get = id => document.getElementById(id)?.value||'';
-  const setTxt = (id,v) => { const e=document.getElementById(id); if(e) e.textContent=v; };
-  setTxt(`time-${editTarget}`, get('edit-time'));
-  setTxt(`title-${editTarget}`, get('edit-title'));
-  setTxt(`detail-${editTarget}`, get('edit-detail'));
-  setTxt(`cost-${editTarget}`, get('edit-cost'));
-  const link = get('edit-link').trim();
-  if(link){
-    const card = document.getElementById(`card-${editTarget}`);
-    let bottom = card.querySelector('.card-bottom');
-    if(!bottom){ bottom=document.createElement('div'); bottom.className='card-bottom'; card.appendChild(bottom); }
-    let a = bottom.querySelector('.custom-link');
-    if(!a){ a=document.createElement('a'); a.className='link-btn custom-link'; a.target='_blank'; a.textContent='🔗 Link'; bottom.appendChild(a); }
-    a.href=link;
-  }
-  closeEdit();
-  confettiBurst();
+function closeEdit() { document.getElementById('editOverlay').classList.remove('open'); editTarget = null; }
+async function saveEdit() {
+  if (!editTarget) return;
+  const g = id => document.getElementById(id)?.value || '';
+  const edit = { time: g('edit-time'), title: g('edit-title'), detail: g('edit-detail'), cost: g('edit-cost'), link: g('edit-link').trim() };
+  await set(ref(db, `cardEdits/${editTarget.replace(/-/g,'_')}`), edit);
+  closeEdit(); confettiBurst(); showStatus('Saved ✨');
 }
 
-// ─── MISSIONS ────────────────────────────────────────────
-function renderMissions(){
-  const list = document.getElementById('mission-list');
-  if(!list) return;
-  list.innerHTML='';
-  missions.forEach(m=>{
-    const div=document.createElement('div');
-    div.className='secret-pill';
-    div.id=`mission-pill-${m.id}`;
-    div.innerHTML=`
-      <div class="secret-pill-header">
-        <div class="secret-pill-title-wrap">
-          <div class="secret-check ${m.done?'done':''}" onclick="toggleMissionDone(${m.id})">${m.done?'✓':''}</div>
-          <div class="secret-pill-title ${m.done?'done-title':''}" id="mtitle-${m.id}">${m.title}</div>
-        </div>
-        <div style="display:flex;gap:6px">
-          <button class="secret-edit-btn" onclick="toggleMissionEdit(${m.id})">✏️</button>
-          <button class="secret-del" onclick="deleteMission(${m.id})">🗑️</button>
-        </div>
-      </div>
-      <div class="secret-pill-body" id="mbody-${m.id}">${m.body}</div>
-      <div class="secret-edit-area" id="medit-${m.id}">
-        <input class="secret-edit-input" id="medit-title-${m.id}" value="${m.title}" placeholder="Mission title"/>
-        <textarea class="secret-edit-input" id="medit-body-${m.id}" style="min-height:60px">${m.body}</textarea>
-        <button class="secret-save-btn" onclick="saveMissionEdit(${m.id})">Save</button>
-      </div>`;
+// ─── MISSIONS ─────────────────────────────────────────────
+function renderMissions() {
+  const list = document.getElementById('mission-list'); if (!list) return; list.innerHTML = '';
+  const missions = Object.values(liveMissions).sort((a, b) => String(a.id).localeCompare(String(b.id)));
+  missions.forEach(m => {
+    const safeTitle = m.title.replace(/"/g,'&quot;').replace(/</g,'&lt;');
+    const safeBody = m.body.replace(/</g,'&lt;');
+    const div = document.createElement('div'); div.className = 'secret-pill';
+    div.innerHTML = `<div class="secret-pill-header"><div class="secret-pill-title-wrap"><div class="secret-check ${m.done?'done':''}" onclick="toggleMissionDone('${m.id}')">${m.done?'✓':''}</div><div class="secret-pill-title ${m.done?'done-title':''}">${safeTitle}</div></div><div style="display:flex;gap:6px"><button class="secret-edit-btn" onclick="toggleMissionEdit('${m.id}')">✏️</button><button class="secret-del" onclick="deleteMission('${m.id}')">🗑️</button></div></div><div class="secret-pill-body">${safeBody}</div><div class="secret-edit-area" id="medit-${m.id}"><input class="secret-edit-input" id="medit-title-${m.id}" value="${safeTitle}" placeholder="Mission title"/><textarea class="secret-edit-input" id="medit-body-${m.id}" style="min-height:60px">${safeBody}</textarea><button class="secret-save-btn" onclick="saveMissionEdit('${m.id}')">Save</button></div>`;
     list.appendChild(div);
   });
 }
-function toggleMissionDone(id){
-  const m=missions.find(x=>x.id===id);
-  if(m){ m.done=!m.done; renderMissions(); }
+async function toggleMissionDone(id) {
+  const m = liveMissions[id]; if (!m) return;
+  await update(ref(db, `missions/${id}`), { done: !m.done });
 }
-function deleteMission(id){
-  missions=missions.filter(x=>x.id!==id);
-  renderMissions();
+async function deleteMission(id) {
+  await remove(ref(db, `missions/${id}`));
+  showStatus('Mission deleted');
 }
-function toggleMissionEdit(id){
-  const area=document.getElementById(`medit-${id}`);
-  area.style.display=area.style.display==='block'?'none':'block';
+function toggleMissionEdit(id) { const a = document.getElementById('medit-' + id); a.style.display = a.style.display === 'block' ? 'none' : 'block'; }
+async function saveMissionEdit(id) {
+  const title = document.getElementById('medit-title-' + id)?.value;
+  const body  = document.getElementById('medit-body-' + id)?.value;
+  if (title !== undefined) await update(ref(db, `missions/${id}`), { title, body });
+  showStatus('Mission updated ✨');
 }
-function saveMissionEdit(id){
-  const m=missions.find(x=>x.id===id);
-  if(m){
-    m.title=document.getElementById(`medit-title-${id}`).value;
-    m.body=document.getElementById(`medit-body-${id}`).value;
-    renderMissions();
-  }
-}
-function saveMission(){
-  const title=document.getElementById('new-mission-title').value.trim();
-  const body=document.getElementById('new-mission-body').value.trim();
-  if(!title) return;
-  missions.push({id:missionIdCounter++, title, body, done:false});
-  document.getElementById('new-mission-title').value='';
-  document.getElementById('new-mission-body').value='';
+async function saveMission() {
+  const title = document.getElementById('new-mission-title').value.trim();
+  const body  = document.getElementById('new-mission-body').value.trim();
+  if (!title) return;
+  const newRef = push(ref(db, 'missions'));
+  await set(newRef, { id: newRef.key, title, body, done: false });
+  document.getElementById('new-mission-title').value = '';
+  document.getElementById('new-mission-body').value = '';
   document.getElementById('addMissionModal').classList.remove('open');
-  renderMissions();
+  showStatus('Mission added 🎯');
 }
 
-// ─── BUDGET ──────────────────────────────────────────────
-function addBudgetRow(name='',amt=''){
-  const id=++budgetIdCounter;
-  budgetRows.push({id, name, amt});
-  renderBudget();
-}
-function deleteBudgetRow(id){
-  budgetRows=budgetRows.filter(r=>r.id!==id);
-  renderBudget();
-}
-function renderBudget(){
-  const list=document.getElementById('budget-list');
-  list.innerHTML='';
-  budgetRows.forEach(r=>{
-    const div=document.createElement('div');
-    div.className='budget-row';
-    div.innerHTML=`
-      <input class="field-input" style="flex:1;margin:0;padding:8px 10px;font-size:13px;background:transparent;border:none;" 
-        placeholder="Name" value="${r.name}" oninput="updateBudgetRow(${r.id},'name',this.value)"/>
-      <span style="color:var(--text-muted);font-weight:700">$</span>
-      <input type="number" class="budget-amt" placeholder="0" value="${r.amt}" 
-        oninput="updateBudgetRow(${r.id},'amt',this.value)" min="0"/>
-      <button class="budget-del" onclick="deleteBudgetRow(${r.id})">✕</button>`;
+// ─── BUDGET ───────────────────────────────────────────────
+function renderBudget() {
+  const list = document.getElementById('budget-list'); if (!list) return; list.innerHTML = '';
+  Object.values(liveBudget).forEach(r => {
+    const div = document.createElement('div'); div.className = 'budget-row';
+    const safeName = (r.name||'').replace(/"/g,'&quot;');
+    div.innerHTML = `<input class="field-input" style="flex:1;margin:0;padding:8px 10px;font-size:13px;background:transparent;border:none;" placeholder="Name" value="${safeName}" onchange="updateBudgetRow('${r.id}','name',this.value)"/><span style="color:var(--text-muted);font-weight:700">$</span><input type="number" class="budget-amt" placeholder="0" value="${r.amt||''}" onchange="updateBudgetRow('${r.id}','amt',this.value)" min="0"/><button class="budget-del" onclick="deleteBudgetRow('${r.id}')">✕</button>`;
     list.appendChild(div);
   });
   calcBudgetAvg();
 }
-function updateBudgetRow(id,field,val){
-  const r=budgetRows.find(x=>x.id===id);
-  if(r) r[field]=val;
-  calcBudgetAvg();
+async function addBudgetRow() {
+  const newRef = push(ref(db, 'budget'));
+  await set(newRef, { id: newRef.key, name: '', amt: '' });
 }
-function calcBudgetAvg(){
-  const vals=budgetRows.map(r=>parseFloat(r.amt)).filter(v=>!isNaN(v)&&v>0);
-  const el=document.getElementById('budget-avg-display');
-  if(vals.length===0){ el.textContent='—'; return; }
-  const avg=vals.reduce((s,v)=>s+v,0)/vals.length;
-  el.textContent='$'+Math.round(avg);
+async function deleteBudgetRow(id) { await remove(ref(db, `budget/${id}`)); }
+async function updateBudgetRow(id, field, val) { await update(ref(db, `budget/${id}`), { [field]: val }); }
+function calcBudgetAvg() {
+  const vals = Object.values(liveBudget).map(r => parseFloat(r.amt)).filter(v => !isNaN(v) && v > 0);
+  const el = document.getElementById('budget-avg-display'); if (!el) return;
+  el.textContent = vals.length ? '$' + Math.round(vals.reduce((s,v)=>s+v,0)/vals.length) : '—';
 }
 
-// ─── MODE ─────────────────────────────────────────────────
-function openBirthdayGirl(){
-  attendeeMode=false;
-  document.getElementById('landing').style.display='none';
+// ─── MODE / APP ───────────────────────────────────────────
+function enterApp(asAttendee, doConfetti = true) {
+  localStorage.setItem('harshi_mode', asAttendee ? 'attendee' : 'bday');
+  myMode = asAttendee ? 'attendee' : 'bday';
+  document.getElementById('landing').style.display = 'none';
   document.getElementById('app').classList.add('active');
-  document.getElementById('modeText').textContent='Birthday Girl Experience';
-  document.getElementById('secretCard').style.display='none';
-  document.getElementById('bdaySidebar').style.display='block';
-  document.querySelectorAll('.surprise-card').forEach(el=>el.style.display='none');
-  document.querySelectorAll('.edit-btn').forEach(el=>el.style.pointerEvents='none');
+  document.getElementById('modeText').textContent = asAttendee ? 'Attendee Experience ✨' : 'Birthday Girl Experience';
+  document.getElementById('secretCard').style.display = asAttendee ? 'block' : 'none';
+  document.getElementById('bdaySidebar').style.display = asAttendee ? 'none' : 'block';
+  document.querySelectorAll('.surprise-card').forEach(el => el.style.display = asAttendee ? 'block' : 'none');
+  document.querySelectorAll('.edit-btn').forEach(el => el.style.pointerEvents = asAttendee ? 'auto' : 'none');
+  if (asAttendee) renderMissions();
+  if (doConfetti) launchConfetti();
 }
-function openPassword(){ document.getElementById('passwordModal').classList.add('open'); }
-function unlockAttendee(){
-  const val=document.getElementById('passwordInput').value;
-  if(val===PASSWORD){
-    attendeeMode=true;
+function openBirthdayGirl() { enterApp(false, false); }
+function openPassword() { document.getElementById('passwordModal').classList.add('open'); }
+function unlockAttendee() {
+  const val = document.getElementById('passwordInput').value;
+  if (val === PASSWORD) {
     document.getElementById('passwordModal').classList.remove('open');
-    document.getElementById('landing').style.display='none';
-    document.getElementById('app').classList.add('active');
-    document.getElementById('modeText').textContent='Attendee Experience ✨';
-    document.getElementById('secretCard').style.display='block';
-    document.getElementById('bdaySidebar').style.display='none';
-    document.querySelectorAll('.surprise-card').forEach(el=>el.style.display='block');
-    document.querySelectorAll('.edit-btn').forEach(el=>el.style.pointerEvents='auto');
-    renderMissions();
-    launchConfetti();
-  } else {
-    document.getElementById('passwordError').style.display='block';
-  }
+    enterApp(true, true);
+  } else { document.getElementById('passwordError').style.display = 'block'; }
 }
 
-function switchDay(idx,el){
-  document.querySelectorAll('.section').forEach(s=>s.classList.remove('active'));
-  document.querySelectorAll('.tab').forEach(t=>t.classList.remove('active'));
-  document.getElementById(`day-${idx}`).classList.add('active');
-  el.classList.add('active');
+// ─── NAVIGATION ───────────────────────────────────────────
+function switchDay(idx, el) {
+  document.querySelectorAll('.section').forEach(s => s.classList.remove('active'));
+  document.querySelectorAll('.tab').forEach(t => t.classList.remove('active'));
+  document.getElementById('day-' + idx).classList.add('active'); el.classList.add('active');
 }
 
-// ─── COUNTDOWN ───────────────────────────────────────────
-const tripDate=new Date("2025-07-16T09:00:00");
-function tick(){
-  const diff=tripDate-new Date();
-  if(diff<=0){ ['cd-d','cd-h','cd-m','cd-s'].forEach(id=>{const e=document.getElementById(id);if(e)e.textContent='🎉';}); return; }
-  const d=Math.floor(diff/864e5);
-  const h=Math.floor((diff%864e5)/36e5);
-  const m=Math.floor((diff%36e5)/6e4);
-  const s=Math.floor((diff%6e4)/1e3);
-  document.getElementById('cd-d').textContent=d;
-  document.getElementById('cd-h').textContent=h;
-  document.getElementById('cd-m').textContent=m;
-  document.getElementById('cd-s').textContent=s;
+// ─── COUNTDOWN ────────────────────────────────────────────
+const tripDate = new Date("2025-07-16T09:00:00");
+function tick() {
+  const diff = tripDate - new Date();
+  if (diff <= 0) { ['cd-d','cd-h','cd-m','cd-s'].forEach(id => { const e = document.getElementById(id); if (e) e.textContent = '🎉'; }); return; }
+  document.getElementById('cd-d').textContent = Math.floor(diff / 864e5);
+  document.getElementById('cd-h').textContent = Math.floor((diff % 864e5) / 36e5);
+  document.getElementById('cd-m').textContent = Math.floor((diff % 36e5) / 6e4);
+  document.getElementById('cd-s').textContent = Math.floor((diff % 6e4) / 1e3);
 }
-setInterval(tick,1000); tick();
+setInterval(tick, 1000); tick();
 
 // ─── DARK MODE ────────────────────────────────────────────
-function toggleDark(){
-  dark=!dark;
-  document.body.classList.toggle('dark',dark);
+function toggleDark() {
+  darkPref = !darkPref;
+  document.body.classList.toggle('dark', darkPref);
+  localStorage.setItem('harshi_dark', darkPref);
 }
 
 // ─── CONFETTI ─────────────────────────────────────────────
-function launchConfetti(){
-  const colors=["#d14b91","#8f79ff","#7aa6d9","#ffffff","#ffce6e"];
-  const end=Date.now()+2500;
-  (function frame(){
-    const c=document.createElement('div');
-    c.style.cssText=`position:fixed;width:9px;height:9px;border-radius:50%;background:${colors[~~(Math.random()*colors.length)]};left:${Math.random()*100}vw;top:-20px;z-index:9999;pointer-events:none;`;
+function launchConfetti() {
+  const colors = ["#d14b91","#8f79ff","#7aa6d9","#ffffff","#ffce6e"]; const end = Date.now() + 2500;
+  (function frame() {
+    const c = document.createElement('div');
+    c.style.cssText = `position:fixed;width:9px;height:9px;border-radius:50%;background:${colors[~~(Math.random()*colors.length)]};left:${Math.random()*100}vw;top:-20px;z-index:9999;pointer-events:none;`;
     document.body.appendChild(c);
-    const fall=setInterval(()=>{
-      c.style.top=c.offsetTop+8+'px';
-      c.style.transform=`translateX(${Math.sin(Date.now()/100)*20}px)`;
-      if(c.offsetTop>window.innerHeight){clearInterval(fall);c.remove();}
-    },16);
-    if(Date.now()<end) requestAnimationFrame(frame);
+    const fall = setInterval(() => { c.style.top = c.offsetTop + 8 + 'px'; c.style.transform = `translateX(${Math.sin(Date.now()/100)*20}px)`; if (c.offsetTop > window.innerHeight) { clearInterval(fall); c.remove(); } }, 16);
+    if (Date.now() < end) requestAnimationFrame(frame);
   })();
 }
-function confettiBurst(){
-  const colors=["#d14b91","#8f79ff","#7aa6d9"];
-  for(let i=0;i<16;i++){
-    setTimeout(()=>{
-      const c=document.createElement('div');
-      c.style.cssText=`position:fixed;width:8px;height:8px;border-radius:50%;background:${colors[~~(Math.random()*colors.length)]};left:${25+Math.random()*50}vw;top:${15+Math.random()*40}vh;z-index:9999;pointer-events:none;transition:all 1s ease;opacity:1;`;
-      document.body.appendChild(c);
-      setTimeout(()=>{c.style.top=parseInt(c.style.top)+120+'px';c.style.opacity='0';},50);
-      setTimeout(()=>c.remove(),1150);
-    },i*40);
-  }
+function confettiBurst() {
+  const colors = ["#d14b91","#8f79ff","#7aa6d9"];
+  for (let i = 0; i < 16; i++) { setTimeout(() => { const c = document.createElement('div'); c.style.cssText = `position:fixed;width:8px;height:8px;border-radius:50%;background:${colors[~~(Math.random()*colors.length)]};left:${25+Math.random()*50}vw;top:${15+Math.random()*40}vh;z-index:9999;pointer-events:none;transition:all 1s ease;opacity:1;`; document.body.appendChild(c); setTimeout(() => { c.style.top = parseInt(c.style.top) + 120 + 'px'; c.style.opacity = '0'; }, 50); setTimeout(() => c.remove(), 1150); }, i * 40); }
 }
-
-// ─── INIT ─────────────────────────────────────────────────
-initVotes();
-// Pre-fill a couple budget rows as examples
-addBudgetRow('Harshi','');
-addBudgetRow('','');
 </script>
 </body>
 </html>
