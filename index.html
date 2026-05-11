@@ -4,6 +4,9 @@
 <meta charset="UTF-8"/>
 <meta name="viewport" content="width=device-width,initial-scale=1.0,maximum-scale=1.0"/>
 <title>Harshi's Miami Birthday 🌴</title>
+<!-- Firebase loaded in head to guarantee availability before body scripts -->
+<script src="https://cdn.jsdelivr.net/npm/firebase@9.23.0/firebase-app-compat.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/firebase@9.23.0/firebase-database-compat.min.js"></script>
 <link rel="preconnect" href="https://fonts.googleapis.com"/>
 <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;600;700;800&family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet"/>
 <style>
@@ -235,7 +238,7 @@ body.dark .side-card{border-color:rgba(255,255,255,0.07);}
 </head>
 <body>
 
-<section class="landing" id="landing">
+<section class="landing" id="landing" style="display:none">
   <div class="landing-card">
     <div class="emoji">🌴</div>
     <div class="landing-sub">Miami • July 2025</div>
@@ -631,9 +634,7 @@ body.dark .side-card{border-color:rgba(255,255,255,0.07);}
 </div>
 
 
-<!-- Firebase (jsDelivr CDN — most reliable for GitHub Pages) -->
-<script src="https://cdn.jsdelivr.net/npm/firebase@9.23.0/firebase-app-compat.min.js"></script>
-<script src="https://cdn.jsdelivr.net/npm/firebase@9.23.0/firebase-database-compat.min.js"></script>
+<!-- App Script -->
 <script>
 // Safety check — if firebase didn't load, show a clear error
 if (typeof firebase === 'undefined') {
@@ -673,7 +674,6 @@ try { myVotes = JSON.parse(localStorage.getItem(PASSWORD_KEY) || '{}'); } catch(
 function saveMyVotes() { localStorage.setItem(PASSWORD_KEY, JSON.stringify(myVotes)); }
 
 var darkPref        = localStorage.getItem('harshi_dark') === 'true';
-if (darkPref) document.body.classList.add('dark');
 
 // Mode is NEVER saved — always show landing on refresh
 var myMode          = null;
@@ -1062,7 +1062,7 @@ function enterApp(asAttendee, doConfetti) {
 
   // Hide landing completely
   var landing = document.getElementById('landing');
-  landing.classList.add('hidden');
+  landing.style.display = 'none';
 
   document.getElementById('app').classList.add('active');
   document.getElementById('modeText').textContent = asAttendee ? 'Attendee Experience ✨' : 'Birthday Girl Experience';
@@ -1159,17 +1159,21 @@ function confettiBurst() {
 }
 
 // ── BOOT ──────────────────────────────────────────────────────────────────────
-seedIfNeeded().then(function(){ 
-  startListeners();
-  // Monitor connection state
-  ref('.info/connected').on('value', function(snap) {
-    if (snap.val() === true) {
-      showStatus('Connected ✅');
-    }
+document.addEventListener('DOMContentLoaded', function() {
+  // Apply dark mode
+  if (darkPref) document.body.classList.add('dark');
+  // Show landing
+  document.getElementById('landing').style.display = 'flex';
+
+  seedIfNeeded().then(function(){ 
+    startListeners();
+    ref('.info/connected').on('value', function(snap) {
+      if (snap.val() === true) showStatus('Connected ✅');
+    });
+  }).catch(function(e){ 
+    console.error('Firebase error:', e);
+    showStatus('⚠️ Database error — check Firebase rules');
   });
-}).catch(function(e){ 
-  console.error('Firebase error:', e);
-  showStatus('⚠️ Database error — check Firebase rules');
 });
 
 </script>
