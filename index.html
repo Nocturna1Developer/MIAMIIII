@@ -228,6 +228,8 @@ body.dark .add-event-btn{background:linear-gradient(135deg,rgba(209,75,145,0.08)
 .tag-picker{display:flex;flex-wrap:wrap;gap:8px;margin-bottom:16px;}
 .tag-pick-btn{border:none;cursor:pointer;font-size:11px;font-weight:700;letter-spacing:.08em;text-transform:uppercase;padding:7px 12px;border-radius:100px;opacity:.45;transition:.2s;}
 .tag-pick-btn.selected{opacity:1;}
+/* ─── ALWAYS SHOW EDIT BTN (both modes) ────────────────── */
+.edit-btn-visible { opacity: 1 !important; }
 </style>
 </head>
 <body>
@@ -348,7 +350,7 @@ body.dark .add-event-btn{background:linear-gradient(135deg,rgba(209,75,145,0.08)
   <section class="hero">
     <div class="hero-wrap">
       <div class="hero-card">
-        <div class="hero-mini">Miami • July 16–19</div>
+        <div class="hero-mini">Miami • July 23–26</div>
         <div class="hero-title">4 Days of<br/>Birthday Chaos</div>
         <div class="hero-sub">Sunsets, yacht parties, rooftop dinners, matching outfits, and enough photo dumps to crash everyone's camera roll.</div>
         <div class="countdown">
@@ -733,7 +735,6 @@ window.addEventListener('DOMContentLoaded', async () => {
     await seedIfNeeded();
     startListeners();
     startCustomEventsListener();
-    // always show landing on refresh
   } catch(e) {
     console.error('Firebase error:', e);
     document.getElementById('landing').innerHTML += `<div style="margin-top:20px;padding:16px;background:#ffe0e0;border-radius:16px;font-size:13px;color:#c00">⚠️ Firebase not configured yet. Open the HTML file and paste your Firebase config keys at the top of the &lt;script&gt; block.</div>`;
@@ -891,6 +892,7 @@ function calcBudgetAvg() {
   el.textContent = vals.length ? '$' + Math.round(vals.reduce((s,v)=>s+v,0)/vals.length) : '—';
 }
 
+// ── FIX: edit buttons always clickable in both modes ──────
 function enterApp(asAttendee, doConfetti = true) {
   myMode = asAttendee ? 'attendee' : 'bday';
   document.getElementById('landing').style.display = 'none';
@@ -899,7 +901,8 @@ function enterApp(asAttendee, doConfetti = true) {
   document.getElementById('secretCard').style.display = asAttendee ? 'block' : 'none';
   document.getElementById('bdaySidebar').style.display = asAttendee ? 'none' : 'block';
   document.querySelectorAll('.surprise-card').forEach(el => el.style.display = asAttendee ? 'block' : 'none');
-  document.querySelectorAll('.edit-btn').forEach(el => el.style.pointerEvents = asAttendee ? 'auto' : 'none');
+  // Edit buttons are always enabled for both modes
+  document.querySelectorAll('.edit-btn').forEach(el => el.style.pointerEvents = 'auto');
   if (asAttendee) renderMissions();
   if (doConfetti) launchConfetti();
 }
@@ -919,6 +922,7 @@ function switchDay(idx, el) {
   document.getElementById('day-' + idx).classList.add('active'); el.classList.add('active');
 }
 
+// ── FIX: corrected trip start date to July 23 ────────────
 const tripDate = new Date("2026-07-23T09:00:00");
 function tick() {
   const diff = tripDate - new Date();
@@ -951,7 +955,7 @@ function confettiBurst() {
   for (let i = 0; i < 16; i++) { setTimeout(() => { const c = document.createElement('div'); c.style.cssText = `position:fixed;width:8px;height:8px;border-radius:50%;background:${colors[~~(Math.random()*colors.length)]};left:${25+Math.random()*50}vw;top:${15+Math.random()*40}vh;z-index:9999;pointer-events:none;transition:all 1s ease;opacity:1;`; document.body.appendChild(c); setTimeout(() => { c.style.top = parseInt(c.style.top) + 120 + 'px'; c.style.opacity = '0'; }, 50); setTimeout(() => c.remove(), 1150); }, i * 40); }
 }
 
-// ─── ADD / DELETE EVENTS (NEW FUNCTIONALITY) ──────────────
+// ─── ADD / DELETE EVENTS ──────────────────────────────────
 let addEventTargetDay = null;
 
 function openAddEvent(dayIdx) {
@@ -1000,12 +1004,10 @@ async function deleteCustomEvent(id) {
 }
 
 function renderCustomEvent(ev) {
-  // Find the add-event button anchor for this day
   const daySection = document.getElementById('day-' + ev.day);
   if (!daySection) return;
   const container = daySection.querySelector('.add-event-btn');
   if (!container) return;
-  // Remove existing card if re-rendering
   const existingCard = document.getElementById('custom-card-' + ev.id);
   if (existingCard) existingCard.remove();
   const tagHtml = (ev.tags || []).map(t => `<span class="tag ${t}">${t.charAt(0).toUpperCase()+t.slice(1)}</span>`).join('');
@@ -1026,13 +1028,11 @@ function renderCustomEvent(ev) {
     <div class="card-detail" id="detail-custom_${ev.id}">${ev.detail || ''}</div>
     ${(ev.cost || ev.link) ? `<div class="card-bottom">${ev.cost ? `<span class="cost-pill" id="cost-custom_${ev.id}">${ev.cost}</span>` : ''}${linkHtml}</div>` : ''}
   `;
-  // Insert before the add-event button so it appears above it
   container.parentNode.insertBefore(div, container);
 }
 
 function startCustomEventsListener() {
   onValue(ref(db, 'customEvents'), snap => {
-    // Remove all existing custom cards first
     document.querySelectorAll('[id^="custom-card-"]').forEach(el => el.remove());
     const events = snap.val() || {};
     Object.values(events)
