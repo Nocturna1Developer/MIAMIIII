@@ -60,6 +60,7 @@ body.dark{
     var(--bg);
 }
 .landing{min-height:100vh;display:flex;align-items:center;justify-content:center;padding:24px;}
+.landing.hidden{display:none !important;}
 .landing-card{width:min(520px,100%);background:rgba(255,255,255,0.72);backdrop-filter:blur(18px);border:1px solid rgba(255,255,255,0.5);border-radius:34px;padding:44px 36px;box-shadow:0 20px 60px rgba(0,0,0,0.08);text-align:center;position:relative;overflow:hidden;}
 body.dark .landing-card{background:rgba(26,18,40,0.85);border-color:rgba(255,255,255,0.08);}
 .landing-card::before{content:"";position:absolute;inset:0;background:radial-gradient(circle at top right,rgba(209,75,145,0.14),transparent 30%);pointer-events:none;}
@@ -210,6 +211,24 @@ body.dark .side-card{border-color:rgba(255,255,255,0.07);}
 .add-opt-input:focus{border-color:var(--accent);}
 .add-opt-confirm{border:none;cursor:pointer;background:var(--gradient);color:white;font-size:12px;font-weight:700;padding:10px 16px;border-radius:10px;}
 .add-opt-cancel{border:none;cursor:pointer;background:var(--input-bg);color:var(--text-muted);font-size:12px;font-weight:600;padding:10px 14px;border-radius:10px;}
+.add-activity-btn{
+  width:100%;border:none;cursor:pointer;
+  background:transparent;
+  border:2px dashed var(--accent);
+  color:var(--accent);
+  font-size:14px;font-weight:700;
+  padding:16px;border-radius:22px;
+  margin-bottom:18px;
+  transition:.2s;
+  display:none;
+  align-items:center;justify-content:center;gap:8px;
+}
+.add-activity-btn:hover{background:rgba(209,75,145,0.06);transform:translateY(-2px);}
+.tag-picker{display:flex;flex-wrap:wrap;gap:8px;margin-bottom:16px;}
+.tag-pick{border:1.5px solid var(--border);background:var(--btn-bg);color:var(--text-muted);font-size:12px;font-weight:700;padding:7px 14px;border-radius:100px;cursor:pointer;transition:.2s;letter-spacing:.06em;text-transform:uppercase;}
+.tag-pick.selected{border-color:var(--accent);background:rgba(209,75,145,0.1);color:var(--accent);}
+.delete-card-btn{border:none;cursor:pointer;background:transparent;color:rgba(209,75,145,0.35);font-size:13px;font-weight:600;padding:6px 10px;border-radius:8px;transition:.2s;flex-shrink:0;}
+.delete-card-btn:hover{color:#d9386e;background:rgba(217,56,110,0.08);}
 @media(max-width:980px){.grid{grid-template-columns:1fr;}.sidebar{position:relative;top:auto;}.hero-card{padding:34px 28px;}}
 @media(max-width:640px){.choice-grid{grid-template-columns:1fr;}.hero-title{font-size:54px;}.day-title{font-size:34px;}.topbar-inner{padding:12px;}.brand-sub{display:none;}.landing-card{padding:34px 24px;}.edit-btn{opacity:1;}}
 </style>
@@ -284,7 +303,33 @@ body.dark .side-card{border-color:rgba(255,255,255,0.07);}
   </div>
 </div>
 
-<div class="app" id="app">
+<div class="modal-overlay" id="addActivityModal">
+  <div class="modal-card">
+    <div class="modal-title">New Activity ✨</div>
+    <label class="field-label">Time</label>
+    <input type="text" class="field-input" id="na-time" placeholder="e.g. 3:00 PM"/>
+    <label class="field-label">Activity Name</label>
+    <input type="text" class="field-input" id="na-title" placeholder="e.g. Sunset Cruise"/>
+    <label class="field-label">Details / Notes</label>
+    <textarea class="field-textarea" id="na-detail" placeholder="What's happening…"></textarea>
+    <label class="field-label">Estimated Cost</label>
+    <input type="text" class="field-input" id="na-cost" placeholder="e.g. ~$40/person"/>
+    <label class="field-label">Link (optional)</label>
+    <input type="text" class="field-input" id="na-link" placeholder="https://…"/>
+    <label class="field-label">Tags</label>
+    <div class="tag-picker">
+      <button class="tag-pick" data-tag="food" onclick="toggleTagPick(this)">🍽️ Food</button>
+      <button class="tag-pick" data-tag="party" onclick="toggleTagPick(this)">🎉 Party</button>
+      <button class="tag-pick" data-tag="activity" onclick="toggleTagPick(this)">⚡ Activity</button>
+      <button class="tag-pick" data-tag="fancy" onclick="toggleTagPick(this)">✨ Fancy</button>
+      <button class="tag-pick" data-tag="surprise" onclick="toggleTagPick(this)">🎁 Surprise</button>
+    </div>
+    <div class="modal-actions">
+      <button class="btn-secondary" onclick="closeAddActivity()">Cancel</button>
+      <button class="btn-primary" onclick="saveNewActivity()">Add to Day ✨</button>
+    </div>
+  </div>
+</div>
   <div class="topbar">
     <div class="topbar-inner">
       <div class="brand">
@@ -333,6 +378,13 @@ body.dark .side-card{border-color:rgba(255,255,255,0.07);}
             <div class="day-tag">Day 1 • Arrival</div>
             <div class="day-title">South Beach Kickoff 🌅</div>
             <div class="day-desc">Beach day energy, rooftop dinners, and the official beginning of the chaos.</div>
+          </div>
+          <div class="card surprise-card" id="card-0-surprise1" style="display:none">
+            <div class="card-header"><span class="time-badge" id="time-0-s1">10:00 AM</span><button class="edit-btn" onclick="openEdit('0-s1')">✏️ Edit</button></div>
+            <div class="tags"><span class="tag surprise-tag">🎁 Surprise #1</span></div>
+            <div class="card-title" id="title-0-s1">Harshi Surprise #1: Scavenger Hunt 🎊</div>
+            <div class="card-detail" id="detail-0-s1">Each person leaves a clue leading Harshi to their gift. Plan your clues before Day 1 — coordinate secretly!</div>
+            <div class="card-bottom"><span class="cost-pill" id="cost-0-s1">At Airbnb</span></div>
           </div>
           <div class="card" id="card-0-0">
             <div class="card-header"><span class="time-badge" id="time-0-0">9:00 AM</span><button class="edit-btn" onclick="openEdit('0-0')">✏️ Edit</button></div>
@@ -388,6 +440,8 @@ body.dark .side-card{border-color:rgba(255,255,255,0.07);}
             </div>
             <div class="card-bottom"><span class="cost-pill" id="cost-0-5">~$40/person</span></div>
           </div>
+          <button class="add-activity-btn" onclick="openAddActivity(0)">＋ Add Activity to Day 1</button>
+          <div id="custom-cards-0"></div>
         </section>
 
         <!-- DAY 2 -->
@@ -437,6 +491,8 @@ body.dark .side-card{border-color:rgba(255,255,255,0.07);}
             </div>
             <div class="card-bottom"><span class="cost-pill" id="cost-1-3">~$40/person</span></div>
           </div>
+          <button class="add-activity-btn" onclick="openAddActivity(1)">＋ Add Activity to Day 2</button>
+          <div id="custom-cards-1"></div>
         </section>
 
         <!-- DAY 3 -->
@@ -501,6 +557,8 @@ body.dark .side-card{border-color:rgba(255,255,255,0.07);}
             </div>
             <div class="card-bottom"><span class="cost-pill" id="cost-2-6">~$80/person</span><a class="uber-btn" href="https://m.uber.com/looking" target="_blank">🚗 Uber</a></div>
           </div>
+          <button class="add-activity-btn" onclick="openAddActivity(2)">＋ Add Activity to Day 3</button>
+          <div id="custom-cards-2"></div>
         </section>
 
         <!-- DAY 4 -->
@@ -537,6 +595,8 @@ body.dark .side-card{border-color:rgba(255,255,255,0.07);}
             <div class="card-detail" id="detail-3-2">The end of an era. Allow enough buffer time for MIA.</div>
             <div class="card-bottom"><span class="cost-pill" id="cost-3-2">Departure</span><a class="link-btn" href="https://m.uber.com/looking" target="_blank">🚗 Uber to MIA</a></div>
           </div>
+          <button class="add-activity-btn" onclick="openAddActivity(3)">＋ Add Activity to Day 4</button>
+          <div id="custom-cards-3"></div>
         </section>
 
       </div>
@@ -570,31 +630,72 @@ body.dark .side-card{border-color:rgba(255,255,255,0.07);}
   <div class="footer">Our goal is to get banned from Miami.</div>
 </div>
 
-<!-- Firebase SDKs -->
-<script type="module">
-import { initializeApp } from "https://www.gstatic.com/firebasejs/11.0.1/firebase-app.js";
-import { getDatabase, ref, onValue, set, update, push, remove, get }
-  from "https://www.gstatic.com/firebasejs/11.0.1/firebase-database.js";
 
-// ─────────────────────────────────────────────────────────
-// 🔧 PASTE YOUR FIREBASE CONFIG HERE
-// Go to: Firebase Console → Project Settings → Your Apps → SDK setup
-// ─────────────────────────────────────────────────────────
-const firebaseConfig = {
+<!-- Firebase (compat CDN — synchronous, no imports, all globals) -->
+<script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-app-compat.js"></script>
+<script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-database-compat.js"></script>
+<script>
+
+// ── CONFIG ──────────────────────────────────────────────────────────────────
+const FIREBASE_CONFIG = {
   apiKey:            "AIzaSyBay-316WMd4eaG-NBybzF5gSvOPKuJ1zI",
   authDomain:        "miami-database.firebaseapp.com",
-  databaseURL:       "https://miami-database-default-rtdb.firebaseio.com/",
+  databaseURL:       "https://miami-database-default-rtdb.firebaseio.com",
   projectId:         "miami-database",
   storageBucket:     "miami-database.firebasestorage.app",
   messagingSenderId: "1006900825588",
   appId:             "1:1006900825588:web:7ace3fbddc7a01c6c2bda1",
 };
-// ─────────────────────────────────────────────────────────
-
 const PASSWORD = "miami2025";
 
-// ─── DEFAULT DATA (written to Firebase once on first load) ─
-const DEFAULTS = {
+// ── FIREBASE INIT ────────────────────────────────────────────────────────────
+firebase.initializeApp(FIREBASE_CONFIG);
+var db = firebase.database();
+
+// Tiny wrappers so code reads cleanly
+function ref(path)      { return db.ref(path); }
+function dbGet(r)       { return r.once('value'); }
+function dbSet(r,v)     { return r.set(v); }
+function dbUpdate(r,v)  { return r.update(v); }
+function dbPush(r)      { return r.push(); }
+function dbRemove(r)    { return r.remove(); }
+function onValue(r,cb)  { r.on('value', function(s){ cb(s); }); }
+
+// ── STATE ────────────────────────────────────────────────────────────────────
+var PASSWORD_KEY    = 'harshi_my_votes';
+var myVotes         = {};
+try { myVotes = JSON.parse(localStorage.getItem(PASSWORD_KEY) || '{}'); } catch(e) {}
+function saveMyVotes() { localStorage.setItem(PASSWORD_KEY, JSON.stringify(myVotes)); }
+
+var darkPref        = localStorage.getItem('harshi_dark') === 'true';
+if (darkPref) document.body.classList.add('dark');
+
+// Mode is NEVER saved — always show landing on refresh
+var myMode          = null;
+var editTarget      = null;
+var liveVotes       = {};
+var liveMissions    = {};
+var liveBudget      = {};
+var liveCardEdits   = {};
+var addActivityDay  = 0;
+var editingCustomId = null;
+
+// ── STATUS TOAST ─────────────────────────────────────────────────────────────
+function showStatus(msg) {
+  var el = document.getElementById('fb-status');
+  if (!el) {
+    el = document.createElement('div');
+    el.id = 'fb-status';
+    el.style.cssText = 'position:fixed;bottom:24px;left:50%;transform:translateX(-50%);background:linear-gradient(135deg,#d14b91,#8f79ff,#7aa6d9);color:white;padding:10px 20px;border-radius:100px;font-size:13px;font-weight:700;z-index:9999;box-shadow:0 8px 30px rgba(0,0,0,0.2);transition:opacity .5s;';
+    document.body.appendChild(el);
+  }
+  el.textContent = msg; el.style.opacity = '1';
+  clearTimeout(el._t);
+  el._t = setTimeout(function(){ el.style.opacity = '0'; }, 2000);
+}
+
+// ── DEFAULT DATA ─────────────────────────────────────────────────────────────
+var DEFAULTS = {
   votes: {
     lunch:   { options:[{name:'The Social Club',link:'https://www.thesocialclubmiami.com',votes:0},{name:'Watr Rooftop — 1 Hotel',link:'https://www.1hotels.com/south-beach/taste/watr-rooftop',votes:0}] },
     after:   { options:[{name:'Komodo',link:'https://www.komodorestaurant.com',votes:0},{name:'Sexy Fish Miami',link:'https://www.sexyfishmiami.com',votes:0},{name:'Bayside Marketplace',link:'https://www.baysidemarketplace.com',votes:0}] },
@@ -604,355 +705,457 @@ const DEFAULTS = {
     lastday: { options:[{name:'Hotel Spa',link:'https://www.spafinder.com/spa-travel/miami-beach-fl',votes:0},{name:'Last Beach Walk',link:'https://www.google.com/maps/search/South+Beach+Miami',votes:0}] },
   },
   missions: {
-    m1:{id:'m1',title:'Mission #1 🎊',body:"Scavenger hunt for her gifts — each of you leaves a clue leading to your present. Plan before Day 1!",done:false},
-    m2:{id:'m2',title:'Mission #2 🍣',body:"Secretly coordinate the sushi boat delivery to the Airbnb on Day 2 (~$250 total). One person owns this!",done:false},
-    m3:{id:'m3',title:'Mission #3 🏎️',body:"Book the Porsche Taycan rental on Turo for Day 3. Her dream car!",done:false},
+    m1:{id:'m1',title:'Mission #1 🎊',body:'Scavenger hunt for her gifts — each of you leaves a clue leading to your present. Plan before Day 1!',done:false},
+    m2:{id:'m2',title:'Mission #2 🍣',body:'Secretly coordinate the sushi boat delivery to the Airbnb on Day 2 (~$250 total). One person owns this!',done:false},
+    m3:{id:'m3',title:'Mission #3 🏎️',body:'Book the Porsche Taycan rental on Turo for Day 3. Her dream car!',done:false},
     m4:{id:'m4',title:'Mission #4 🎂',body:"Secretly order birthday shots at dinner. Don't let her see you!",done:false},
-    m5:{id:'m5',title:'Mission #5 🕺',body:"Get Harshi to dance on a table. Team effort required.",done:false},
-    m6:{id:'m6',title:'Mission #6 📱',body:"Make sure nobody loses their phone. Assign a phone keeper each night!",done:false},
-    m7:{id:'m7',title:'Mission #7 🏠',body:"Decorate the Airbnb before she arrives. Distract Harshi while others set it up!",done:false},
+    m5:{id:'m5',title:'Mission #5 🕺',body:'Get Harshi to dance on a table. Team effort required.',done:false},
+    m6:{id:'m6',title:'Mission #6 📱',body:'Make sure nobody loses their phone. Assign a phone keeper each night!',done:false},
+    m7:{id:'m7',title:'Mission #7 🏠',body:'Decorate the Airbnb before she arrives. Distract Harshi while others set it up!',done:false},
   },
   cardEdits: {},
   budget: {},
-  dark: false,
 };
 
-// ─── INIT FIREBASE ────────────────────────────────────────
-const app = initializeApp(firebaseConfig);
-const db  = getDatabase(app);
-
-// Per-user vote tracking (localStorage only — which poll option *I* voted for)
-const MY_VOTES_KEY = 'harshi_my_votes';
-let myVotes = {}; // { groupId: optionIndex }
-try { myVotes = JSON.parse(localStorage.getItem(MY_VOTES_KEY) || '{}'); } catch(e) {}
-function saveMyVotes() { localStorage.setItem(MY_VOTES_KEY, JSON.stringify(myVotes)); }
-
-// My dark mode preference
-let darkPref = localStorage.getItem('harshi_dark') === 'true';
-if (darkPref) document.body.classList.add('dark');
-
-// Per-user mode (birthday girl vs attendee) — local only
-let myMode = localStorage.getItem('harshi_mode'); // 'bday' | 'attendee' | null
-
-// Runtime
-let editTarget = null;
-let liveVotes = {}; // mirror of DB votes node
-let liveMissions = {}; // mirror of DB missions node
-let liveBudget = {}; // mirror of DB budget node
-let liveCardEdits = {}; // mirror of DB cardEdits node
-
-// ─── SHOW LOADING INDICATOR ───────────────────────────────
-function showStatus(msg) {
-  let el = document.getElementById('fb-status');
-  if (!el) {
-    el = document.createElement('div');
-    el.id = 'fb-status';
-    el.style.cssText = 'position:fixed;bottom:24px;left:50%;transform:translateX(-50%);background:var(--gradient);color:white;padding:10px 20px;border-radius:100px;font-size:13px;font-weight:700;z-index:9999;box-shadow:0 8px 30px rgba(0,0,0,0.2);transition:opacity .5s;';
-    document.body.appendChild(el);
-  }
-  el.textContent = msg; el.style.opacity = '1';
-  clearTimeout(el._t);
-  el._t = setTimeout(() => { el.style.opacity = '0'; }, 2000);
-}
-
-// ─── SEED DEFAULTS IF FIRST LOAD ─────────────────────────
+// ── SEED ON FIRST LOAD ───────────────────────────────────────────────────────
 async function seedIfNeeded() {
-  const snap = await get(ref(db, 'initialized'));
+  var snap = await dbGet(ref('initialized'));
   if (!snap.exists()) {
-    await set(ref(db, 'votes'), DEFAULTS.votes);
-    await set(ref(db, 'missions'), DEFAULTS.missions);
-    await set(ref(db, 'cardEdits'), DEFAULTS.cardEdits);
-    await set(ref(db, 'budget'), DEFAULTS.budget);
-    await set(ref(db, 'initialized'), true);
+    await dbSet(ref('votes'),     DEFAULTS.votes);
+    await dbSet(ref('missions'),  DEFAULTS.missions);
+    await dbSet(ref('cardEdits'), DEFAULTS.cardEdits);
+    await dbSet(ref('budget'),    DEFAULTS.budget);
+    await dbSet(ref('initialized'), true);
   }
 }
 
-// ─── LIVE LISTENERS ───────────────────────────────────────
+// ── LIVE LISTENERS ────────────────────────────────────────────────────────────
 function startListeners() {
-  // VOTES
-  onValue(ref(db, 'votes'), snap => {
+  onValue(ref('votes'), function(snap) {
     liveVotes = snap.val() || {};
-    Object.keys(liveVotes).forEach(g => renderVoteGroup(g));
+    Object.keys(liveVotes).forEach(function(g){ renderVoteGroup(g); });
   });
-
-  // MISSIONS
-  onValue(ref(db, 'missions'), snap => {
+  onValue(ref('missions'), function(snap) {
     liveMissions = snap.val() || {};
-    if (document.getElementById('secretCard')?.style.display !== 'none') renderMissions();
+    if (document.getElementById('secretCard').style.display !== 'none') renderMissions();
   });
-
-  // BUDGET
-  onValue(ref(db, 'budget'), snap => {
+  onValue(ref('budget'), function(snap) {
     liveBudget = snap.val() || {};
     renderBudget();
   });
-
-  // CARD EDITS
-  onValue(ref(db, 'cardEdits'), snap => {
+  onValue(ref('cardEdits'), function(snap) {
     liveCardEdits = snap.val() || {};
-    Object.entries(liveCardEdits).forEach(([id, e]) => applyCardEdit(id, e));
+    Object.keys(liveCardEdits).forEach(function(id){ applyCardEdit(id, liveCardEdits[id]); });
+    sortAllDays();
+  });
+  onValue(ref('customCards'), function(snap) {
+    [0,1,2,3].forEach(function(i){
+      var c = document.getElementById('custom-cards-'+i);
+      if (c) c.innerHTML = '';
+    });
+    var cards = snap.val() || {};
+    Object.values(cards).forEach(function(card){ renderCustomCard(card); });
+    sortAllDays();
   });
 }
 
-// ─── BOOT ────────────────────────────────────────────────
-window.addEventListener('DOMContentLoaded', async () => {
-  try {
-    await seedIfNeeded();
-    startListeners();
-    // Restore mode
-    if (myMode === 'attendee') enterApp(true, false);
-    else if (myMode === 'bday') enterApp(false, false);
-  } catch(e) {
-    console.error('Firebase error:', e);
-    document.getElementById('landing').innerHTML += `<div style="margin-top:20px;padding:16px;background:#ffe0e0;border-radius:16px;font-size:13px;color:#c00">⚠️ Firebase not configured yet. Open the HTML file and paste your Firebase config keys at the top of the &lt;script&gt; block.</div>`;
-  }
-});
-
-// ─── VOTES ────────────────────────────────────────────────
+// ── VOTES ─────────────────────────────────────────────────────────────────────
 function renderVoteGroup(groupId) {
-  const c = document.getElementById('vopts-' + groupId); if (!c) return;
-  const group = liveVotes[groupId]; if (!group) return;
-  const options = group.options || [];
-  const total = options.reduce((t, o) => t + (o.votes || 0), 0);
-  const myIdx = myVotes[groupId] ?? null;
+  var c = document.getElementById('vopts-'+groupId); if (!c) return;
+  var group = liveVotes[groupId]; if (!group) return;
+  var options = group.options || [];
+  var total = options.reduce(function(t,o){ return t+(o.votes||0); }, 0);
+  var myIdx = myVotes[groupId] != null ? myVotes[groupId] : null;
   c.innerHTML = '';
-  options.forEach((opt, i) => {
-    const isMe = myIdx === i;
-    const pct = total > 0 ? Math.round((opt.votes || 0) / total * 100) : 0;
-    const div = document.createElement('div');
+  options.forEach(function(opt, i) {
+    var isMe = myIdx === i;
+    var pct  = total > 0 ? Math.round((opt.votes||0)/total*100) : 0;
+    var div  = document.createElement('div');
     div.className = 'vote-option' + (isMe ? ' my-pick' : '');
-    div.innerHTML = `<div style="flex:1;min-width:0"><div class="vote-opt-name">${opt.name}</div>${opt.link ? `<a class="vote-opt-link" href="${opt.link}" target="_blank">↗ View</a>` : ''}</div><div class="vote-right"><div class="vote-bar-wrap"><div class="vote-bar" style="width:${pct}%"></div></div><div class="vote-count">${opt.votes||0}</div><button class="vote-cast-btn ${isMe?'voted':''}" onclick="castVote('${groupId}',${i})">${isMe?'✓ Voted':'Vote'}</button><button class="del-vote-btn" onclick="deleteVoteOption('${groupId}',${i})" title="Remove">✕</button></div>`;
+    div.innerHTML = '<div style="flex:1;min-width:0"><div class="vote-opt-name">'+opt.name+'</div>'+(opt.link?'<a class="vote-opt-link" href="'+opt.link+'" target="_blank">↗ View</a>':'')+'</div>'
+      +'<div class="vote-right"><div class="vote-bar-wrap"><div class="vote-bar" style="width:'+pct+'%"></div></div>'
+      +'<div class="vote-count">'+(opt.votes||0)+'</div>'
+      +'<button class="vote-cast-btn'+(isMe?' voted':'')+'" onclick="castVote(\''+groupId+'\','+i+')">'+(isMe?'✓ Voted':'Vote')+'</button>'
+      +'<button class="del-vote-btn" onclick="deleteVoteOption(\''+groupId+'\','+i+')" title="Remove">✕</button></div>';
     c.appendChild(div);
   });
 }
 
 async function castVote(groupId, idx) {
-  const group = liveVotes[groupId]; if (!group) return;
-  const options = [...(group.options || [])];
-  const prev = myVotes[groupId] ?? null;
+  var group = liveVotes[groupId]; if (!group) return;
+  var options = group.options.map(function(o){ return Object.assign({},o); });
+  var prev = myVotes[groupId] != null ? myVotes[groupId] : null;
   if (prev === idx) {
-    // UNVOTE
-    options[idx] = { ...options[idx], votes: Math.max(0, (options[idx].votes||0) - 1) };
+    options[idx].votes = Math.max(0, (options[idx].votes||0)-1);
     myVotes[groupId] = null;
   } else {
-    if (prev !== null && options[prev]) options[prev] = { ...options[prev], votes: Math.max(0, (options[prev].votes||0) - 1) };
-    options[idx] = { ...options[idx], votes: (options[idx].votes||0) + 1 };
+    if (prev !== null && options[prev]) options[prev].votes = Math.max(0,(options[prev].votes||0)-1);
+    options[idx].votes = (options[idx].votes||0)+1;
     myVotes[groupId] = idx;
   }
   saveMyVotes();
-  await set(ref(db, `votes/${groupId}/options`), options);
+  await dbSet(ref('votes/'+groupId+'/options'), options);
   showStatus('Vote saved ✨');
 }
 
 async function deleteVoteOption(groupId, idx) {
-  const group = liveVotes[groupId]; if (!group) return;
-  const options = [...(group.options || [])];
-  // Adjust my vote index
+  var group = liveVotes[groupId]; if (!group) return;
+  var options = group.options.slice();
   if (myVotes[groupId] === idx) myVotes[groupId] = null;
-  else if (myVotes[groupId] !== null && myVotes[groupId] > idx) myVotes[groupId]--;
-  options.splice(idx, 1);
+  else if (myVotes[groupId] != null && myVotes[groupId] > idx) myVotes[groupId]--;
+  options.splice(idx,1);
   saveMyVotes();
-  await set(ref(db, `votes/${groupId}/options`), options);
+  await dbSet(ref('votes/'+groupId+'/options'), options);
   showStatus('Option removed');
 }
 
-function toggleAddForm(id) { document.getElementById('addform-' + id).classList.toggle('open'); }
+function toggleAddForm(id) { document.getElementById('addform-'+id).classList.toggle('open'); }
 
 async function addVoteOption(groupId) {
-  const n = document.getElementById('addname-' + groupId);
-  const l = document.getElementById('addlink-' + groupId);
+  var n = document.getElementById('addname-'+groupId);
+  var l = document.getElementById('addlink-'+groupId);
   if (!n.value.trim()) return;
-  const group = liveVotes[groupId] || { options: [] };
-  const options = [...(group.options || []), { name: n.value.trim(), link: l.value.trim(), votes: 0 }];
-  n.value = ''; l.value = '';
-  document.getElementById('addform-' + groupId).classList.remove('open');
-  await set(ref(db, `votes/${groupId}/options`), options);
+  var group = liveVotes[groupId] || {options:[]};
+  var options = (group.options||[]).concat([{name:n.value.trim(),link:l.value.trim(),votes:0}]);
+  n.value=''; l.value='';
+  document.getElementById('addform-'+groupId).classList.remove('open');
+  await dbSet(ref('votes/'+groupId+'/options'), options);
   showStatus('Option added 🎉');
 }
 
-// ─── CARD EDITS ───────────────────────────────────────────
+// ── CARD EDITS ────────────────────────────────────────────────────────────────
 function applyCardEdit(id, e) {
   if (!e) return;
-  const setText = (elId, val) => { const el = document.getElementById(elId); if (el && val) el.textContent = val; };
-  setText('time-' + id, e.time); setText('title-' + id, e.title);
-  setText('detail-' + id, e.detail); setText('cost-' + id, e.cost);
+  var dbId = id.replace(/_/g,'-');
+  if (e._hidden) {
+    var el = document.getElementById('card-'+dbId);
+    if (el) el.style.display = 'none';
+    return;
+  }
+  function setText(elId, val) { var el = document.getElementById(elId); if (el && val) el.textContent = val; }
+  setText('time-'+dbId,   e.time);
+  setText('title-'+dbId,  e.title);
+  setText('detail-'+dbId, e.detail);
+  setText('cost-'+dbId,   e.cost);
   if (e.link) {
-    const card = document.getElementById('card-' + id); if (!card) return;
-    let bot = card.querySelector('.card-bottom');
-    if (!bot) { bot = document.createElement('div'); bot.className = 'card-bottom'; card.appendChild(bot); }
-    let a = bot.querySelector('.custom-link');
-    if (!a) { a = document.createElement('a'); a.className = 'link-btn custom-link'; a.target = '_blank'; a.textContent = '🔗 Link'; bot.appendChild(a); }
+    var card = document.getElementById('card-'+dbId); if (!card) return;
+    var bot = card.querySelector('.card-bottom');
+    if (!bot) { bot = document.createElement('div'); bot.className='card-bottom'; card.appendChild(bot); }
+    var a = bot.querySelector('.custom-link');
+    if (!a) { a = document.createElement('a'); a.className='link-btn custom-link'; a.target='_blank'; a.textContent='🔗 Link'; bot.appendChild(a); }
     a.href = e.link;
   }
 }
+
 function openEdit(id) {
   editTarget = id;
-  document.getElementById('edit-time').value = document.getElementById('time-' + id)?.textContent.trim() || '';
-  document.getElementById('edit-title').value = document.getElementById('title-' + id)?.textContent.trim() || '';
-  document.getElementById('edit-detail').value = document.getElementById('detail-' + id)?.textContent.trim() || '';
-  document.getElementById('edit-cost').value = document.getElementById('cost-' + id)?.textContent.trim() || '';
-  document.getElementById('edit-link').value = (liveCardEdits[id] || {}).link || '';
+  document.getElementById('edit-time').value   = (document.getElementById('time-'+id)   || {}).textContent || '';
+  document.getElementById('edit-title').value  = (document.getElementById('title-'+id)  || {}).textContent || '';
+  document.getElementById('edit-detail').value = (document.getElementById('detail-'+id) || {}).textContent || '';
+  document.getElementById('edit-cost').value   = (document.getElementById('cost-'+id)   || {}).textContent || '';
+  document.getElementById('edit-link').value   = (liveCardEdits[id] || {}).link || '';
   document.getElementById('editOverlay').classList.add('open');
 }
-function closeEdit() { document.getElementById('editOverlay').classList.remove('open'); editTarget = null; }
+function closeEdit() { document.getElementById('editOverlay').classList.remove('open'); editTarget=null; }
 async function saveEdit() {
   if (!editTarget) return;
-  const g = id => document.getElementById(id)?.value || '';
-  const edit = { time: g('edit-time'), title: g('edit-title'), detail: g('edit-detail'), cost: g('edit-cost'), link: g('edit-link').trim() };
-  await set(ref(db, `cardEdits/${editTarget.replace(/-/g,'_')}`), edit);
+  function g(id){ return document.getElementById(id).value || ''; }
+  var edit = {time:g('edit-time'),title:g('edit-title'),detail:g('edit-detail'),cost:g('edit-cost'),link:g('edit-link').trim()};
+  await dbSet(ref('cardEdits/'+editTarget.replace(/-/g,'_')), edit);
   closeEdit(); confettiBurst(); showStatus('Saved ✨');
+  sortAllDays();
 }
 
-// ─── MISSIONS ─────────────────────────────────────────────
+// ── MISSIONS ──────────────────────────────────────────────────────────────────
 function renderMissions() {
-  const list = document.getElementById('mission-list'); if (!list) return; list.innerHTML = '';
-  const missions = Object.values(liveMissions).sort((a, b) => String(a.id).localeCompare(String(b.id)));
-  missions.forEach(m => {
-    const safeTitle = m.title.replace(/"/g,'&quot;').replace(/</g,'&lt;');
-    const safeBody = m.body.replace(/</g,'&lt;');
-    const div = document.createElement('div'); div.className = 'secret-pill';
-    div.innerHTML = `<div class="secret-pill-header"><div class="secret-pill-title-wrap"><div class="secret-check ${m.done?'done':''}" onclick="toggleMissionDone('${m.id}')">${m.done?'✓':''}</div><div class="secret-pill-title ${m.done?'done-title':''}">${safeTitle}</div></div><div style="display:flex;gap:6px"><button class="secret-edit-btn" onclick="toggleMissionEdit('${m.id}')">✏️</button><button class="secret-del" onclick="deleteMission('${m.id}')">🗑️</button></div></div><div class="secret-pill-body">${safeBody}</div><div class="secret-edit-area" id="medit-${m.id}"><input class="secret-edit-input" id="medit-title-${m.id}" value="${safeTitle}" placeholder="Mission title"/><textarea class="secret-edit-input" id="medit-body-${m.id}" style="min-height:60px">${safeBody}</textarea><button class="secret-save-btn" onclick="saveMissionEdit('${m.id}')">Save</button></div>`;
+  var list = document.getElementById('mission-list'); if (!list) return; list.innerHTML='';
+  Object.values(liveMissions).sort(function(a,b){ return String(a.id).localeCompare(String(b.id)); }).forEach(function(m) {
+    var st = m.title.replace(/"/g,'&quot;').replace(/</g,'&lt;');
+    var sb = m.body.replace(/</g,'&lt;');
+    var div = document.createElement('div'); div.className='secret-pill';
+    div.innerHTML='<div class="secret-pill-header"><div class="secret-pill-title-wrap">'
+      +'<div class="secret-check'+(m.done?' done':'')+'" onclick="toggleMissionDone(\''+m.id+'\')">'+(m.done?'✓':'')+'</div>'
+      +'<div class="secret-pill-title'+(m.done?' done-title':'')+'">'+st+'</div></div>'
+      +'<div style="display:flex;gap:6px">'
+      +'<button class="secret-edit-btn" onclick="toggleMissionEdit(\''+m.id+'\')">✏️</button>'
+      +'<button class="secret-del" onclick="deleteMission(\''+m.id+'\')">🗑️</button></div></div>'
+      +'<div class="secret-pill-body">'+sb+'</div>'
+      +'<div class="secret-edit-area" id="medit-'+m.id+'">'
+      +'<input class="secret-edit-input" id="medit-title-'+m.id+'" value="'+st+'" placeholder="Mission title"/>'
+      +'<textarea class="secret-edit-input" id="medit-body-'+m.id+'" style="min-height:60px">'+sb+'</textarea>'
+      +'<button class="secret-save-btn" onclick="saveMissionEdit(\''+m.id+'\')">Save</button></div>';
     list.appendChild(div);
   });
 }
-async function toggleMissionDone(id) {
-  const m = liveMissions[id]; if (!m) return;
-  await update(ref(db, `missions/${id}`), { done: !m.done });
-}
-async function deleteMission(id) {
-  await remove(ref(db, `missions/${id}`));
-  showStatus('Mission deleted');
-}
-function toggleMissionEdit(id) { const a = document.getElementById('medit-' + id); a.style.display = a.style.display === 'block' ? 'none' : 'block'; }
+async function toggleMissionDone(id) { var m=liveMissions[id]; if(m) await dbUpdate(ref('missions/'+id),{done:!m.done}); }
+async function deleteMission(id) { await dbRemove(ref('missions/'+id)); showStatus('Mission deleted'); }
+function toggleMissionEdit(id) { var a=document.getElementById('medit-'+id); a.style.display=a.style.display==='block'?'none':'block'; }
 async function saveMissionEdit(id) {
-  const title = document.getElementById('medit-title-' + id)?.value;
-  const body  = document.getElementById('medit-body-' + id)?.value;
-  if (title !== undefined) await update(ref(db, `missions/${id}`), { title, body });
+  var title=document.getElementById('medit-title-'+id).value;
+  var body =document.getElementById('medit-body-'+id).value;
+  await dbUpdate(ref('missions/'+id),{title:title,body:body});
   showStatus('Mission updated ✨');
 }
 async function saveMission() {
-  const title = document.getElementById('new-mission-title').value.trim();
-  const body  = document.getElementById('new-mission-body').value.trim();
+  var title=document.getElementById('new-mission-title').value.trim();
+  var body =document.getElementById('new-mission-body').value.trim();
   if (!title) return;
-  const newRef = push(ref(db, 'missions'));
-  await set(newRef, { id: newRef.key, title, body, done: false });
-  document.getElementById('new-mission-title').value = '';
-  document.getElementById('new-mission-body').value = '';
+  var nr = dbPush(ref('missions'));
+  await dbSet(nr,{id:nr.key,title:title,body:body,done:false});
+  document.getElementById('new-mission-title').value='';
+  document.getElementById('new-mission-body').value='';
   document.getElementById('addMissionModal').classList.remove('open');
   showStatus('Mission added 🎯');
 }
 
-// ─── BUDGET ───────────────────────────────────────────────
+// ── BUDGET ────────────────────────────────────────────────────────────────────
 function renderBudget() {
-  const list = document.getElementById('budget-list'); if (!list) return; list.innerHTML = '';
-  Object.values(liveBudget).forEach(r => {
-    const div = document.createElement('div'); div.className = 'budget-row';
-    const safeName = (r.name||'').replace(/"/g,'&quot;');
-    div.innerHTML = `<input class="field-input" style="flex:1;margin:0;padding:8px 10px;font-size:13px;background:transparent;border:none;" placeholder="Name" value="${safeName}" onchange="updateBudgetRow('${r.id}','name',this.value)"/><span style="color:var(--text-muted);font-weight:700">$</span><input type="number" class="budget-amt" placeholder="0" value="${r.amt||''}" onchange="updateBudgetRow('${r.id}','amt',this.value)" min="0"/><button class="budget-del" onclick="deleteBudgetRow('${r.id}')">✕</button>`;
+  var list = document.getElementById('budget-list'); if (!list) return; list.innerHTML='';
+  Object.values(liveBudget).forEach(function(r) {
+    var div = document.createElement('div'); div.className='budget-row';
+    var sn  = (r.name||'').replace(/"/g,'&quot;');
+    div.innerHTML='<input class="field-input" style="flex:1;margin:0;padding:8px 10px;font-size:13px;background:transparent;border:none;" placeholder="Name" value="'+sn+'" onchange="updateBudgetRow(\''+r.id+'\',\'name\',this.value)"/>'
+      +'<span style="color:var(--text-muted);font-weight:700">$</span>'
+      +'<input type="number" class="budget-amt" placeholder="0" value="'+(r.amt||'')+'" onchange="updateBudgetRow(\''+r.id+'\',\'amt\',this.value)" min="0"/>'
+      +'<button class="budget-del" onclick="deleteBudgetRow(\''+r.id+'\')">✕</button>';
     list.appendChild(div);
   });
   calcBudgetAvg();
 }
-async function addBudgetRow() {
-  const newRef = push(ref(db, 'budget'));
-  await set(newRef, { id: newRef.key, name: '', amt: '' });
-}
-async function deleteBudgetRow(id) { await remove(ref(db, `budget/${id}`)); }
-async function updateBudgetRow(id, field, val) { await update(ref(db, `budget/${id}`), { [field]: val }); }
+async function addBudgetRow()  { var nr=dbPush(ref('budget')); await dbSet(nr,{id:nr.key,name:'',amt:''}); }
+async function deleteBudgetRow(id) { await dbRemove(ref('budget/'+id)); }
+async function updateBudgetRow(id,field,val) { var u={}; u[field]=val; await dbUpdate(ref('budget/'+id),u); }
 function calcBudgetAvg() {
-  const vals = Object.values(liveBudget).map(r => parseFloat(r.amt)).filter(v => !isNaN(v) && v > 0);
-  const el = document.getElementById('budget-avg-display'); if (!el) return;
-  el.textContent = vals.length ? '$' + Math.round(vals.reduce((s,v)=>s+v,0)/vals.length) : '—';
+  var vals = Object.values(liveBudget).map(function(r){ return parseFloat(r.amt); }).filter(function(v){ return !isNaN(v)&&v>0; });
+  var el = document.getElementById('budget-avg-display'); if (!el) return;
+  el.textContent = vals.length ? '$'+Math.round(vals.reduce(function(s,v){return s+v;},0)/vals.length) : '—';
 }
 
-// ─── MODE / APP ───────────────────────────────────────────
-function enterApp(asAttendee, doConfetti = true) {
-  localStorage.setItem('harshi_mode', asAttendee ? 'attendee' : 'bday');
+// ── TIME SORT ─────────────────────────────────────────────────────────────────
+function parseTime(str) {
+  if (!str) return 9999;
+  var m = str.trim().match(/(\d+):(\d+)\s*(AM|PM)/i);
+  if (!m) return 9999;
+  var h=parseInt(m[1]), min=parseInt(m[2]), pm=m[3].toUpperCase()==='PM';
+  if (pm && h!==12) h+=12;
+  if (!pm && h===12) h=0;
+  return h*60+min;
+}
+function sortDayCards(dayIdx) {
+  var section = document.getElementById('day-'+dayIdx); if (!section) return;
+  var cards = Array.prototype.slice.call(section.querySelectorAll('.card'));
+  cards.sort(function(a,b){
+    var ta = (a.querySelector('.time-badge')||{}).textContent||'';
+    var tb = (b.querySelector('.time-badge')||{}).textContent||'';
+    return parseTime(ta)-parseTime(tb);
+  });
+  cards.forEach(function(c){ section.appendChild(c); });
+}
+function sortAllDays() { [0,1,2,3].forEach(sortDayCards); }
+
+// ── DELETE STATIC CARDS ───────────────────────────────────────────────────────
+async function deleteStaticCard(id) {
+  await dbSet(ref('cardEdits/'+id.replace(/-/g,'_')), {_hidden:true});
+  var el = document.getElementById('card-'+id);
+  if (el) el.style.display='none';
+  showStatus('Activity removed');
+}
+function addDeleteButtonsToStaticCards() {
+  document.querySelectorAll('.card[id^="card-"]').forEach(function(card) {
+    if (card.querySelector('.delete-card-btn')) return;
+    var cid = card.id.replace('card-','');
+    var header = card.querySelector('.card-header'); if (!header) return;
+    var btn = document.createElement('button');
+    btn.className='delete-card-btn'; btn.textContent='🗑️ Delete';
+    btn.onclick=function(){ deleteStaticCard(cid); };
+    header.appendChild(btn);
+  });
+}
+
+// ── ADD / EDIT CUSTOM ACTIVITY ────────────────────────────────────────────────
+function openAddActivity(dayIdx) {
+  addActivityDay  = dayIdx;
+  editingCustomId = null;
+  document.getElementById('na-time').value='';
+  document.getElementById('na-title').value='';
+  document.getElementById('na-detail').value='';
+  document.getElementById('na-cost').value='';
+  document.getElementById('na-link').value='';
+  document.querySelectorAll('.tag-pick').forEach(function(b){ b.classList.remove('selected'); });
+  document.getElementById('addActivityModal').classList.add('open');
+}
+function closeAddActivity() { document.getElementById('addActivityModal').classList.remove('open'); }
+function toggleTagPick(btn) { btn.classList.toggle('selected'); }
+
+async function openEditCustom(id) {
+  var snap = await dbGet(ref('customCards/'+id));
+  if (!snap.exists()) return;
+  var card = snap.val();
+  editingCustomId = id; addActivityDay = card.day;
+  document.getElementById('na-time').value  = card.time  || '';
+  document.getElementById('na-title').value = card.title || '';
+  document.getElementById('na-detail').value= card.detail|| '';
+  document.getElementById('na-cost').value  = card.cost  || '';
+  document.getElementById('na-link').value  = card.link  || '';
+  document.querySelectorAll('.tag-pick').forEach(function(b){
+    b.classList.toggle('selected', (card.tags||[]).indexOf(b.dataset.tag) > -1);
+  });
+  document.getElementById('addActivityModal').classList.add('open');
+}
+
+async function saveNewActivity() {
+  var title = document.getElementById('na-title').value.trim(); if (!title) return;
+  var tags  = Array.prototype.map.call(document.querySelectorAll('.tag-pick.selected'), function(b){ return b.dataset.tag; });
+  var activity = {
+    time:  document.getElementById('na-time').value.trim(),
+    title: title,
+    detail:document.getElementById('na-detail').value.trim(),
+    cost:  document.getElementById('na-cost').value.trim(),
+    link:  document.getElementById('na-link').value.trim(),
+    tags:  tags, day: addActivityDay,
+  };
+  if (editingCustomId) {
+    await dbUpdate(ref('customCards/'+editingCustomId), activity);
+    showStatus('Activity updated ✨');
+  } else {
+    var nr = dbPush(ref('customCards'));
+    await dbSet(nr, Object.assign({}, activity, {id:nr.key}));
+    showStatus('Activity added 🎉');
+  }
+  editingCustomId = null;
+  closeAddActivity();
+}
+
+async function deleteCustomCard(id) {
+  await dbRemove(ref('customCards/'+id));
+  var el = document.getElementById('ccard-'+id); if (el) el.remove();
+  showStatus('Activity deleted');
+}
+
+function renderCustomCard(card) {
+  var container = document.getElementById('custom-cards-'+card.day); if (!container) return;
+  var existing  = document.getElementById('ccard-'+card.id); if (existing) existing.remove();
+  var tagMap    = {food:'food',party:'party',activity:'activity',fancy:'fancy',surprise:'surprise-tag'};
+  var tagLabels = {food:'Food',party:'Party',activity:'Activity',fancy:'Fancy',surprise:'🎁 Surprise'};
+  var tagsHtml  = (card.tags||[]).map(function(t){ return '<span class="tag '+(tagMap[t]||'activity')+'">'+(tagLabels[t]||t)+'</span>'; }).join('');
+  var div = document.createElement('div'); div.className='card'; div.id='ccard-'+card.id;
+  div.innerHTML='<div class="card-header"><span class="time-badge">'+(card.time||'')+'</span>'
+    +'<div style="display:flex;gap:8px;align-items:center">'
+    +'<button class="edit-btn" style="opacity:1" onclick="openEditCustom(\''+card.id+'\')">✏️ Edit</button>'
+    +'<button class="delete-card-btn" onclick="deleteCustomCard(\''+card.id+'\')">🗑️ Delete</button></div></div>'
+    +'<div class="tags">'+tagsHtml+'</div>'
+    +'<div class="card-title">'+card.title+'</div>'
+    +'<div class="card-detail">'+(card.detail||'')+'</div>'
+    +((card.cost||card.link)?'<div class="card-bottom">'+(card.cost?'<span class="cost-pill">'+card.cost+'</span>':'')+(card.link?'<a class="link-btn" href="'+card.link+'" target="_blank">🔗 Link</a>':'')+'</div>':'');
+  container.appendChild(div);
+}
+
+// ── APP MODE ──────────────────────────────────────────────────────────────────
+function enterApp(asAttendee, doConfetti) {
+  if (doConfetti === undefined) doConfetti = true;
   myMode = asAttendee ? 'attendee' : 'bday';
-  document.getElementById('landing').style.display = 'none';
+
+  // Hide landing completely
+  var landing = document.getElementById('landing');
+  landing.classList.add('hidden');
+
   document.getElementById('app').classList.add('active');
   document.getElementById('modeText').textContent = asAttendee ? 'Attendee Experience ✨' : 'Birthday Girl Experience';
-  document.getElementById('secretCard').style.display = asAttendee ? 'block' : 'none';
-  document.getElementById('bdaySidebar').style.display = asAttendee ? 'none' : 'block';
-  document.querySelectorAll('.surprise-card').forEach(el => el.style.display = asAttendee ? 'block' : 'none');
-  document.querySelectorAll('.edit-btn').forEach(el => el.style.pointerEvents = asAttendee ? 'auto' : 'none');
-  if (asAttendee) renderMissions();
+  document.getElementById('secretCard').style.display   = asAttendee ? 'block' : 'none';
+  document.getElementById('bdaySidebar').style.display  = asAttendee ? 'none'  : 'block';
+
+  // Surprise cards — show only for attendees
+  document.querySelectorAll('.surprise-card').forEach(function(el){
+    el.style.display = asAttendee ? 'block' : 'none';
+  });
+
+  // Edit buttons always enabled
+  document.querySelectorAll('.edit-btn').forEach(function(el){
+    el.style.pointerEvents = 'auto';
+    el.style.opacity = '';
+  });
+
+  // Add activity buttons — attendee only
+  document.querySelectorAll('.add-activity-btn').forEach(function(el){
+    el.style.display = asAttendee ? 'flex' : 'none';
+  });
+
+  if (asAttendee) {
+    renderMissions();
+    setTimeout(function(){ addDeleteButtonsToStaticCards(); sortAllDays(); }, 150);
+  } else {
+    setTimeout(function(){ sortAllDays(); }, 150);
+  }
   if (doConfetti) launchConfetti();
 }
 function openBirthdayGirl() { enterApp(false, false); }
-function openPassword() { document.getElementById('passwordModal').classList.add('open'); }
-function unlockAttendee() {
-  const val = document.getElementById('passwordInput').value;
+function openPassword()     { document.getElementById('passwordModal').classList.add('open'); }
+function unlockAttendee()   {
+  var val = document.getElementById('passwordInput').value;
   if (val === PASSWORD) {
     document.getElementById('passwordModal').classList.remove('open');
     enterApp(true, true);
-  } else { document.getElementById('passwordError').style.display = 'block'; }
+  } else {
+    document.getElementById('passwordError').style.display = 'block';
+  }
 }
 
-// ─── NAVIGATION ───────────────────────────────────────────
+// ── NAVIGATION ────────────────────────────────────────────────────────────────
 function switchDay(idx, el) {
-  document.querySelectorAll('.section').forEach(s => s.classList.remove('active'));
-  document.querySelectorAll('.tab').forEach(t => t.classList.remove('active'));
-  document.getElementById('day-' + idx).classList.add('active'); el.classList.add('active');
+  document.querySelectorAll('.section').forEach(function(s){ s.classList.remove('active'); });
+  document.querySelectorAll('.tab').forEach(function(t){ t.classList.remove('active'); });
+  document.getElementById('day-'+idx).classList.add('active');
+  el.classList.add('active');
 }
 
-// ─── COUNTDOWN ────────────────────────────────────────────
-const tripDate = new Date("2025-07-16T09:00:00");
+// ── COUNTDOWN ─────────────────────────────────────────────────────────────────
+var tripDate = new Date("2025-07-16T09:00:00");
 function tick() {
-  const diff = tripDate - new Date();
-  if (diff <= 0) { ['cd-d','cd-h','cd-m','cd-s'].forEach(id => { const e = document.getElementById(id); if (e) e.textContent = '🎉'; }); return; }
-  document.getElementById('cd-d').textContent = Math.floor(diff / 864e5);
-  document.getElementById('cd-h').textContent = Math.floor((diff % 864e5) / 36e5);
-  document.getElementById('cd-m').textContent = Math.floor((diff % 36e5) / 6e4);
-  document.getElementById('cd-s').textContent = Math.floor((diff % 6e4) / 1e3);
+  var diff = tripDate - new Date();
+  if (diff <= 0) { ['cd-d','cd-h','cd-m','cd-s'].forEach(function(id){ var e=document.getElementById(id); if(e) e.textContent='🎉'; }); return; }
+  document.getElementById('cd-d').textContent = Math.floor(diff/864e5);
+  document.getElementById('cd-h').textContent = Math.floor((diff%864e5)/36e5);
+  document.getElementById('cd-m').textContent = Math.floor((diff%36e5)/6e4);
+  document.getElementById('cd-s').textContent = Math.floor((diff%6e4)/1e3);
 }
-setInterval(tick, 1000); tick();
+setInterval(tick,1000); tick();
 
-// ─── DARK MODE ────────────────────────────────────────────
+// ── DARK MODE ─────────────────────────────────────────────────────────────────
 function toggleDark() {
   darkPref = !darkPref;
   document.body.classList.toggle('dark', darkPref);
   localStorage.setItem('harshi_dark', darkPref);
 }
 
-// ─── CONFETTI ─────────────────────────────────────────────
+// ── CONFETTI ──────────────────────────────────────────────────────────────────
 function launchConfetti() {
-  const colors = ["#d14b91","#8f79ff","#7aa6d9","#ffffff","#ffce6e"]; const end = Date.now() + 2500;
-  (function frame() {
-    const c = document.createElement('div');
-    c.style.cssText = `position:fixed;width:9px;height:9px;border-radius:50%;background:${colors[~~(Math.random()*colors.length)]};left:${Math.random()*100}vw;top:-20px;z-index:9999;pointer-events:none;`;
+  var colors=["#d14b91","#8f79ff","#7aa6d9","#ffffff","#ffce6e"], end=Date.now()+2500;
+  (function frame(){
+    var c=document.createElement('div');
+    c.style.cssText='position:fixed;width:9px;height:9px;border-radius:50%;background:'+colors[~~(Math.random()*colors.length)]+';left:'+Math.random()*100+'vw;top:-20px;z-index:9999;pointer-events:none;';
     document.body.appendChild(c);
-    const fall = setInterval(() => { c.style.top = c.offsetTop + 8 + 'px'; c.style.transform = `translateX(${Math.sin(Date.now()/100)*20}px)`; if (c.offsetTop > window.innerHeight) { clearInterval(fall); c.remove(); } }, 16);
-    if (Date.now() < end) requestAnimationFrame(frame);
+    var fall=setInterval(function(){
+      c.style.top=c.offsetTop+8+'px';
+      c.style.transform='translateX('+Math.sin(Date.now()/100)*20+'px)';
+      if(c.offsetTop>window.innerHeight){clearInterval(fall);c.remove();}
+    },16);
+    if(Date.now()<end) requestAnimationFrame(frame);
   })();
 }
 function confettiBurst() {
-  const colors = ["#d14b91","#8f79ff","#7aa6d9"];
-  for (let i = 0; i < 16; i++) { setTimeout(() => { const c = document.createElement('div'); c.style.cssText = `position:fixed;width:8px;height:8px;border-radius:50%;background:${colors[~~(Math.random()*colors.length)]};left:${25+Math.random()*50}vw;top:${15+Math.random()*40}vh;z-index:9999;pointer-events:none;transition:all 1s ease;opacity:1;`; document.body.appendChild(c); setTimeout(() => { c.style.top = parseInt(c.style.top) + 120 + 'px'; c.style.opacity = '0'; }, 50); setTimeout(() => c.remove(), 1150); }, i * 40); }
+  var colors=["#d14b91","#8f79ff","#7aa6d9"];
+  for(var i=0;i<16;i++){(function(i){setTimeout(function(){
+    var c=document.createElement('div');
+    c.style.cssText='position:fixed;width:8px;height:8px;border-radius:50%;background:'+colors[~~(Math.random()*colors.length)]+';left:'+(25+Math.random()*50)+'vw;top:'+(15+Math.random()*40)+'vh;z-index:9999;pointer-events:none;transition:all 1s ease;opacity:1;';
+    document.body.appendChild(c);
+    setTimeout(function(){c.style.top=parseInt(c.style.top)+120+'px';c.style.opacity='0';},50);
+    setTimeout(function(){c.remove();},1150);
+  },i*40);})(i);}
 }
 
-// ─── EXPOSE TO GLOBAL SCOPE (required for onclick= attributes in modules) ──
-window.openBirthdayGirl  = openBirthdayGirl;
-window.openPassword      = openPassword;
-window.unlockAttendee    = unlockAttendee;
-window.switchDay         = switchDay;
-window.toggleDark        = toggleDark;
-window.launchConfetti    = launchConfetti;
-window.openEdit          = openEdit;
-window.closeEdit         = closeEdit;
-window.saveEdit          = saveEdit;
-window.castVote          = castVote;
-window.deleteVoteOption  = deleteVoteOption;
-window.toggleAddForm     = toggleAddForm;
-window.addVoteOption     = addVoteOption;
-window.addBudgetRow      = addBudgetRow;
-window.deleteBudgetRow   = deleteBudgetRow;
-window.updateBudgetRow   = updateBudgetRow;
-window.saveMission       = saveMission;
-window.deleteMission     = deleteMission;
-window.toggleMissionDone = toggleMissionDone;
-window.toggleMissionEdit = toggleMissionEdit;
-window.saveMissionEdit   = saveMissionEdit;
+// ── BOOT ──────────────────────────────────────────────────────────────────────
+seedIfNeeded().then(function(){ startListeners(); }).catch(function(e){ console.error('Firebase error:',e); });
+
 </script>
 </body>
 </html>
