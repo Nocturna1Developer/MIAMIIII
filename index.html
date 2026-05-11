@@ -674,7 +674,7 @@ function saveMyVotes() { localStorage.setItem(MY_VOTES_KEY, JSON.stringify(myVot
 let darkPref = localStorage.getItem('harshi_dark') === 'true';
 if (darkPref) document.body.classList.add('dark');
 
-let myMode = localStorage.getItem('harshi_mode');
+let myMode = null;
 
 let editTarget = null;
 let liveVotes = {};
@@ -733,8 +733,7 @@ window.addEventListener('DOMContentLoaded', async () => {
     await seedIfNeeded();
     startListeners();
     startCustomEventsListener();
-    if (myMode === 'attendee') enterApp(true, false);
-    else if (myMode === 'bday') enterApp(false, false);
+    // always show landing on refresh
   } catch(e) {
     console.error('Firebase error:', e);
     document.getElementById('landing').innerHTML += `<div style="margin-top:20px;padding:16px;background:#ffe0e0;border-radius:16px;font-size:13px;color:#c00">⚠️ Firebase not configured yet. Open the HTML file and paste your Firebase config keys at the top of the &lt;script&gt; block.</div>`;
@@ -893,7 +892,6 @@ function calcBudgetAvg() {
 }
 
 function enterApp(asAttendee, doConfetti = true) {
-  localStorage.setItem('harshi_mode', asAttendee ? 'attendee' : 'bday');
   myMode = asAttendee ? 'attendee' : 'bday';
   document.getElementById('landing').style.display = 'none';
   document.getElementById('app').classList.add('active');
