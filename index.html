@@ -961,13 +961,9 @@ function enterApp(asAttendee, doConfetti = true) {
   document.querySelectorAll('.surprise-card').forEach(el => el.style.display = asAttendee ? 'block' : 'none');
   // Edit buttons are always enabled for both modes
   document.querySelectorAll('.edit-btn').forEach(el => el.style.pointerEvents = 'auto');
-  // Show music bar and try to play
+  // Show music bar (no autoplay — user must press play or the music button)
   const mb = document.getElementById('musicBar');
   if (mb && currentVideoId) mb.classList.remove('hidden');
-  // Autoplay on user interaction (entering app counts)
-  if (currentVideoId && ytReady && ytPlayer && ytPlayer.playVideo) {
-    try { ytPlayer.playVideo(); } catch(e) {}
-  }
   if (asAttendee) renderMissions();
   if (doConfetti) launchConfetti();
 }
@@ -1159,8 +1155,7 @@ window.onYouTubeIframeAPIReady = function() {
     events: {
       onReady: function() {
         if (ytPendingVideoId) {
-          ytPlayer.loadVideoById(ytPendingVideoId);
-          ytPlayer.playVideo();
+          ytPlayer.cueVideoById(ytPendingVideoId);
           ytPendingVideoId = null;
         }
       },
@@ -1205,9 +1200,8 @@ function loadMusicFromDb(data) {
   document.getElementById('musicBar').classList.remove('hidden');
   if (vid && vid !== currentVideoId) {
     currentVideoId = vid;
-    if (ytReady && ytPlayer && ytPlayer.loadVideoById) {
-      ytPlayer.loadVideoById(vid);
-      ytPlayer.playVideo();
+    if (ytReady && ytPlayer && ytPlayer.cueVideoById) {
+      ytPlayer.cueVideoById(vid);
     } else {
       ytPendingVideoId = vid;
     }
