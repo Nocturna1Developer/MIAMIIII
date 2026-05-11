@@ -97,7 +97,7 @@ body.dark .modal-card{background:#1e1430;}
 .topbar-inner{display:flex;align-items:center;justify-content:space-between;background:var(--topbar-bg);backdrop-filter:blur(18px);border:1px solid rgba(255,255,255,0.3);border-radius:22px;padding:14px 18px;box-shadow:0 12px 50px rgba(0,0,0,0.08);transition:background .3s;}
 body.dark .topbar-inner{border-color:rgba(255,255,255,0.07);}
 .brand{display:flex;align-items:center;gap:14px;}
-.brand-badge{width:44px;height:44px;border-radius:14px;background:var(--gradient);display:flex;align-items:center;justify-content:center;color:white;font-size:22px;flex-shrink:0;}
+.brand-badge{width:44px;height:44px;border-radius:14px;background:var(--gradient);display:flex;align-items:center;justify-content:justify-content;color:white;font-size:22px;flex-shrink:0;}
 .brand-title{font-weight:700;font-size:15px;color:var(--text);}
 .brand-sub{color:var(--text-muted);font-size:12px;margin-top:2px;}
 .top-actions{display:flex;align-items:center;gap:10px;}
@@ -187,7 +187,7 @@ body.dark .side-card{border-color:rgba(255,255,255,0.07);}
 .secret-pill-title-wrap{display:flex;align-items:center;gap:8px;flex:1;}
 .secret-pill-title{font-weight:700;font-size:14px;color:var(--text);}
 .secret-pill-title.done-title{text-decoration:line-through;opacity:.5;}
-.secret-check{width:24px;height:24px;border-radius:7px;border:2px solid var(--accent);background:transparent;cursor:pointer;display:flex;align-items:center;justify-content:center;font-size:12px;transition:.2s;flex-shrink:0;}
+.secret-check{width:24px;height:24px;border-radius:7px;border:2px solid var(--accent);background:transparent;cursor:pointer;display:flex;align-items:center;justify-content:justify-content;font-size:12px;transition:.2s;flex-shrink:0;}
 .secret-check.done{background:var(--accent);color:white;}
 .secret-del{border:none;cursor:pointer;background:transparent;color:rgba(209,75,145,0.35);font-size:14px;transition:.2s;}
 .secret-del:hover{color:var(--accent);}
@@ -212,6 +212,22 @@ body.dark .side-card{border-color:rgba(255,255,255,0.07);}
 .add-opt-cancel{border:none;cursor:pointer;background:var(--input-bg);color:var(--text-muted);font-size:12px;font-weight:600;padding:10px 14px;border-radius:10px;}
 @media(max-width:980px){.grid{grid-template-columns:1fr;}.sidebar{position:relative;top:auto;}.hero-card{padding:34px 28px;}}
 @media(max-width:640px){.choice-grid{grid-template-columns:1fr;}.hero-title{font-size:54px;}.day-title{font-size:34px;}.topbar-inner{padding:12px;}.brand-sub{display:none;}.landing-card{padding:34px 24px;}.edit-btn{opacity:1;}}
+/* ─── ADD EVENT BUTTON ─────────────────────────────────── */
+.add-event-btn{width:100%;border:none;cursor:pointer;position:relative;overflow:hidden;background:linear-gradient(135deg,rgba(209,75,145,0.07),rgba(143,121,255,0.07),rgba(122,166,217,0.07));border:1.5px solid rgba(209,75,145,0.18);color:var(--accent);font-size:14px;font-weight:700;font-family:'Inter',sans-serif;padding:18px 24px;border-radius:22px;margin-top:4px;margin-bottom:22px;transition:all .3s ease;display:flex;align-items:center;justify-content:center;gap:10px;letter-spacing:.02em;}
+.add-event-btn::before{content:"";position:absolute;inset:0;background:var(--gradient);opacity:0;transition:opacity .3s ease;}
+.add-event-btn:hover{border-color:rgba(209,75,145,0.45);transform:translateY(-2px);box-shadow:0 8px 28px rgba(209,75,145,0.14);color:white;}
+.add-event-btn:hover::before{opacity:1;}
+.add-event-btn span{position:relative;z-index:1;}
+.add-event-btn-icon{position:relative;z-index:1;width:26px;height:26px;border-radius:50%;background:rgba(209,75,145,0.12);border:1.5px solid rgba(209,75,145,0.25);display:flex;align-items:center;justify-content:center;font-size:15px;line-height:1;transition:all .3s ease;flex-shrink:0;}
+.add-event-btn:hover .add-event-btn-icon{background:rgba(255,255,255,0.2);border-color:rgba(255,255,255,0.3);}
+body.dark .add-event-btn{background:linear-gradient(135deg,rgba(209,75,145,0.08),rgba(143,121,255,0.08),rgba(122,166,217,0.08));border-color:rgba(209,75,145,0.22);}
+/* ─── DELETE EVENT BUTTON ──────────────────────────────── */
+.delete-event-btn{border:none;cursor:pointer;background:transparent;color:rgba(209,75,145,0.35);font-size:13px;font-weight:600;padding:6px 10px;border-radius:9px;transition:.2s;flex-shrink:0;}
+.delete-event-btn:hover{color:#d14b91;background:rgba(209,75,145,0.10);}
+/* ─── TAG PICKER IN ADD MODAL ──────────────────────────── */
+.tag-picker{display:flex;flex-wrap:wrap;gap:8px;margin-bottom:16px;}
+.tag-pick-btn{border:none;cursor:pointer;font-size:11px;font-weight:700;letter-spacing:.08em;text-transform:uppercase;padding:7px 12px;border-radius:100px;opacity:.45;transition:.2s;}
+.tag-pick-btn.selected{opacity:1;}
 </style>
 </head>
 <body>
@@ -280,6 +296,34 @@ body.dark .side-card{border-color:rgba(255,255,255,0.07);}
     <div class="modal-actions">
       <button class="btn-secondary" onclick="document.getElementById('addMissionModal').classList.remove('open')">Cancel</button>
       <button class="btn-primary" onclick="saveMission()">Add Mission 🎯</button>
+    </div>
+  </div>
+</div>
+
+
+<div class="modal-overlay" id="addEventModal">
+  <div class="modal-card">
+    <div class="modal-title">Add Event ✨</div>
+    <label class="field-label">Time</label>
+    <input type="text" class="field-input" id="ae-time" placeholder="e.g. 7:00 PM"/>
+    <label class="field-label">Event Name</label>
+    <input type="text" class="field-input" id="ae-title" placeholder="What's happening?"/>
+    <label class="field-label">Details / Notes</label>
+    <textarea class="field-textarea" id="ae-detail" placeholder="Add notes, address, tips…"></textarea>
+    <label class="field-label">Estimated Cost</label>
+    <input type="text" class="field-input" id="ae-cost" placeholder="e.g. ~$40/person"/>
+    <label class="field-label">Link (optional)</label>
+    <input type="text" class="field-input" id="ae-link" placeholder="https://…"/>
+    <label class="field-label">Tags</label>
+    <div class="tag-picker">
+      <button class="tag-pick-btn food" data-tag="food" onclick="toggleTagPick(this)">Food</button>
+      <button class="tag-pick-btn party" data-tag="party" onclick="toggleTagPick(this)">Party</button>
+      <button class="tag-pick-btn activity" data-tag="activity" onclick="toggleTagPick(this)">Activity</button>
+      <button class="tag-pick-btn fancy" data-tag="fancy" onclick="toggleTagPick(this)">Fancy</button>
+    </div>
+    <div class="modal-actions">
+      <button class="btn-secondary" onclick="closeAddEvent()">Cancel</button>
+      <button class="btn-primary" onclick="saveNewEvent()">Add Event 🎉</button>
     </div>
   </div>
 </div>
@@ -388,6 +432,8 @@ body.dark .side-card{border-color:rgba(255,255,255,0.07);}
             </div>
             <div class="card-bottom"><span class="cost-pill" id="cost-0-5">~$40/person</span></div>
           </div>
+        
+          <button class="add-event-btn" onclick="openAddEvent(0)"><div class="add-event-btn-icon">＋</div><span>Add Event</span></button>
         </section>
 
         <!-- DAY 2 -->
@@ -437,6 +483,8 @@ body.dark .side-card{border-color:rgba(255,255,255,0.07);}
             </div>
             <div class="card-bottom"><span class="cost-pill" id="cost-1-3">~$40/person</span></div>
           </div>
+        
+          <button class="add-event-btn" onclick="openAddEvent(1)"><div class="add-event-btn-icon">＋</div><span>Add Event</span></button>
         </section>
 
         <!-- DAY 3 -->
@@ -501,6 +549,8 @@ body.dark .side-card{border-color:rgba(255,255,255,0.07);}
             </div>
             <div class="card-bottom"><span class="cost-pill" id="cost-2-6">~$80/person</span><a class="uber-btn" href="https://m.uber.com/looking" target="_blank">🚗 Uber</a></div>
           </div>
+        
+          <button class="add-event-btn" onclick="openAddEvent(2)"><div class="add-event-btn-icon">＋</div><span>Add Event</span></button>
         </section>
 
         <!-- DAY 4 -->
@@ -537,6 +587,8 @@ body.dark .side-card{border-color:rgba(255,255,255,0.07);}
             <div class="card-detail" id="detail-3-2">The end of an era. Allow enough buffer time for MIA.</div>
             <div class="card-bottom"><span class="cost-pill" id="cost-3-2">Departure</span><a class="link-btn" href="https://m.uber.com/looking" target="_blank">🚗 Uber to MIA</a></div>
           </div>
+        
+          <button class="add-event-btn" onclick="openAddEvent(3)"><div class="add-event-btn-icon">＋</div><span>Add Event</span></button>
         </section>
 
       </div>
@@ -576,10 +628,6 @@ import { initializeApp } from "https://www.gstatic.com/firebasejs/11.0.1/firebas
 import { getDatabase, ref, onValue, set, update, push, remove, get }
   from "https://www.gstatic.com/firebasejs/11.0.1/firebase-database.js";
 
-// ─────────────────────────────────────────────────────────
-// 🔧 PASTE YOUR FIREBASE CONFIG HERE
-// Go to: Firebase Console → Project Settings → Your Apps → SDK setup
-// ─────────────────────────────────────────────────────────
 const firebaseConfig = {
   apiKey:            "AIzaSyBay-316WMd4eaG-NBybzF5gSvOPKuJ1zI",
   authDomain:        "miami-database.firebaseapp.com",
@@ -589,11 +637,9 @@ const firebaseConfig = {
   messagingSenderId: "1006900825588",
   appId:             "1:1006900825588:web:7ace3fbddc7a01c6c2bda1",
 };
-// ─────────────────────────────────────────────────────────
 
 const PASSWORD = "miami2025";
 
-// ─── DEFAULT DATA (written to Firebase once on first load) ─
 const DEFAULTS = {
   votes: {
     lunch:   { options:[{name:'The Social Club',link:'https://www.thesocialclubmiami.com',votes:0},{name:'Watr Rooftop — 1 Hotel',link:'https://www.1hotels.com/south-beach/taste/watr-rooftop',votes:0}] },
@@ -617,31 +663,25 @@ const DEFAULTS = {
   dark: false,
 };
 
-// ─── INIT FIREBASE ────────────────────────────────────────
 const app = initializeApp(firebaseConfig);
 const db  = getDatabase(app);
 
-// Per-user vote tracking (localStorage only — which poll option *I* voted for)
 const MY_VOTES_KEY = 'harshi_my_votes';
-let myVotes = {}; // { groupId: optionIndex }
+let myVotes = {};
 try { myVotes = JSON.parse(localStorage.getItem(MY_VOTES_KEY) || '{}'); } catch(e) {}
 function saveMyVotes() { localStorage.setItem(MY_VOTES_KEY, JSON.stringify(myVotes)); }
 
-// My dark mode preference
 let darkPref = localStorage.getItem('harshi_dark') === 'true';
 if (darkPref) document.body.classList.add('dark');
 
-// Per-user mode (birthday girl vs attendee) — local only
-let myMode = localStorage.getItem('harshi_mode'); // 'bday' | 'attendee' | null
+let myMode = localStorage.getItem('harshi_mode');
 
-// Runtime
 let editTarget = null;
-let liveVotes = {}; // mirror of DB votes node
-let liveMissions = {}; // mirror of DB missions node
-let liveBudget = {}; // mirror of DB budget node
-let liveCardEdits = {}; // mirror of DB cardEdits node
+let liveVotes = {};
+let liveMissions = {};
+let liveBudget = {};
+let liveCardEdits = {};
 
-// ─── SHOW LOADING INDICATOR ───────────────────────────────
 function showStatus(msg) {
   let el = document.getElementById('fb-status');
   if (!el) {
@@ -655,7 +695,6 @@ function showStatus(msg) {
   el._t = setTimeout(() => { el.style.opacity = '0'; }, 2000);
 }
 
-// ─── SEED DEFAULTS IF FIRST LOAD ─────────────────────────
 async function seedIfNeeded() {
   const snap = await get(ref(db, 'initialized'));
   if (!snap.exists()) {
@@ -667,39 +706,33 @@ async function seedIfNeeded() {
   }
 }
 
-// ─── LIVE LISTENERS ───────────────────────────────────────
 function startListeners() {
-  // VOTES
   onValue(ref(db, 'votes'), snap => {
     liveVotes = snap.val() || {};
     Object.keys(liveVotes).forEach(g => renderVoteGroup(g));
   });
 
-  // MISSIONS
   onValue(ref(db, 'missions'), snap => {
     liveMissions = snap.val() || {};
     if (document.getElementById('secretCard')?.style.display !== 'none') renderMissions();
   });
 
-  // BUDGET
   onValue(ref(db, 'budget'), snap => {
     liveBudget = snap.val() || {};
     renderBudget();
   });
 
-  // CARD EDITS
   onValue(ref(db, 'cardEdits'), snap => {
     liveCardEdits = snap.val() || {};
     Object.entries(liveCardEdits).forEach(([id, e]) => applyCardEdit(id, e));
   });
 }
 
-// ─── BOOT ────────────────────────────────────────────────
 window.addEventListener('DOMContentLoaded', async () => {
   try {
     await seedIfNeeded();
     startListeners();
-    // Restore mode
+    startCustomEventsListener();
     if (myMode === 'attendee') enterApp(true, false);
     else if (myMode === 'bday') enterApp(false, false);
   } catch(e) {
@@ -708,7 +741,6 @@ window.addEventListener('DOMContentLoaded', async () => {
   }
 });
 
-// ─── VOTES ────────────────────────────────────────────────
 function renderVoteGroup(groupId) {
   const c = document.getElementById('vopts-' + groupId); if (!c) return;
   const group = liveVotes[groupId]; if (!group) return;
@@ -731,7 +763,6 @@ async function castVote(groupId, idx) {
   const options = [...(group.options || [])];
   const prev = myVotes[groupId] ?? null;
   if (prev === idx) {
-    // UNVOTE
     options[idx] = { ...options[idx], votes: Math.max(0, (options[idx].votes||0) - 1) };
     myVotes[groupId] = null;
   } else {
@@ -747,7 +778,6 @@ async function castVote(groupId, idx) {
 async function deleteVoteOption(groupId, idx) {
   const group = liveVotes[groupId]; if (!group) return;
   const options = [...(group.options || [])];
-  // Adjust my vote index
   if (myVotes[groupId] === idx) myVotes[groupId] = null;
   else if (myVotes[groupId] !== null && myVotes[groupId] > idx) myVotes[groupId]--;
   options.splice(idx, 1);
@@ -770,7 +800,6 @@ async function addVoteOption(groupId) {
   showStatus('Option added 🎉');
 }
 
-// ─── CARD EDITS ───────────────────────────────────────────
 function applyCardEdit(id, e) {
   if (!e) return;
   const setText = (elId, val) => { const el = document.getElementById(elId); if (el && val) el.textContent = val; };
@@ -803,7 +832,6 @@ async function saveEdit() {
   closeEdit(); confettiBurst(); showStatus('Saved ✨');
 }
 
-// ─── MISSIONS ─────────────────────────────────────────────
 function renderMissions() {
   const list = document.getElementById('mission-list'); if (!list) return; list.innerHTML = '';
   const missions = Object.values(liveMissions).sort((a, b) => String(a.id).localeCompare(String(b.id)));
@@ -842,7 +870,6 @@ async function saveMission() {
   showStatus('Mission added 🎯');
 }
 
-// ─── BUDGET ───────────────────────────────────────────────
 function renderBudget() {
   const list = document.getElementById('budget-list'); if (!list) return; list.innerHTML = '';
   Object.values(liveBudget).forEach(r => {
@@ -865,7 +892,6 @@ function calcBudgetAvg() {
   el.textContent = vals.length ? '$' + Math.round(vals.reduce((s,v)=>s+v,0)/vals.length) : '—';
 }
 
-// ─── MODE / APP ───────────────────────────────────────────
 function enterApp(asAttendee, doConfetti = true) {
   localStorage.setItem('harshi_mode', asAttendee ? 'attendee' : 'bday');
   myMode = asAttendee ? 'attendee' : 'bday';
@@ -889,14 +915,12 @@ function unlockAttendee() {
   } else { document.getElementById('passwordError').style.display = 'block'; }
 }
 
-// ─── NAVIGATION ───────────────────────────────────────────
 function switchDay(idx, el) {
   document.querySelectorAll('.section').forEach(s => s.classList.remove('active'));
   document.querySelectorAll('.tab').forEach(t => t.classList.remove('active'));
   document.getElementById('day-' + idx).classList.add('active'); el.classList.add('active');
 }
 
-// ─── COUNTDOWN ────────────────────────────────────────────
 const tripDate = new Date("2025-07-16T09:00:00");
 function tick() {
   const diff = tripDate - new Date();
@@ -908,14 +932,12 @@ function tick() {
 }
 setInterval(tick, 1000); tick();
 
-// ─── DARK MODE ────────────────────────────────────────────
 function toggleDark() {
   darkPref = !darkPref;
   document.body.classList.toggle('dark', darkPref);
   localStorage.setItem('harshi_dark', darkPref);
 }
 
-// ─── CONFETTI ─────────────────────────────────────────────
 function launchConfetti() {
   const colors = ["#d14b91","#8f79ff","#7aa6d9","#ffffff","#ffce6e"]; const end = Date.now() + 2500;
   (function frame() {
@@ -931,7 +953,96 @@ function confettiBurst() {
   for (let i = 0; i < 16; i++) { setTimeout(() => { const c = document.createElement('div'); c.style.cssText = `position:fixed;width:8px;height:8px;border-radius:50%;background:${colors[~~(Math.random()*colors.length)]};left:${25+Math.random()*50}vw;top:${15+Math.random()*40}vh;z-index:9999;pointer-events:none;transition:all 1s ease;opacity:1;`; document.body.appendChild(c); setTimeout(() => { c.style.top = parseInt(c.style.top) + 120 + 'px'; c.style.opacity = '0'; }, 50); setTimeout(() => c.remove(), 1150); }, i * 40); }
 }
 
-// ─── EXPOSE TO GLOBAL SCOPE (required for onclick= attributes in modules) ──
+// ─── ADD / DELETE EVENTS (NEW FUNCTIONALITY) ──────────────
+let addEventTargetDay = null;
+
+function openAddEvent(dayIdx) {
+  addEventTargetDay = dayIdx;
+  ['ae-time','ae-title','ae-detail','ae-cost','ae-link'].forEach(id => { const el = document.getElementById(id); if (el) el.value = ''; });
+  document.querySelectorAll('.tag-pick-btn').forEach(b => b.classList.remove('selected'));
+  document.getElementById('addEventModal').classList.add('open');
+}
+
+function closeAddEvent() {
+  document.getElementById('addEventModal').classList.remove('open');
+  addEventTargetDay = null;
+}
+
+function toggleTagPick(btn) {
+  btn.classList.toggle('selected');
+}
+
+async function saveNewEvent() {
+  const day = addEventTargetDay;
+  if (day === null) return;
+  const g = id => document.getElementById(id)?.value?.trim() || '';
+  const title = g('ae-title');
+  if (!title) return;
+  const tags = Array.from(document.querySelectorAll('.tag-pick-btn.selected')).map(b => b.dataset.tag);
+  const event = {
+    time:  g('ae-time'),
+    title,
+    detail: g('ae-detail'),
+    cost:   g('ae-cost'),
+    link:   g('ae-link'),
+    tags,
+    day,
+    createdAt: Date.now(),
+  };
+  const newRef = push(ref(db, 'customEvents'));
+  await set(newRef, { ...event, id: newRef.key });
+  closeAddEvent();
+  showStatus('Event added 🎉');
+  confettiBurst();
+}
+
+async function deleteCustomEvent(id) {
+  await remove(ref(db, 'customEvents/' + id));
+  showStatus('Event removed');
+}
+
+function renderCustomEvent(ev) {
+  // Find the add-event button anchor for this day
+  const daySection = document.getElementById('day-' + ev.day);
+  if (!daySection) return;
+  const container = daySection.querySelector('.add-event-btn');
+  if (!container) return;
+  // Remove existing card if re-rendering
+  const existingCard = document.getElementById('custom-card-' + ev.id);
+  if (existingCard) existingCard.remove();
+  const tagHtml = (ev.tags || []).map(t => `<span class="tag ${t}">${t.charAt(0).toUpperCase()+t.slice(1)}</span>`).join('');
+  const linkHtml = ev.link ? `<a class="link-btn" href="${ev.link}" target="_blank">🔗 Link</a>` : '';
+  const div = document.createElement('div');
+  div.className = 'card';
+  div.id = 'custom-card-' + ev.id;
+  div.innerHTML = `
+    <div class="card-header">
+      <span class="time-badge" id="time-custom_${ev.id}">${ev.time || ''}</span>
+      <div style="display:flex;gap:8px;align-items:center">
+        <button class="edit-btn" style="opacity:1" onclick="openEdit('custom_${ev.id}')">✏️ Edit</button>
+        <button class="delete-event-btn" onclick="deleteCustomEvent('${ev.id}')" title="Delete event">🗑️ Delete</button>
+      </div>
+    </div>
+    ${tagHtml ? `<div class="tags">${tagHtml}</div>` : ''}
+    <div class="card-title" id="title-custom_${ev.id}">${ev.title}</div>
+    <div class="card-detail" id="detail-custom_${ev.id}">${ev.detail || ''}</div>
+    ${(ev.cost || ev.link) ? `<div class="card-bottom">${ev.cost ? `<span class="cost-pill" id="cost-custom_${ev.id}">${ev.cost}</span>` : ''}${linkHtml}</div>` : ''}
+  `;
+  // Insert before the add-event button so it appears above it
+  container.parentNode.insertBefore(div, container);
+}
+
+function startCustomEventsListener() {
+  onValue(ref(db, 'customEvents'), snap => {
+    // Remove all existing custom cards first
+    document.querySelectorAll('[id^="custom-card-"]').forEach(el => el.remove());
+    const events = snap.val() || {};
+    Object.values(events)
+      .sort((a, b) => (a.createdAt || 0) - (b.createdAt || 0))
+      .forEach(ev => renderCustomEvent(ev));
+  });
+}
+
 window.openBirthdayGirl  = openBirthdayGirl;
 window.openPassword      = openPassword;
 window.unlockAttendee    = unlockAttendee;
@@ -953,6 +1064,11 @@ window.deleteMission     = deleteMission;
 window.toggleMissionDone = toggleMissionDone;
 window.toggleMissionEdit = toggleMissionEdit;
 window.saveMissionEdit   = saveMissionEdit;
+window.openAddEvent      = openAddEvent;
+window.closeAddEvent     = closeAddEvent;
+window.saveNewEvent      = saveNewEvent;
+window.deleteCustomEvent = deleteCustomEvent;
+window.toggleTagPick     = toggleTagPick;
 </script>
 </body>
 </html>
