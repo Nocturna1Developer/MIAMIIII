@@ -631,10 +631,15 @@ body.dark .side-card{border-color:rgba(255,255,255,0.07);}
 </div>
 
 
-<!-- Firebase (compat CDN — synchronous, no imports, all globals) -->
-<script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-app-compat.js"></script>
-<script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-database-compat.js"></script>
+<!-- Firebase (jsDelivr CDN — most reliable for GitHub Pages) -->
+<script src="https://cdn.jsdelivr.net/npm/firebase@9.23.0/firebase-app-compat.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/firebase@9.23.0/firebase-database-compat.min.js"></script>
 <script>
+// Safety check — if firebase didn't load, show a clear error
+if (typeof firebase === 'undefined') {
+  document.body.innerHTML = '<div style="display:flex;align-items:center;justify-content:center;min-height:100vh;font-family:sans-serif;text-align:center;padding:40px"><div><div style="font-size:48px;margin-bottom:20px">😔</div><h2 style="margin-bottom:12px">Could not connect</h2><p style="color:#888">Check your internet connection and refresh the page.</p></div></div>';
+  throw new Error('Firebase failed to load');
+}
 
 // ── CONFIG ──────────────────────────────────────────────────────────────────
 const FIREBASE_CONFIG = {
@@ -1154,7 +1159,18 @@ function confettiBurst() {
 }
 
 // ── BOOT ──────────────────────────────────────────────────────────────────────
-seedIfNeeded().then(function(){ startListeners(); }).catch(function(e){ console.error('Firebase error:',e); });
+seedIfNeeded().then(function(){ 
+  startListeners();
+  // Monitor connection state
+  ref('.info/connected').on('value', function(snap) {
+    if (snap.val() === true) {
+      showStatus('Connected ✅');
+    }
+  });
+}).catch(function(e){ 
+  console.error('Firebase error:', e);
+  showStatus('⚠️ Database error — check Firebase rules');
+});
 
 </script>
 </body>
