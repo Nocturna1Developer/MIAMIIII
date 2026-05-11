@@ -60,6 +60,7 @@ body.dark{
     var(--bg);
 }
 .landing{min-height:100vh;display:flex;align-items:center;justify-content:center;padding:24px;}
+.landing.hidden{display:none !important;}
 .landing-card{width:min(520px,100%);background:rgba(255,255,255,0.72);backdrop-filter:blur(18px);border:1px solid rgba(255,255,255,0.5);border-radius:34px;padding:44px 36px;box-shadow:0 20px 60px rgba(0,0,0,0.08);text-align:center;position:relative;overflow:hidden;}
 body.dark .landing-card{background:rgba(26,18,40,0.85);border-color:rgba(255,255,255,0.08);}
 .landing-card::before{content:"";position:absolute;inset:0;background:radial-gradient(circle at top right,rgba(209,75,145,0.14),transparent 30%);pointer-events:none;}
@@ -377,6 +378,13 @@ body.dark .side-card{border-color:rgba(255,255,255,0.07);}
             <div class="day-tag">Day 1 • Arrival</div>
             <div class="day-title">South Beach Kickoff 🌅</div>
             <div class="day-desc">Beach day energy, rooftop dinners, and the official beginning of the chaos.</div>
+          </div>
+          <div class="card surprise-card" id="card-0-surprise1" style="display:none">
+            <div class="card-header"><span class="time-badge" id="time-0-s1">10:00 AM</span><button class="edit-btn" onclick="openEdit('0-s1')">✏️ Edit</button></div>
+            <div class="tags"><span class="tag surprise-tag">🎁 Surprise #1</span></div>
+            <div class="card-title" id="title-0-s1">Harshi Surprise #1: Scavenger Hunt 🎊</div>
+            <div class="card-detail" id="detail-0-s1">Each person leaves a clue leading Harshi to their gift. Plan your clues before Day 1 — coordinate secretly!</div>
+            <div class="card-bottom"><span class="cost-pill" id="cost-0-s1">At Airbnb</span></div>
           </div>
           <div class="card" id="card-0-0">
             <div class="card-header"><span class="time-badge" id="time-0-0">9:00 AM</span><button class="edit-btn" onclick="openEdit('0-0')">✏️ Edit</button></div>
@@ -1046,14 +1054,32 @@ function renderCustomCard(card) {
 function enterApp(asAttendee, doConfetti) {
   if (doConfetti === undefined) doConfetti = true;
   myMode = asAttendee ? 'attendee' : 'bday';
-  document.getElementById('landing').style.display = 'none';
+
+  // Hide landing completely
+  var landing = document.getElementById('landing');
+  landing.classList.add('hidden');
+
   document.getElementById('app').classList.add('active');
   document.getElementById('modeText').textContent = asAttendee ? 'Attendee Experience ✨' : 'Birthday Girl Experience';
   document.getElementById('secretCard').style.display   = asAttendee ? 'block' : 'none';
   document.getElementById('bdaySidebar').style.display  = asAttendee ? 'none'  : 'block';
-  document.querySelectorAll('.surprise-card').forEach(function(el){ el.style.display = asAttendee ? 'block' : 'none'; });
-  document.querySelectorAll('.edit-btn').forEach(function(el){ el.style.pointerEvents = 'auto'; });
-  document.querySelectorAll('.add-activity-btn').forEach(function(el){ el.style.display = asAttendee ? 'flex' : 'none'; });
+
+  // Surprise cards — show only for attendees
+  document.querySelectorAll('.surprise-card').forEach(function(el){
+    el.style.display = asAttendee ? 'block' : 'none';
+  });
+
+  // Edit buttons always enabled
+  document.querySelectorAll('.edit-btn').forEach(function(el){
+    el.style.pointerEvents = 'auto';
+    el.style.opacity = '';
+  });
+
+  // Add activity buttons — attendee only
+  document.querySelectorAll('.add-activity-btn').forEach(function(el){
+    el.style.display = asAttendee ? 'flex' : 'none';
+  });
+
   if (asAttendee) {
     renderMissions();
     setTimeout(function(){ addDeleteButtonsToStaticCards(); sortAllDays(); }, 150);
