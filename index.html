@@ -135,6 +135,8 @@ body.dark .card{border-color:rgba(255,255,255,0.07);}
 .time-badge{font-size:13px;color:var(--accent);font-weight:700;}
 .edit-btn{border:none;cursor:pointer;background:var(--gradient);color:white;padding:7px 14px;border-radius:10px;font-size:12px;font-weight:700;transition:.2s;flex-shrink:0;opacity:0;}
 .card:hover .edit-btn{opacity:1;}
+body.attendee-mode .edit-btn{opacity:1;}
+.app.active .edit-btn{opacity:1;}
 .tags{display:flex;flex-wrap:wrap;gap:8px;margin:10px 0 12px;}
 .tag{font-size:11px;font-weight:700;letter-spacing:.08em;text-transform:uppercase;padding:7px 12px;border-radius:100px;}
 .food{background:rgba(122,166,217,0.15);color:#4f84c2;}
@@ -228,27 +230,6 @@ body.dark .add-event-btn{background:linear-gradient(135deg,rgba(209,75,145,0.08)
 .tag-picker{display:flex;flex-wrap:wrap;gap:8px;margin-bottom:16px;}
 .tag-pick-btn{border:none;cursor:pointer;font-size:11px;font-weight:700;letter-spacing:.08em;text-transform:uppercase;padding:7px 12px;border-radius:100px;opacity:.45;transition:.2s;}
 .tag-pick-btn.selected{opacity:1;}
-/* ─── ALWAYS SHOW EDIT BTN (both modes) ────────────────── */
-.edit-btn-visible { opacity: 1 !important; }
-/* ─── MUSIC PLAYER ─────────────────────────────────────── */
-.music-bar{position:fixed;bottom:24px;right:24px;z-index:500;display:flex;align-items:center;gap:12px;background:var(--surface-solid);border:1px solid var(--border);border-radius:100px;padding:10px 18px 10px 14px;box-shadow:0 8px 32px rgba(0,0,0,0.12);transition:all .3s;}
-body.dark .music-bar{background:#1e1430;}
-.music-bar.hidden{opacity:0;pointer-events:none;}
-.music-disc{width:36px;height:36px;border-radius:50%;background:var(--gradient);display:flex;align-items:center;justify-content:center;font-size:16px;flex-shrink:0;transition:transform .1s;}
-.music-disc.spinning{animation:spin 3s linear infinite;}
-@keyframes spin{to{transform:rotate(360deg);}}
-.music-info{max-width:160px;overflow:hidden;}
-.music-title{font-size:12px;font-weight:700;color:var(--text);white-space:nowrap;overflow:hidden;text-overflow:ellipsis;}
-.music-sub{font-size:10px;color:var(--text-muted);margin-top:1px;}
-.music-ctrl{border:none;cursor:pointer;background:transparent;font-size:18px;color:var(--text);padding:0;line-height:1;transition:.2s;}
-.music-ctrl:hover{transform:scale(1.15);}
-.music-set-btn{border:none;cursor:pointer;background:transparent;font-size:13px;color:var(--text-muted);padding:0;transition:.2s;}
-.music-set-btn:hover{color:var(--accent);}
-.music-modal{display:none;position:fixed;inset:0;background:rgba(18,10,24,0.6);backdrop-filter:blur(10px);align-items:center;justify-content:center;z-index:1001;padding:20px;}
-.music-modal.open{display:flex;}
-.music-modal-card{width:min(440px,100%);background:var(--surface-solid);border-radius:28px;padding:32px;box-shadow:0 30px 80px rgba(0,0,0,0.22);}
-body.dark .music-modal-card{background:#1e1430;}
-#yt-iframe-wrap{display:none;}
 </style>
 </head>
 <body>
@@ -256,7 +237,7 @@ body.dark .music-modal-card{background:#1e1430;}
 <section class="landing" id="landing">
   <div class="landing-card">
     <div class="emoji">🌴</div>
-    <div class="landing-sub">Miami • July 2026</div>
+    <div class="landing-sub">Miami • July 2025</div>
     <h1 class="landing-title">Harshi's<br/>Birthday</h1>
     <p class="landing-desc">A luxury trip filled with beach days, rooftop dinners, yacht chaos, sunset photos, and birthday energy ✨</p>
     <div class="choice-grid">
@@ -360,7 +341,6 @@ body.dark .music-modal-card{background:#1e1430;}
         </div>
       </div>
       <div class="top-actions">
-        <button class="top-btn" onclick="openMusicModal()">🎵 Music</button>
         <button class="top-btn" onclick="launchConfetti()">🎊 Confetti</button>
         <button class="top-btn" onclick="toggleDark()">🌙 Theme</button>
       </div>
@@ -370,7 +350,7 @@ body.dark .music-modal-card{background:#1e1430;}
   <section class="hero">
     <div class="hero-wrap">
       <div class="hero-card">
-        <div class="hero-mini">Miami • July 23–26</div>
+        <div class="hero-mini">Miami • July 16–19</div>
         <div class="hero-title">4 Days of<br/>Birthday Chaos</div>
         <div class="hero-sub">Sunsets, yacht parties, rooftop dinners, matching outfits, and enough photo dumps to crash everyone's camera roll.</div>
         <div class="countdown">
@@ -644,38 +624,6 @@ body.dark .music-modal-card{background:#1e1430;}
   <div class="footer">our goal is to get banned from miami.</div>
 </div>
 
-<!-- Music Player Bar -->
-<div class="music-bar hidden" id="musicBar">
-  <div class="music-disc" id="musicDisc">🎵</div>
-  <div class="music-info">
-    <div class="music-title" id="musicTitle">No song set</div>
-    <div class="music-sub" id="musicSub">tap ⚙️ to add a song</div>
-  </div>
-  <button class="music-ctrl" id="musicPlayBtn" onclick="toggleMusicPlay()" title="Play/Pause">▶</button>
-  <button class="music-set-btn" onclick="openMusicModal()" title="Change song">⚙️</button>
-</div>
-
-<!-- Hidden YT iframe -->
-<div id="yt-iframe-wrap" style="display:none;position:fixed;top:-9999px;left:-9999px;width:1px;height:1px;">
-  <div id="yt-player"></div>
-</div>
-
-<!-- Music Settings Modal -->
-<div class="music-modal" id="musicModal">
-  <div class="music-modal-card">
-    <div class="modal-title">Trip Soundtrack 🎵</div>
-    <div class="modal-desc">Paste a YouTube link and it'll play for everyone who opens the site!</div>
-    <label class="field-label">YouTube Link</label>
-    <input type="text" class="field-input" id="musicUrlInput" placeholder="https://www.youtube.com/watch?v=..."/>
-    <label class="field-label">Song Label (optional)</label>
-    <input type="text" class="field-input" id="musicLabelInput" placeholder="e.g. Our Miami Anthem 🌴"/>
-    <div class="modal-actions">
-      <button class="btn-secondary" onclick="closeMusicModal()">Cancel</button>
-      <button class="btn-primary" onclick="saveMusicUrl()">Save Song 🎵</button>
-    </div>
-  </div>
-</div>
-
 <!-- Firebase SDKs -->
 <script type="module">
 import { initializeApp } from "https://www.gstatic.com/firebasejs/11.0.1/firebase-app.js";
@@ -780,12 +728,6 @@ function startListeners() {
     liveCardEdits = snap.val() || {};
     Object.entries(liveCardEdits).forEach(([id, e]) => applyCardEdit(id, e));
   });
-
-  onValue(ref(db, 'music'), snap => {
-    const data = snap.val();
-    if (typeof window.loadMusicFromDb === 'function') window.loadMusicFromDb(data);
-    else window._pendingMusicData = data;
-  });
 }
 
 window.addEventListener('DOMContentLoaded', async () => {
@@ -793,6 +735,7 @@ window.addEventListener('DOMContentLoaded', async () => {
     await seedIfNeeded();
     startListeners();
     startCustomEventsListener();
+    // always show landing on refresh
   } catch(e) {
     console.error('Firebase error:', e);
     document.getElementById('landing').innerHTML += `<div style="margin-top:20px;padding:16px;background:#ffe0e0;border-radius:16px;font-size:13px;color:#c00">⚠️ Firebase not configured yet. Open the HTML file and paste your Firebase config keys at the top of the &lt;script&gt; block.</div>`;
@@ -860,11 +803,13 @@ async function addVoteOption(groupId) {
 
 function applyCardEdit(id, e) {
   if (!e) return;
+  // Firebase keys use underscores, DOM IDs use dashes — normalise to dashes for DOM lookups
+  const domId = id.replace(/_/g, '-');
   const setText = (elId, val) => { const el = document.getElementById(elId); if (el && val) el.textContent = val; };
-  setText('time-' + id, e.time); setText('title-' + id, e.title);
-  setText('detail-' + id, e.detail); setText('cost-' + id, e.cost);
+  setText('time-' + domId, e.time); setText('title-' + domId, e.title);
+  setText('detail-' + domId, e.detail); setText('cost-' + domId, e.cost);
   if (e.link) {
-    const card = document.getElementById('card-' + id); if (!card) return;
+    const card = document.getElementById('card-' + domId); if (!card) return;
     let bot = card.querySelector('.card-bottom');
     if (!bot) { bot = document.createElement('div'); bot.className = 'card-bottom'; card.appendChild(bot); }
     let a = bot.querySelector('.custom-link');
@@ -874,11 +819,15 @@ function applyCardEdit(id, e) {
 }
 function openEdit(id) {
   editTarget = id;
-  document.getElementById('edit-time').value = document.getElementById('time-' + id)?.textContent.trim() || '';
-  document.getElementById('edit-title').value = document.getElementById('title-' + id)?.textContent.trim() || '';
-  document.getElementById('edit-detail').value = document.getElementById('detail-' + id)?.textContent.trim() || '';
-  document.getElementById('edit-cost').value = document.getElementById('cost-' + id)?.textContent.trim() || '';
-  document.getElementById('edit-link').value = (liveCardEdits[id] || {}).link || '';
+  // DOM IDs use dashes; Firebase keys use underscores — normalise for DOM lookups
+  const domId = id.replace(/_/g, '-');
+  document.getElementById('edit-time').value = document.getElementById('time-' + domId)?.textContent.trim() || '';
+  document.getElementById('edit-title').value = document.getElementById('title-' + domId)?.textContent.trim() || '';
+  document.getElementById('edit-detail').value = document.getElementById('detail-' + domId)?.textContent.trim() || '';
+  document.getElementById('edit-cost').value = document.getElementById('cost-' + domId)?.textContent.trim() || '';
+  // liveCardEdits keys use underscores — normalise for Firebase lookups
+  const fbId = id.replace(/-/g, '_');
+  document.getElementById('edit-link').value = (liveCardEdits[fbId] || liveCardEdits[id] || {}).link || '';
   document.getElementById('editOverlay').classList.add('open');
 }
 function closeEdit() { document.getElementById('editOverlay').classList.remove('open'); editTarget = null; }
@@ -950,7 +899,6 @@ function calcBudgetAvg() {
   el.textContent = vals.length ? '$' + Math.round(vals.reduce((s,v)=>s+v,0)/vals.length) : '—';
 }
 
-// ── FIX: edit buttons always clickable in both modes ──────
 function enterApp(asAttendee, doConfetti = true) {
   myMode = asAttendee ? 'attendee' : 'bday';
   document.getElementById('landing').style.display = 'none';
@@ -959,11 +907,7 @@ function enterApp(asAttendee, doConfetti = true) {
   document.getElementById('secretCard').style.display = asAttendee ? 'block' : 'none';
   document.getElementById('bdaySidebar').style.display = asAttendee ? 'none' : 'block';
   document.querySelectorAll('.surprise-card').forEach(el => el.style.display = asAttendee ? 'block' : 'none');
-  // Edit buttons are always enabled for both modes
-  document.querySelectorAll('.edit-btn').forEach(el => el.style.pointerEvents = 'auto');
-  // Show music bar (no autoplay — user must press play or the music button)
-  const mb = document.getElementById('musicBar');
-  if (mb && currentVideoId) mb.classList.remove('hidden');
+  document.body.classList.toggle('attendee-mode', asAttendee);
   if (asAttendee) renderMissions();
   if (doConfetti) launchConfetti();
 }
@@ -983,8 +927,7 @@ function switchDay(idx, el) {
   document.getElementById('day-' + idx).classList.add('active'); el.classList.add('active');
 }
 
-// ── FIX: corrected trip start date to July 23 ────────────
-const tripDate = new Date("2026-07-23T09:00:00");
+const tripDate = new Date("2025-07-16T09:00:00");
 function tick() {
   const diff = tripDate - new Date();
   if (diff <= 0) { ['cd-d','cd-h','cd-m','cd-s'].forEach(id => { const e = document.getElementById(id); if (e) e.textContent = '🎉'; }); return; }
@@ -1016,7 +959,7 @@ function confettiBurst() {
   for (let i = 0; i < 16; i++) { setTimeout(() => { const c = document.createElement('div'); c.style.cssText = `position:fixed;width:8px;height:8px;border-radius:50%;background:${colors[~~(Math.random()*colors.length)]};left:${25+Math.random()*50}vw;top:${15+Math.random()*40}vh;z-index:9999;pointer-events:none;transition:all 1s ease;opacity:1;`; document.body.appendChild(c); setTimeout(() => { c.style.top = parseInt(c.style.top) + 120 + 'px'; c.style.opacity = '0'; }, 50); setTimeout(() => c.remove(), 1150); }, i * 40); }
 }
 
-// ─── ADD / DELETE EVENTS ──────────────────────────────────
+// ─── ADD / DELETE EVENTS (NEW FUNCTIONALITY) ──────────────
 let addEventTargetDay = null;
 
 function openAddEvent(dayIdx) {
@@ -1065,10 +1008,12 @@ async function deleteCustomEvent(id) {
 }
 
 function renderCustomEvent(ev) {
+  // Find the add-event button anchor for this day
   const daySection = document.getElementById('day-' + ev.day);
   if (!daySection) return;
   const container = daySection.querySelector('.add-event-btn');
   if (!container) return;
+  // Remove existing card if re-rendering
   const existingCard = document.getElementById('custom-card-' + ev.id);
   if (existingCard) existingCard.remove();
   const tagHtml = (ev.tags || []).map(t => `<span class="tag ${t}">${t.charAt(0).toUpperCase()+t.slice(1)}</span>`).join('');
@@ -1089,11 +1034,13 @@ function renderCustomEvent(ev) {
     <div class="card-detail" id="detail-custom_${ev.id}">${ev.detail || ''}</div>
     ${(ev.cost || ev.link) ? `<div class="card-bottom">${ev.cost ? `<span class="cost-pill" id="cost-custom_${ev.id}">${ev.cost}</span>` : ''}${linkHtml}</div>` : ''}
   `;
+  // Insert before the add-event button so it appears above it
   container.parentNode.insertBefore(div, container);
 }
 
 function startCustomEventsListener() {
   onValue(ref(db, 'customEvents'), snap => {
+    // Remove all existing custom cards first
     document.querySelectorAll('[id^="custom-card-"]').forEach(el => el.remove());
     const events = snap.val() || {};
     Object.values(events)
@@ -1102,9 +1049,6 @@ function startCustomEventsListener() {
   });
 }
 
-window._fbSetMusic = async function(data) {
-  await set(ref(db, 'music'), data);
-};
 window.openBirthdayGirl  = openBirthdayGirl;
 window.openPassword      = openPassword;
 window.unlockAttendee    = unlockAttendee;
@@ -1131,110 +1075,6 @@ window.closeAddEvent     = closeAddEvent;
 window.saveNewEvent      = saveNewEvent;
 window.deleteCustomEvent = deleteCustomEvent;
 window.toggleTagPick     = toggleTagPick;
-window.openMusicModal    = openMusicModal;
-window.closeMusicModal   = closeMusicModal;
-window.saveMusicUrl      = saveMusicUrl;
-window.toggleMusicPlay   = toggleMusicPlay;
-</script>
-
-<!-- YouTube IFrame API -->
-<script src="https://www.youtube.com/iframe_api"></script>
-<script>
-// ─── MUSIC PLAYER ─────────────────────────────────────────
-let ytPlayer = null;
-let ytReady = false;
-let ytPendingVideoId = null;
-let musicPlaying = false;
-let currentVideoId = null;
-
-window.onYouTubeIframeAPIReady = function() {
-  ytReady = true;
-  ytPlayer = new YT.Player('yt-player', {
-    height: '1', width: '1',
-    playerVars: { autoplay: 0, controls: 0, playsinline: 1 },
-    events: {
-      onReady: function() {
-        if (ytPendingVideoId) {
-          ytPlayer.cueVideoById(ytPendingVideoId);
-          ytPendingVideoId = null;
-        }
-      },
-      onStateChange: function(e) {
-        if (e.data === YT.PlayerState.PLAYING) {
-          musicPlaying = true;
-          document.getElementById('musicPlayBtn').textContent = '⏸';
-          document.getElementById('musicDisc').classList.add('spinning');
-        } else if (e.data === YT.PlayerState.PAUSED || e.data === YT.PlayerState.ENDED) {
-          musicPlaying = false;
-          document.getElementById('musicPlayBtn').textContent = '▶';
-          document.getElementById('musicDisc').classList.remove('spinning');
-        }
-      }
-    }
-  });
-};
-
-function extractYtId(url) {
-  try {
-    const u = new URL(url);
-    if (u.hostname.includes('youtu.be')) return u.pathname.slice(1).split('?')[0];
-    return u.searchParams.get('v') || '';
-  } catch(e) { return ''; }
-}
-
-function loadMusicFromDb(data) {
-  window.loadMusicFromDb = loadMusicFromDb;
-  if (window._pendingMusicData !== undefined) {
-    data = window._pendingMusicData;
-    delete window._pendingMusicData;
-  }
-  if (!data || !data.url) {
-    document.getElementById('musicTitle').textContent = 'No song set';
-    document.getElementById('musicSub').textContent = 'tap ⚙️ to add a song';
-    return;
-  }
-  const vid = extractYtId(data.url);
-  const label = data.label || 'Miami Anthem 🌴';
-  document.getElementById('musicTitle').textContent = label;
-  document.getElementById('musicSub').textContent = 'youtube.com';
-  document.getElementById('musicBar').classList.remove('hidden');
-  if (vid && vid !== currentVideoId) {
-    currentVideoId = vid;
-    if (ytReady && ytPlayer && ytPlayer.cueVideoById) {
-      ytPlayer.cueVideoById(vid);
-    } else {
-      ytPendingVideoId = vid;
-    }
-  }
-}
-
-function toggleMusicPlay() {
-  if (!ytPlayer || !currentVideoId) return;
-  if (musicPlaying) {
-    ytPlayer.pauseVideo();
-  } else {
-    ytPlayer.playVideo();
-  }
-}
-
-function openMusicModal() {
-  document.getElementById('musicModal').classList.add('open');
-}
-function closeMusicModal() {
-  document.getElementById('musicModal').classList.remove('open');
-}
-
-// Import Firebase set/ref for music — reuse from parent module scope via globals
-async function saveMusicUrl() {
-  const url = document.getElementById('musicUrlInput').value.trim();
-  const label = document.getElementById('musicLabelInput').value.trim();
-  if (!url) return;
-  const vid = extractYtId(url);
-  if (!vid) { alert('Could not find a YouTube video ID in that link. Please use a standard youtube.com/watch?v= or youtu.be/ link.'); return; }
-  // Write to Firebase via the global fbSet function set up by the module
-  window._fbSetMusic({ url, label: label || 'Miami Anthem 🌴' });
-  closeMusicModal();
-}
 </script>
 </body>
 </html>
