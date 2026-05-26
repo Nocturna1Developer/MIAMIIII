@@ -131,7 +131,8 @@ body.dark .tab.active{background:#231933;}
 .card{background:var(--card-bg);backdrop-filter:blur(16px);border:1px solid rgba(255,255,255,0.45);border-radius:28px;padding:24px;margin-bottom:18px;box-shadow:var(--shadow);transition:.25s;position:relative;}
 body.dark .card{border-color:rgba(255,255,255,0.07);}
 .card:hover{transform:translateY(-3px);}
-.card-header{display:flex;justify-content:space-between;align-items:flex-start;gap:10px;margin-bottom:4px;}
+.card-header{display:flex;justify-content:space-between;align-items:center;gap:10px;margin-bottom:4px;}
+.card-actions{display:flex;align-items:center;gap:8px;flex-shrink:0;}
 .time-badge{font-size:13px;color:var(--accent);font-weight:700;}
 .edit-btn{border:none;cursor:pointer;background:var(--gradient);color:white;padding:7px 14px;border-radius:10px;font-size:12px;font-weight:700;transition:.2s;flex-shrink:0;opacity:0;}
 .card:hover .edit-btn{opacity:1;}
@@ -214,6 +215,25 @@ body.dark .side-card{border-color:rgba(255,255,255,0.07);}
 .add-opt-cancel{border:none;cursor:pointer;background:var(--input-bg);color:var(--text-muted);font-size:12px;font-weight:600;padding:10px 14px;border-radius:10px;}
 @media(max-width:980px){.grid{grid-template-columns:1fr;}.sidebar{position:relative;top:auto;}.hero-card{padding:34px 28px;}}
 @media(max-width:640px){.choice-grid{grid-template-columns:1fr;}.hero-title{font-size:54px;}.day-title{font-size:34px;}.topbar-inner{padding:12px;}.brand-sub{display:none;}.landing-card{padding:34px 24px;}.edit-btn{opacity:1;}}
+
+/* ─── VOTE TOGGLE IN ADD EVENT MODAL ───────────────────── */
+.vote-toggle-row{display:flex;align-items:center;justify-content:space-between;background:var(--vote-bg);border:1px solid var(--vote-border);border-radius:14px;padding:12px 16px;margin-bottom:16px;cursor:pointer;}
+.vote-toggle-label{font-size:13px;font-weight:700;color:var(--text);}
+.vote-toggle-label span{display:block;font-size:11px;font-weight:500;color:var(--text-muted);margin-top:2px;}
+.vote-toggle-switch{width:42px;height:24px;border-radius:100px;background:var(--border);position:relative;transition:.25s;flex-shrink:0;}
+.vote-toggle-switch.on{background:var(--accent);}
+.vote-toggle-switch::after{content:"";position:absolute;top:3px;left:3px;width:18px;height:18px;border-radius:50%;background:white;transition:.25s;box-shadow:0 1px 4px rgba(0,0,0,0.2);}
+.vote-toggle-switch.on::after{left:21px;}
+.ae-vote-options{display:none;margin-bottom:16px;}
+.ae-vote-options.open{display:block;}
+.ae-vote-opt-row{display:flex;gap:8px;margin-bottom:8px;}
+.ae-vote-opt-input{flex:1;border:1.5px solid var(--border);outline:none;background:var(--input-bg);padding:10px 12px;border-radius:10px;font-size:13px;font-family:'Inter',sans-serif;color:var(--text);}
+.ae-vote-opt-input:focus{border-color:var(--accent);}
+.ae-vote-opt-del{border:none;cursor:pointer;background:transparent;color:rgba(209,75,145,0.4);font-size:16px;padding:0 6px;transition:.2s;}
+.ae-vote-opt-del:hover{color:var(--accent);}
+.ae-add-opt-btn{width:100%;border:none;cursor:pointer;background:transparent;border:1.5px dashed var(--vote-border);color:var(--accent);font-size:13px;font-weight:600;padding:9px;border-radius:10px;transition:.2s;}
+.ae-add-opt-btn:hover{background:var(--vote-bg);}
+
 /* ─── ADD EVENT BUTTON ─────────────────────────────────── */
 .add-event-btn{width:100%;border:none;cursor:pointer;position:relative;overflow:hidden;background:linear-gradient(135deg,rgba(209,75,145,0.07),rgba(143,121,255,0.07),rgba(122,166,217,0.07));border:1.5px solid rgba(209,75,145,0.18);color:var(--accent);font-size:14px;font-weight:700;font-family:'Inter',sans-serif;padding:18px 24px;border-radius:22px;margin-top:4px;margin-bottom:22px;transition:all .3s ease;display:flex;align-items:center;justify-content:center;gap:10px;letter-spacing:.02em;}
 .add-event-btn::before{content:"";position:absolute;inset:0;background:var(--gradient);opacity:0;transition:opacity .3s ease;}
@@ -224,8 +244,8 @@ body.dark .side-card{border-color:rgba(255,255,255,0.07);}
 .add-event-btn:hover .add-event-btn-icon{background:rgba(255,255,255,0.2);border-color:rgba(255,255,255,0.3);}
 body.dark .add-event-btn{background:linear-gradient(135deg,rgba(209,75,145,0.08),rgba(143,121,255,0.08),rgba(122,166,217,0.08));border-color:rgba(209,75,145,0.22);}
 /* ─── DELETE EVENT BUTTON ──────────────────────────────── */
-.delete-event-btn{border:none;cursor:pointer;background:transparent;color:rgba(209,75,145,0.35);font-size:13px;font-weight:600;padding:6px 10px;border-radius:9px;transition:.2s;flex-shrink:0;}
-.delete-event-btn:hover{color:#d14b91;background:rgba(209,75,145,0.10);}
+.delete-event-btn{border:none;cursor:pointer;background:rgba(209,75,145,0.06);color:rgba(209,75,145,0.55);font-size:12px;font-weight:700;padding:7px 12px;border-radius:10px;transition:.2s;flex-shrink:0;border:1px solid rgba(209,75,145,0.12);}
+.delete-event-btn:hover{color:#d14b91;background:rgba(209,75,145,0.15);border-color:rgba(209,75,145,0.35);}
 /* ─── TAG PICKER IN ADD MODAL ──────────────────────────── */
 .tag-picker{display:flex;flex-wrap:wrap;gap:8px;margin-bottom:16px;}
 .tag-pick-btn{border:none;cursor:pointer;font-size:11px;font-weight:700;letter-spacing:.08em;text-transform:uppercase;padding:7px 12px;border-radius:100px;opacity:.45;transition:.2s;}
@@ -381,35 +401,35 @@ body.dark .add-event-btn{background:linear-gradient(135deg,rgba(209,75,145,0.08)
             <div class="day-desc">Check in, explore South Beach, sunset pics, and a proper dinner to kick things off.</div>
           </div>
           <div class="card" id="card-0-0">
-            <div class="card-header"><span class="time-badge" id="time-0-0">4:00 PM</span><button class="edit-btn" onclick="openEdit('0-0')">✏️ Edit</button></div>
+            <div class="card-header"><span class="time-badge" id="time-0-0">4:00 PM</span><div class="card-actions"><button class="edit-btn" onclick="openEdit('0-0')">✏️ Edit</button><button class="delete-event-btn" onclick="deleteBuiltinCard('0-0')" title="Delete event">🗑️ Delete</button></div></div>
             <div class="tags"><span class="tag activity">Activity</span></div>
             <div class="card-title" id="title-0-0">Check into Hotel / Airbnb</div>
             <div class="card-detail" id="detail-0-0">South Beach stay for the full experience — check if early check-in is available! Airbnb: ~$400 · Flights: ~$350</div>
             <div class="card-bottom"><span class="cost-pill" id="cost-0-0">~$750/group</span><a class="link-btn" href="https://www.airbnb.com/s/South-Beach--Miami-Beach--FL/homes" target="_blank">🏠 Browse Airbnbs</a></div>
           </div>
           <div class="card" id="card-0-1">
-            <div class="card-header"><span class="time-badge" id="time-0-1">Snack Break</span><button class="edit-btn" onclick="openEdit('0-1')">✏️ Edit</button></div>
+            <div class="card-header"><span class="time-badge" id="time-0-1">Snack Break</span><div class="card-actions"><button class="edit-btn" onclick="openEdit('0-1')">✏️ Edit</button><button class="delete-event-btn" onclick="deleteBuiltinCard('0-1')" title="Delete event">🗑️ Delete</button></div></div>
             <div class="tags"><span class="tag food">Food</span></div>
             <div class="card-title" id="title-0-1">Quick Snack</div>
             <div class="card-detail" id="detail-0-1">Pizza or quick bites near the hotel to hold everyone over before dinner.</div>
             <div class="card-bottom"><span class="cost-pill" id="cost-0-1">~$10/person</span></div>
           </div>
           <div class="card" id="card-0-2">
-            <div class="card-header"><span class="time-badge" id="time-0-2">5:00 PM</span><button class="edit-btn" onclick="openEdit('0-2')">✏️ Edit</button></div>
+            <div class="card-header"><span class="time-badge" id="time-0-2">5:00 PM</span><div class="card-actions"><button class="edit-btn" onclick="openEdit('0-2')">✏️ Edit</button><button class="delete-event-btn" onclick="deleteBuiltinCard('0-2')" title="Delete event">🗑️ Delete</button></div></div>
             <div class="tags"><span class="tag activity">Activity</span></div>
             <div class="card-title" id="title-0-2">Walk along Ocean Drive / Miami Art District</div>
             <div class="card-detail" id="detail-0-2">Explore the iconic Ocean Drive strip or stroll through the Miami Art District — great photo content and classic Miami energy.</div>
             <div class="card-bottom"><span class="cost-pill" id="cost-0-2">Free 🌊</span><a class="link-btn" href="https://www.google.com/maps/search/Ocean+Drive+Miami+Beach" target="_blank">📍 Directions</a></div>
           </div>
           <div class="card" id="card-0-3">
-            <div class="card-header"><span class="time-badge" id="time-0-3">7:30 PM</span><button class="edit-btn" onclick="openEdit('0-3')">✏️ Edit</button></div>
+            <div class="card-header"><span class="time-badge" id="time-0-3">7:30 PM</span><div class="card-actions"><button class="edit-btn" onclick="openEdit('0-3')">✏️ Edit</button><button class="delete-event-btn" onclick="deleteBuiltinCard('0-3')" title="Delete event">🗑️ Delete</button></div></div>
             <div class="tags"><span class="tag activity">Activity</span></div>
             <div class="card-title" id="title-0-3">Beach Time + Sunset Pictures 🌅</div>
             <div class="card-detail" id="detail-0-3">Golden hour on the beach. Everyone charge your phones — this is the first content dump of the trip.</div>
             <div class="card-bottom"><span class="cost-pill" id="cost-0-3">Free ✨</span></div>
           </div>
           <div class="card" id="card-0-4">
-            <div class="card-header"><span class="time-badge" id="time-0-4">9:00 PM</span><button class="edit-btn" onclick="openEdit('0-4')">✏️ Edit</button></div>
+            <div class="card-header"><span class="time-badge" id="time-0-4">9:00 PM</span><div class="card-actions"><button class="edit-btn" onclick="openEdit('0-4')">✏️ Edit</button><button class="delete-event-btn" onclick="deleteBuiltinCard('0-4')" title="Delete event">🗑️ Delete</button></div></div>
             <div class="tags"><span class="tag food">Food</span><span class="tag fancy">Fancy</span></div>
             <div class="card-title" id="title-0-4">Dinner Reservation — Mila</div>
             <div class="card-detail" id="detail-0-4">Mediterranean rooftop restaurant in South Beach. Dress up, birthday energy only. After dinner: head out to Brickell for chill vibes.</div>
@@ -426,14 +446,14 @@ body.dark .add-event-btn{background:linear-gradient(135deg,rgba(209,75,145,0.08)
             <div class="day-desc">The biggest day of the trip. Matching outfits mandatory.</div>
           </div>
           <div class="card" id="card-1-0">
-            <div class="card-header"><span class="time-badge" id="time-1-0">11:30 AM</span><button class="edit-btn" onclick="openEdit('1-0')">✏️ Edit</button></div>
+            <div class="card-header"><span class="time-badge" id="time-1-0">11:30 AM</span><div class="card-actions"><button class="edit-btn" onclick="openEdit('1-0')">✏️ Edit</button><button class="delete-event-btn" onclick="deleteBuiltinCard('1-0')" title="Delete event">🗑️ Delete</button></div></div>
             <div class="tags"><span class="tag food">Food</span><span class="tag fancy">Fancy</span></div>
             <div class="card-title" id="title-1-0">Brunch at Bastille or Flore</div>
             <div class="card-detail" id="detail-1-0">Start the biggest day with a proper brunch. Bastille or Flore are both great South Beach picks for the vibe.</div>
             <div class="card-bottom"><span class="cost-pill" id="cost-1-0">~$20–30/person</span></div>
           </div>
           <div class="card" id="card-1-1">
-            <div class="card-header"><span class="time-badge" id="time-1-1">1:30 PM</span><button class="edit-btn" onclick="openEdit('1-1')">✏️ Edit</button></div>
+            <div class="card-header"><span class="time-badge" id="time-1-1">1:30 PM</span><div class="card-actions"><button class="edit-btn" onclick="openEdit('1-1')">✏️ Edit</button><button class="delete-event-btn" onclick="deleteBuiltinCard('1-1')" title="Delete event">🗑️ Delete</button></div></div>
             <div class="tags"><span class="tag party">Party</span><span class="tag activity">Activity</span></div>
             <div class="card-title" id="title-1-1">Yacht / Water Activity — Vote!</div>
             <div class="card-detail" id="detail-1-1">Vote for the experience! Pool party at Fontainebleau (~$250), Yacht + 2 jet skis (~$100/pp), or Yacht for 3 hours (~$60/pp).</div>
@@ -446,21 +466,21 @@ body.dark .add-event-btn{background:linear-gradient(135deg,rgba(209,75,145,0.08)
             <div class="card-bottom"><span class="cost-pill" id="cost-1-1">~$60–250/person</span></div>
           </div>
           <div class="card" id="card-1-2">
-            <div class="card-header"><span class="time-badge" id="time-1-2">6:30 PM</span><button class="edit-btn" onclick="openEdit('1-2')">✏️ Edit</button></div>
+            <div class="card-header"><span class="time-badge" id="time-1-2">6:30 PM</span><div class="card-actions"><button class="edit-btn" onclick="openEdit('1-2')">✏️ Edit</button><button class="delete-event-btn" onclick="deleteBuiltinCard('1-2')" title="Delete event">🗑️ Delete</button></div></div>
             <div class="tags"><span class="tag activity">Activity</span></div>
             <div class="card-title" id="title-1-2">Chill, Get Ready, Take Pics</div>
             <div class="card-detail" id="detail-1-2">Back at the Airbnb — get glam, take pics, pre-game energy. The calm before the storm.</div>
             <div class="card-bottom"><span class="cost-pill" id="cost-1-2">Free ✨</span></div>
           </div>
           <div class="card" id="card-1-3">
-            <div class="card-header"><span class="time-badge" id="time-1-3">9:00 PM</span><button class="edit-btn" onclick="openEdit('1-3')">✏️ Edit</button></div>
+            <div class="card-header"><span class="time-badge" id="time-1-3">9:00 PM</span><div class="card-actions"><button class="edit-btn" onclick="openEdit('1-3')">✏️ Edit</button><button class="delete-event-btn" onclick="deleteBuiltinCard('1-3')" title="Delete event">🗑️ Delete</button></div></div>
             <div class="tags"><span class="tag food">Food</span><span class="tag fancy">Fancy</span></div>
             <div class="card-title" id="title-1-3">Dinner Reservation</div>
             <div class="card-detail" id="detail-1-3">Dinner out — dress up, birthday energy. Reservation needed.</div>
             <div class="card-bottom"><span class="cost-pill" id="cost-1-3">~$100/person</span><a class="uber-btn" href="https://m.uber.com/looking" target="_blank">🚗 Uber</a></div>
           </div>
           <div class="card" id="card-1-4">
-            <div class="card-header"><span class="time-badge" id="time-1-4">11:30 PM</span><button class="edit-btn" onclick="openEdit('1-4')">✏️ Edit</button></div>
+            <div class="card-header"><span class="time-badge" id="time-1-4">11:30 PM</span><div class="card-actions"><button class="edit-btn" onclick="openEdit('1-4')">✏️ Edit</button><button class="delete-event-btn" onclick="deleteBuiltinCard('1-4')" title="Delete event">🗑️ Delete</button></div></div>
             <div class="tags"><span class="tag party">Party</span></div>
             <div class="card-title" id="title-1-4">Club Night — Vote!</div>
             <div class="card-detail" id="detail-1-4">Sleep is not on the itinerary. LIV Nightclub or E11EVEN (24/7!).</div>
@@ -483,35 +503,35 @@ body.dark .add-event-btn{background:linear-gradient(135deg,rgba(209,75,145,0.08)
             <div class="day-desc">Art, culture, food, and one more night out.</div>
           </div>
           <div class="card" id="card-2-0">
-            <div class="card-header"><span class="time-badge" id="time-2-0">11:30 AM</span><button class="edit-btn" onclick="openEdit('2-0')">✏️ Edit</button></div>
+            <div class="card-header"><span class="time-badge" id="time-2-0">11:30 AM</span><div class="card-actions"><button class="edit-btn" onclick="openEdit('2-0')">✏️ Edit</button><button class="delete-event-btn" onclick="deleteBuiltinCard('2-0')" title="Delete event">🗑️ Delete</button></div></div>
             <div class="tags"><span class="tag food">Food</span></div>
             <div class="card-title" id="title-2-0">Coffee + Breakfast in Wynwood</div>
             <div class="card-detail" id="detail-2-0">Starting slow after yacht recovery. Cute coffee shops all around Wynwood for the perfect slow morning.</div>
             <div class="card-bottom"><span class="cost-pill" id="cost-2-0">~$20–30/person</span></div>
           </div>
           <div class="card" id="card-2-1">
-            <div class="card-header"><span class="time-badge" id="time-2-1">1:30 PM</span><button class="edit-btn" onclick="openEdit('2-1')">✏️ Edit</button></div>
+            <div class="card-header"><span class="time-badge" id="time-2-1">1:30 PM</span><div class="card-actions"><button class="edit-btn" onclick="openEdit('2-1')">✏️ Edit</button><button class="delete-event-btn" onclick="deleteBuiltinCard('2-1')" title="Delete event">🗑️ Delete</button></div></div>
             <div class="tags"><span class="tag activity">Activity</span></div>
             <div class="card-title" id="title-2-1">Wynwood Walls</div>
             <div class="card-detail" id="detail-2-1">Content day — everyone charge your phones. World-famous street art murals. 2516 NW 2nd Ave.</div>
             <div class="card-bottom"><span class="cost-pill" id="cost-2-1">~$10/person</span><a class="link-btn" href="https://www.thewynwoodwalls.com" target="_blank">🎨 Wynwood Walls</a></div>
           </div>
           <div class="card" id="card-2-2">
-            <div class="card-header"><span class="time-badge" id="time-2-2">1:30 PM</span><button class="edit-btn" onclick="openEdit('2-2')">✏️ Edit</button></div>
+            <div class="card-header"><span class="time-badge" id="time-2-2">1:30 PM</span><div class="card-actions"><button class="edit-btn" onclick="openEdit('2-2')">✏️ Edit</button><button class="delete-event-btn" onclick="deleteBuiltinCard('2-2')" title="Delete event">🗑️ Delete</button></div></div>
             <div class="tags"><span class="tag activity">Activity</span></div>
             <div class="card-title" id="title-2-2">Museum Vizcaya OR Museum of Ice Cream</div>
             <div class="card-detail" id="detail-2-2">Pick one! Museum Vizcaya for stunning villa and gardens, or Museum of Ice Cream for the most Instagram-worthy afternoon of the trip.</div>
             <div class="card-bottom"><span class="cost-pill" id="cost-2-2">~$100/group</span><a class="link-btn" href="https://www.vizcaya.org" target="_blank">🏛️ Vizcaya</a><a class="link-btn" href="https://www.museumoficecream.com/miami" target="_blank">🍦 Ice Cream</a></div>
           </div>
           <div class="card" id="card-2-3">
-            <div class="card-header"><span class="time-badge" id="time-2-3">6:30 PM</span><button class="edit-btn" onclick="openEdit('2-3')">✏️ Edit</button></div>
+            <div class="card-header"><span class="time-badge" id="time-2-3">6:30 PM</span><div class="card-actions"><button class="edit-btn" onclick="openEdit('2-3')">✏️ Edit</button><button class="delete-event-btn" onclick="deleteBuiltinCard('2-3')" title="Delete event">🗑️ Delete</button></div></div>
             <div class="tags"><span class="tag activity">Activity</span></div>
             <div class="card-title" id="title-2-3">Chill, Get Ready, Take Pics</div>
             <div class="card-detail" id="detail-2-3">Back at the Airbnb — get glam, take pics, wind down before dinner.</div>
             <div class="card-bottom"><span class="cost-pill" id="cost-2-3">Free ✨</span></div>
           </div>
           <div class="card" id="card-2-4">
-            <div class="card-header"><span class="time-badge" id="time-2-4">9:00 PM</span><button class="edit-btn" onclick="openEdit('2-4')">✏️ Edit</button></div>
+            <div class="card-header"><span class="time-badge" id="time-2-4">9:00 PM</span><div class="card-actions"><button class="edit-btn" onclick="openEdit('2-4')">✏️ Edit</button><button class="delete-event-btn" onclick="deleteBuiltinCard('2-4')" title="Delete event">🗑️ Delete</button></div></div>
             <div class="tags"><span class="tag food">Food</span><span class="tag fancy">Fancy</span></div>
             <div class="card-title" id="title-2-4">Dinner — Vote for a spot!</div>
             <div class="card-detail" id="detail-2-4">Casaneos, Mayani, or Baoli — all iconic Miami dinner spots. Vote or add your own pick!</div>
@@ -524,7 +544,7 @@ body.dark .add-event-btn{background:linear-gradient(135deg,rgba(209,75,145,0.08)
             <div class="card-bottom"><span class="cost-pill" id="cost-2-4">~$100/person</span><a class="uber-btn" href="https://m.uber.com/looking" target="_blank">🚗 Uber</a></div>
           </div>
           <div class="card" id="card-2-5">
-            <div class="card-header"><span class="time-badge" id="time-2-5">11:30 PM</span><button class="edit-btn" onclick="openEdit('2-5')">✏️ Edit</button></div>
+            <div class="card-header"><span class="time-badge" id="time-2-5">11:30 PM</span><div class="card-actions"><button class="edit-btn" onclick="openEdit('2-5')">✏️ Edit</button><button class="delete-event-btn" onclick="deleteBuiltinCard('2-5')" title="Delete event">🗑️ Delete</button></div></div>
             <div class="tags"><span class="tag party">Party</span></div>
             <div class="card-title" id="title-2-5">Speakeasy 🥃</div>
             <div class="card-detail" id="detail-2-5">End the night at a Miami speakeasy bar. Hidden gem energy to close out Day 3.</div>
@@ -541,14 +561,14 @@ body.dark .add-event-btn{background:linear-gradient(135deg,rgba(209,75,145,0.08)
             <div class="day-desc">One last brunch before everyone returns to reality.</div>
           </div>
           <div class="card" id="card-3-0">
-            <div class="card-header"><span class="time-badge" id="time-3-0">10:00 AM</span><button class="edit-btn" onclick="openEdit('3-0')">✏️ Edit</button></div>
+            <div class="card-header"><span class="time-badge" id="time-3-0">10:00 AM</span><div class="card-actions"><button class="edit-btn" onclick="openEdit('3-0')">✏️ Edit</button><button class="delete-event-btn" onclick="deleteBuiltinCard('3-0')" title="Delete event">🗑️ Delete</button></div></div>
             <div class="tags"><span class="tag food">Food</span></div>
             <div class="card-title" id="title-3-0">Recovery Brunch at Pura Vida</div>
             <div class="card-detail" id="detail-3-0">Healthy food and recovery. 110 Washington Ave, Miami Beach.</div>
             <div class="card-bottom"><span class="cost-pill" id="cost-3-0">~$25/person</span><a class="link-btn" href="https://www.puravidamiami.com" target="_blank">🥑 Menu</a></div>
           </div>
           <div class="card" id="card-3-1">
-            <div class="card-header"><span class="time-badge" id="time-3-1">11:30 AM</span><button class="edit-btn" onclick="openEdit('3-1')">✏️ Edit</button></div>
+            <div class="card-header"><span class="time-badge" id="time-3-1">11:30 AM</span><div class="card-actions"><button class="edit-btn" onclick="openEdit('3-1')">✏️ Edit</button><button class="delete-event-btn" onclick="deleteBuiltinCard('3-1')" title="Delete event">🗑️ Delete</button></div></div>
             <div class="tags"><span class="tag activity">Activity</span></div>
             <div class="card-title" id="title-3-1">Last Chill — Vote!</div>
             <div class="card-detail" id="detail-3-1">Spa or one last beach moment? Vote to decide!</div>
@@ -561,7 +581,7 @@ body.dark .add-event-btn{background:linear-gradient(135deg,rgba(209,75,145,0.08)
             <div class="card-bottom"><span class="cost-pill" id="cost-3-1">TBD</span></div>
           </div>
           <div class="card" id="card-3-2">
-            <div class="card-header"><span class="time-badge" id="time-3-2">2:00 PM</span><button class="edit-btn" onclick="openEdit('3-2')">✏️ Edit</button></div>
+            <div class="card-header"><span class="time-badge" id="time-3-2">2:00 PM</span><div class="card-actions"><button class="edit-btn" onclick="openEdit('3-2')">✏️ Edit</button><button class="delete-event-btn" onclick="deleteBuiltinCard('3-2')" title="Delete event">🗑️ Delete</button></div></div>
             <div class="tags"><span class="tag activity">Activity</span></div>
             <div class="card-title" id="title-3-2">Airport Time ✈️</div>
             <div class="card-detail" id="detail-3-2">The end of an era. Allow enough buffer time for MIA.</div>
@@ -944,6 +964,12 @@ function openAddEvent(dayIdx) {
   addEventTargetDay = dayIdx;
   ['ae-time','ae-title','ae-detail','ae-cost','ae-link'].forEach(id => { const el = document.getElementById(id); if (el) el.value = ''; });
   document.querySelectorAll('.tag-pick-btn').forEach(b => b.classList.remove('selected'));
+  // Reset vote toggle
+  aeVoteMode = false;
+  document.getElementById('ae-vote-switch').classList.remove('on');
+  document.getElementById('ae-vote-options').classList.remove('open');
+  document.getElementById('ae-vote-opt-list').innerHTML = '';
+  addAeVoteOption(); addAeVoteOption(); // start with 2 empty option rows
   document.getElementById('addEventModal').classList.add('open');
 }
 
@@ -971,10 +997,22 @@ async function saveNewEvent() {
     link:   g('ae-link'),
     tags,
     day,
+    isVote: aeVoteMode,
     createdAt: Date.now(),
   };
+  if (aeVoteMode) {
+    const optInputs = document.querySelectorAll('.ae-vote-opt-input');
+    const voteOptions = Array.from(optInputs).map(i => i.value.trim()).filter(Boolean);
+    if (voteOptions.length < 1) { showStatus('Add at least one vote option!'); return; }
+    event.voteOptions = voteOptions;
+  }
   const newRef = push(ref(db, 'customEvents'));
   await set(newRef, { ...event, id: newRef.key });
+  // If vote event, also seed the votes node
+  if (aeVoteMode && event.voteOptions) {
+    const opts = event.voteOptions.map(name => ({ name, link: '', votes: 0 }));
+    await set(ref(db, 'votes/custom_' + newRef.key), { options: opts });
+  }
   closeAddEvent();
   showStatus('Event added 🎉');
   confettiBurst();
@@ -986,34 +1024,48 @@ async function deleteCustomEvent(id) {
 }
 
 function renderCustomEvent(ev) {
-  // Find the add-event button anchor for this day
   const daySection = document.getElementById('day-' + ev.day);
   if (!daySection) return;
   const container = daySection.querySelector('.add-event-btn');
   if (!container) return;
-  // Remove existing card if re-rendering
   const existingCard = document.getElementById('custom-card-' + ev.id);
   if (existingCard) existingCard.remove();
   const tagHtml = (ev.tags || []).map(t => `<span class="tag ${t}">${t.charAt(0).toUpperCase()+t.slice(1)}</span>`).join('');
   const linkHtml = ev.link ? `<a class="link-btn" href="${ev.link}" target="_blank">🔗 Link</a>` : '';
+  const voteGroupId = 'custom_' + ev.id;
+  const voteHtml = ev.isVote ? `
+    <div class="vote-section">
+      <div class="vote-label">\u{1F5F3}\uFE0F Vote</div>
+      <div id="vopts-${voteGroupId}"></div>
+      <button class="add-vote-btn" onclick="toggleAddForm('${voteGroupId}')">+ Add a suggestion</button>
+      <div class="add-option-form" id="addform-${voteGroupId}">
+        <div class="add-opt-row">
+          <input class="add-opt-input" id="addname-${voteGroupId}" placeholder="Option name"/>
+          <input class="add-opt-input" id="addlink-${voteGroupId}" placeholder="Link (optional)"/>
+          <button class="add-opt-confirm" onclick="addVoteOption('${voteGroupId}')">Add</button>
+          <button class="add-opt-cancel" onclick="toggleAddForm('${voteGroupId}')">&#x2715;</button>
+        </div>
+      </div>
+    </div>` : '';
   const div = document.createElement('div');
   div.className = 'card';
   div.id = 'custom-card-' + ev.id;
   div.innerHTML = `
     <div class="card-header">
       <span class="time-badge" id="time-custom_${ev.id}">${ev.time || ''}</span>
-      <div style="display:flex;gap:8px;align-items:center">
-        <button class="edit-btn" style="opacity:1" onclick="openEdit('custom_${ev.id}')">✏️ Edit</button>
-        <button class="delete-event-btn" onclick="deleteCustomEvent('${ev.id}')" title="Delete event">🗑️ Delete</button>
+      <div class="card-actions">
+        <button class="edit-btn" style="opacity:1" onclick="openEdit('custom_${ev.id}')">&#x270F;&#xFE0F; Edit</button>
+        <button class="delete-event-btn" onclick="deleteCustomEvent('${ev.id}')" title="Delete event">&#x1F5D1;&#xFE0F; Delete</button>
       </div>
     </div>
     ${tagHtml ? `<div class="tags">${tagHtml}</div>` : ''}
     <div class="card-title" id="title-custom_${ev.id}">${ev.title}</div>
     <div class="card-detail" id="detail-custom_${ev.id}">${ev.detail || ''}</div>
-    ${(ev.cost || ev.link) ? `<div class="card-bottom">${ev.cost ? `<span class="cost-pill" id="cost-custom_${ev.id}">${ev.cost}</span>` : ''}${linkHtml}</div>` : ''}
+    ${voteHtml}
+    ${(!ev.isVote && (ev.cost || ev.link)) ? `<div class="card-bottom">${ev.cost ? `<span class="cost-pill" id="cost-custom_${ev.id}">${ev.cost}</span>` : ''}${linkHtml}</div>` : ''}
   `;
-  // Insert before the add-event button so it appears above it
   container.parentNode.insertBefore(div, container);
+  if (ev.isVote) renderVoteGroup(voteGroupId);
 }
 
 function startCustomEventsListener() {
@@ -1024,6 +1076,39 @@ function startCustomEventsListener() {
     Object.values(events)
       .sort((a, b) => (a.createdAt || 0) - (b.createdAt || 0))
       .forEach(ev => renderCustomEvent(ev));
+  });
+}
+
+
+// ─── VOTE TOGGLE HELPERS ─────────────────────────────────
+let aeVoteMode = false;
+function toggleVoteMode() {
+  aeVoteMode = !aeVoteMode;
+  document.getElementById('ae-vote-switch').classList.toggle('on', aeVoteMode);
+  document.getElementById('ae-vote-options').classList.toggle('open', aeVoteMode);
+}
+function addAeVoteOption() {
+  const list = document.getElementById('ae-vote-opt-list');
+  const row = document.createElement('div');
+  row.className = 'ae-vote-opt-row';
+  row.innerHTML = `<input class="ae-vote-opt-input" placeholder="Option name e.g. Nikki Beach"/><button class="ae-vote-opt-del" onclick="this.parentElement.remove()">✕</button>`;
+  list.appendChild(row);
+}
+
+
+// ─── DELETE BUILT-IN CARDS ───────────────────────────────
+async function deleteBuiltinCard(id) {
+  const card = document.getElementById('card-' + id);
+  if (card) card.remove();
+  const fbId = id.replace(/-/g, '_');
+  await set(ref(db, 'deletedCards/' + fbId), true);
+}
+
+function applyDeletedCards(deletedMap) {
+  Object.keys(deletedMap || {}).forEach(fbId => {
+    const domId = fbId.replace(/_/g, '-');
+    const card = document.getElementById('card-' + domId);
+    if (card) card.remove();
   });
 }
 
@@ -1053,6 +1138,9 @@ window.closeAddEvent     = closeAddEvent;
 window.saveNewEvent      = saveNewEvent;
 window.deleteCustomEvent = deleteCustomEvent;
 window.toggleTagPick     = toggleTagPick;
+window.toggleVoteMode    = toggleVoteMode;
+window.addAeVoteOption   = addAeVoteOption;
+window.deleteBuiltinCard  = deleteBuiltinCard;
 </script>
 </body>
 </html>
