@@ -409,7 +409,8 @@ body.dark .music-modal-card{background:#1e1430;}
   <section class="hero">
     <div class="hero-wrap">
       <div class="hero-card">
-        <div class="hero-mini">Miami • July 16–19</div>
+        <div class="hero-mini">Miami • July 23–26
+        </div>
         <div class="hero-title">4 Days of<br/>Birthday Chaos</div>
         <div class="hero-sub">Sunsets, yacht parties, rooftop dinners, matching outfits, and enough photo dumps to crash everyone's camera roll.</div>
         <div class="countdown">
@@ -1031,7 +1032,7 @@ function switchDay(idx, el) {
   document.getElementById('day-' + idx).classList.add('active'); el.classList.add('active');
 }
 
-const tripDate = new Date("2025-07-16T09:00:00");
+const tripDate = new Date("2026-07-16T09:00:00");
 function tick() {
   const diff = tripDate - new Date();
   if (diff <= 0) { ['cd-d','cd-h','cd-m','cd-s'].forEach(id => { const e = document.getElementById(id); if (e) e.textContent = '🎉'; }); return; }
