@@ -147,7 +147,7 @@ body.attendee-mode .edit-btn{opacity:1;}
 .fancy{background:rgba(255,215,140,0.18);color:#af7d22;}
 .surprise-tag{background:rgba(255,150,50,0.12);color:#c07020;}
 .card-title{font-size:21px;font-weight:700;margin-bottom:8px;color:var(--text);}
-.card-detail{color:var(--text-muted);line-height:1.7;font-size:14px;}
+.card-detail{color:var(--text-muted);line-height:1.7;font-size:14px;white-space:pre-wrap;}
 .card-bottom{margin-top:16px;display:flex;align-items:center;gap:10px;flex-wrap:wrap;}
 .cost-pill{background:var(--btn-bg);border-radius:12px;padding:9px 14px;font-size:13px;border:1px solid var(--border);color:var(--text);font-weight:600;}
 .link-btn{display:inline-flex;align-items:center;gap:5px;text-decoration:none;background:rgba(122,166,217,0.12);color:#4f84c2;border:1px solid rgba(122,166,217,0.22);padding:9px 14px;border-radius:12px;font-size:13px;font-weight:600;transition:.2s;}
@@ -910,9 +910,10 @@ function applyCardEdit(id, e) {
   if (!e) return;
   // Firebase keys use underscores, DOM IDs use dashes — normalise to dashes for DOM lookups
   const domId = id.replace(/_/g, '-');
-  const setText = (elId, val) => { const el = document.getElementById(elId); if (el && val) el.textContent = val; };
-  setText('time-' + domId, e.time); setText('title-' + domId, e.title);
-  setText('detail-' + domId, e.detail); setText('cost-' + domId, e.cost);
+const setText = (elId, val) => { const el = document.getElementById(elId); if (el && val) el.textContent = val; };
+const setHtml = (elId, val) => { const el = document.getElementById(elId); if (el && val !== undefined) el.innerHTML = val.replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/\n/g,'<br>'); };
+setText('time-' + domId, e.time); setText('title-' + domId, e.title);
+setHtml('detail-' + domId, e.detail); setText('cost-' + domId, e.cost);
   if (e.link) {
     const card = document.getElementById('card-' + domId); if (!card) return;
     let bot = card.querySelector('.card-bottom');
