@@ -1040,7 +1040,7 @@ function switchDay(idx, el) {
   document.getElementById('day-' + idx).classList.add('active'); el.classList.add('active');
 }
 
-const tripDate = new Date("2026-07-16T09:00:00");
+const tripDate = new Date("2026-07-23T09:00:00");
 function tick() {
   const diff = tripDate - new Date();
   if (diff <= 0) { ['cd-d','cd-h','cd-m','cd-s'].forEach(id => { const e = document.getElementById(id); if (e) e.textContent = '🎉'; }); return; }
