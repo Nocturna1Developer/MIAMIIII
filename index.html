@@ -781,6 +781,7 @@ let liveVotes = {};
 let liveMissions = {};
 let liveBudget = {};
 let liveCardEdits = {};
+let liveCardOrder = {};
 
 function showStatus(msg) {
   let el = document.getElementById('fb-status');
@@ -828,8 +829,8 @@ function startListeners() {
   });
 
   onValue(ref(db, 'cardOrder'), snap => {
-    const orders = snap.val() || {};
-    Object.entries(orders).forEach(([key, order]) => {
+    liveCardOrder = snap.val() || {};
+    Object.entries(liveCardOrder).forEach(([key, order]) => {
       const dayIdx = parseInt(key.replace('day',''));
       applyCardOrder(dayIdx, order);
     });
@@ -1191,6 +1192,11 @@ function startCustomEventsListener() {
     Object.values(events)
       .sort((a, b) => (a.createdAt || 0) - (b.createdAt || 0))
       .forEach(ev => renderCustomEvent(ev));
+    // Custom cards now exist in the DOM — re-apply the saved manual order,
+    // otherwise they snap back to the bottom in creation order.
+    Object.entries(liveCardOrder).forEach(([key, order]) => {
+      applyCardOrder(parseInt(key.replace('day','')), order);
+    });
   });
 }
 
