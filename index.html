@@ -344,6 +344,40 @@ body.dark .music-bar{background:#1e1430;}
 .music-modal-card{width:min(440px,100%);background:var(--surface-solid);border-radius:28px;padding:32px;box-shadow:0 30px 80px rgba(0,0,0,0.22);}
 body.dark .music-modal-card{background:#1e1430;}
 #yt-iframe-wrap{display:none;}
+
+/* --- Prediction board (attendee) --- */
+.predict-pill{background:linear-gradient(135deg,rgba(143,121,255,0.09),rgba(122,166,217,0.08));border:1px solid rgba(143,121,255,0.15);border-radius:18px;padding:14px 16px;margin-top:10px;}
+.predict-prompt{font-weight:700;font-size:14px;color:var(--text);line-height:1.4;margin-bottom:8px;}
+.predict-status{font-size:12px;color:var(--text-muted);margin-bottom:10px;}
+.predict-status b{color:var(--accent);}
+.predict-input-row{display:flex;gap:8px;}
+.predict-input{flex:1;min-width:0;border:1.5px solid var(--border);outline:none;background:var(--input-bg);padding:9px 12px;border-radius:10px;font-size:13px;font-family:'Inter',sans-serif;color:var(--text);}
+.predict-input:focus{border-color:var(--accent);}
+.predict-lock-btn{border:none;cursor:pointer;background:var(--gradient);color:white;font-size:12px;font-weight:700;padding:9px 14px;border-radius:10px;white-space:nowrap;transition:.2s;}
+.predict-lock-btn:hover{opacity:.85;}
+.predict-del{border:none;cursor:pointer;background:transparent;color:rgba(209,75,145,0.45);font-size:11px;font-weight:600;padding:6px 2px 0;margin-top:4px;transition:.2s;}
+.predict-del:hover{color:var(--accent);}
+
+/* --- Quote wall (attendee) --- */
+.quote-pill{position:relative;background:var(--input-bg);border-radius:14px;padding:12px 34px 12px 16px;margin-top:8px;font-size:14px;color:var(--text);line-height:1.5;font-style:italic;}
+.quote-mark{color:var(--accent);font-weight:800;font-style:normal;}
+.quote-del{position:absolute;top:8px;right:10px;border:none;cursor:pointer;background:transparent;color:rgba(209,75,145,0.4);font-size:13px;transition:.2s;}
+.quote-del:hover{color:var(--accent);}
+
+/* --- Reveal: predictions --- */
+.reveal-predict-block{background:var(--card-bg);backdrop-filter:blur(16px);border:1px solid var(--border);border-radius:20px;padding:18px 20px;margin-bottom:14px;box-shadow:var(--shadow);}
+.reveal-predict-prompt{font-family:'Playfair Display',serif;font-size:17px;color:var(--text);margin-bottom:12px;line-height:1.3;}
+.reveal-guess{display:flex;align-items:center;gap:10px;justify-content:space-between;background:var(--input-bg);border:1px solid transparent;border-radius:12px;padding:10px 12px;margin-bottom:8px;transition:.2s;}
+.reveal-guess.nailed{border-color:var(--accent);background:linear-gradient(135deg,rgba(255,206,110,0.18),rgba(209,75,145,0.08));box-shadow:0 4px 16px rgba(209,75,145,0.12);}
+.reveal-guess-main{flex:1;min-width:0;font-size:13px;line-height:1.5;}
+.reveal-guess-author{font-weight:800;color:var(--accent);}
+.reveal-guess-text{color:var(--text);}
+.reveal-nail-btn{border:none;cursor:pointer;background:var(--btn-bg);border:1px solid var(--border);color:var(--text-muted);font-size:11px;font-weight:700;padding:7px 11px;border-radius:100px;white-space:nowrap;transition:.2s;flex-shrink:0;}
+.reveal-nail-btn.on{background:var(--gradient);color:white;border-color:transparent;}
+.reveal-nail-btn:hover{opacity:.85;}
+
+/* --- Reveal: quotes --- */
+.reveal-quote{background:var(--card-bg);backdrop-filter:blur(16px);border:1px solid var(--border);border-left:4px solid var(--accent);border-radius:16px;padding:16px 20px;margin-bottom:10px;font-size:16px;font-style:italic;color:var(--text);line-height:1.6;box-shadow:var(--shadow);}
 </style>
 </head>
 <body>
@@ -452,6 +486,19 @@ body.dark .music-modal-card{background:#1e1430;}
     <div class="modal-actions">
       <button class="btn-secondary" onclick="closeAddEvent()">Cancel</button>
       <button class="btn-primary" onclick="saveNewEvent()">Add Event 🎉</button>
+    </div>
+  </div>
+</div>
+
+<div class="modal-overlay" id="addPredictionModal">
+  <div class="modal-card">
+    <div class="modal-title">New Prediction 🔮</div>
+    <div class="modal-desc">What are we secretly betting on? Everyone locks in a guess — Reveal Mode shows who called it.</div>
+    <label class="field-label">The bet</label>
+    <textarea class="field-textarea" id="new-prediction-input" placeholder="e.g. How will Harshi react when she sees the Porsche?"></textarea>
+    <div class="modal-actions">
+      <button class="btn-secondary" onclick="document.getElementById('addPredictionModal').classList.remove('open')">Cancel</button>
+      <button class="btn-primary" onclick="savePrediction()">Add Prompt 🔮</button>
     </div>
   </div>
 </div>
@@ -772,6 +819,23 @@ body.dark .music-modal-card{background:#1e1430;}
           <div id="secret-notes-list"></div>
         </div>
 
+        <div class="side-card attendee-only" id="predictionCard" style="display:none">
+          <div class="side-title">Prediction Board 🔮</div>
+          <div class="budget-sub">Secretly bet on how she'll react to each surprise — or what she'll say. Bets stay sealed until Reveal Mode, where we find out who called it. 🎯</div>
+          <div id="prediction-list"></div>
+          <button class="add-mission-btn" onclick="document.getElementById('addPredictionModal').classList.add('open')">+ Add a prediction</button>
+        </div>
+
+        <div class="side-card attendee-only" id="quotesCard" style="display:none">
+          <div class="side-title">Harshi Said 💬</div>
+          <div class="budget-sub">Catch the funniest, most Harshi things she says all weekend. Anonymous — they become a quote wall in Reveal Mode.</div>
+          <div class="note-input-area">
+            <textarea class="secret-edit-input" id="new-quote-input" placeholder="&ldquo;I&rsquo;m never leaving Miami&rdquo;"></textarea>
+            <button class="secret-save-btn" onclick="addQuote()">Add quote 💬</button>
+          </div>
+          <div id="quotes-list"></div>
+        </div>
+
         <div class="side-card attendee-only" id="revealTriggerCard" style="display:none">
           <div class="side-title">Reveal Mode 🎬</div>
           <div class="budget-sub">Preview what Harshi will see after the trip — built from everything logged here.</div>
@@ -833,6 +897,10 @@ body.dark .music-modal-card{background:#1e1430;}
     </div>
     <div class="reveal-section-title">The Timeline 🕵️</div>
     <div class="reveal-timeline" id="reveal-timeline"></div>
+    <div class="reveal-section-title">The Betting Pool 🔮</div>
+    <div id="reveal-predictions"></div>
+    <div class="reveal-section-title">Things You Said 💬</div>
+    <div id="reveal-quotes"></div>
     <div class="reveal-section-title">Messages For You 💌</div>
     <div id="reveal-notes"></div>
     <div class="reveal-footer">— from everyone who loves you 🌴</div>
@@ -879,6 +947,13 @@ const DEFAULTS = {
   budget: {},
   opslog: {},
   secretNotes: {},
+  predictions: {
+    p1:{id:'p1',prompt:"How will Harshi react to the decorated Airbnb? 🎊"},
+    p2:{id:'p2',prompt:"What's the first thing she says for the secret dinner reserveation? 🥩"},
+    p3:{id:'p3',prompt:"Her exact reaction when she sees the Porsche Taycan 🏎️"},
+    p4:{id:'p4',prompt:"How will she react to the scavenger hunt and disposable cameras? 📷"},
+  },
+  quotes: {},
   dark: false,
 };
 
@@ -907,6 +982,8 @@ let liveCardEdits = {};
 let liveCardOrder = {};
 let liveOpsLog = {};
 let liveSecretNotes = {};
+let livePredictions = {};
+let liveQuotes = {};
 
 function showStatus(msg) {
   let el = document.getElementById('fb-status');
@@ -930,8 +1007,16 @@ async function seedIfNeeded() {
     await set(ref(db, 'budget'), DEFAULTS.budget);
     await set(ref(db, 'opslog'), DEFAULTS.opslog);
     await set(ref(db, 'secretNotes'), DEFAULTS.secretNotes);
+    await set(ref(db, 'predictions'), DEFAULTS.predictions);
     await set(ref(db, 'initialized'), true);
   }
+}
+
+// Backfills a node that didn't exist when the DB was first seeded
+// (the trip DB is already initialized, so seedIfNeeded() skips new nodes).
+async function seedNodeIfMissing(path, data) {
+  const snap = await get(ref(db, path));
+  if (!snap.exists()) await set(ref(db, path), data);
 }
 
 function startListeners() {
@@ -975,6 +1060,18 @@ function startListeners() {
     updateStatsBar();
   });
 
+  onValue(ref(db, 'predictions'), snap => {
+    livePredictions = snap.val() || {};
+    if (myMode === 'attendee') renderPredictions();
+    if (document.getElementById('revealOverlay')?.classList.contains('open')) openReveal();
+  });
+
+  onValue(ref(db, 'quotes'), snap => {
+    liveQuotes = snap.val() || {};
+    if (myMode === 'attendee') renderQuotes();
+    if (document.getElementById('revealOverlay')?.classList.contains('open')) openReveal();
+  });
+
   onValue(ref(db, 'music'), snap => {
     const data = snap.val();
     if (typeof window.loadMusicFromDb === 'function') window.loadMusicFromDb(data);
@@ -985,6 +1082,7 @@ function startListeners() {
 window.addEventListener('DOMContentLoaded', async () => {
   try {
     await seedIfNeeded();
+    await seedNodeIfMissing('predictions', DEFAULTS.predictions);
     startListeners();
     startCustomEventsListener();
     // always show landing on refresh
@@ -1205,6 +1303,94 @@ function renderSecretNotes() {
   }).join('') + `<div class="notes-hint">Notes stay sealed until Reveal Mode — even from each other.</div>`;
 }
 
+/* --- Prediction Board --- */
+function nameSlug(n) { return ((n||'someone').toLowerCase().replace(/[^a-z0-9]/g,'_').slice(0,40)) || 'someone'; }
+
+function renderPredictions() {
+  const list = document.getElementById('prediction-list'); if (!list) return;
+  const prompts = Object.values(livePredictions || {}).sort((a,b) => String(a.id).localeCompare(String(b.id)));
+  if (!prompts.length) { list.innerHTML = '<div class="notes-hint">No bets on the board yet — add one!</div>'; return; }
+  const mySlug = nameSlug(getMyName());
+  list.innerHTML = prompts.map(p => {
+    const guesses = p.guesses ? Object.values(p.guesses) : [];
+    const mine = p.guesses ? p.guesses[mySlug] : null;
+    const safePrompt = (p.prompt || '').replace(/</g,'&lt;');
+    const n = guesses.length;
+    const myVal = mine ? (mine.text || '').replace(/"/g,'&quot;') : '';
+    return `<div class="predict-pill">
+      <div class="predict-prompt">${safePrompt}</div>
+      <div class="predict-status">🔒 ${n} bet${n===1?'':'s'} locked in${mine?` · <b>you're in</b>`:''}</div>
+      <div class="predict-input-row">
+        <input class="predict-input" id="pguess-${p.id}" value="${myVal}" placeholder="${mine?'Update your bet…':'Your secret bet…'}" onkeydown="if(event.key==='Enter')lockPrediction('${p.id}')"/>
+        <button class="predict-lock-btn" onclick="lockPrediction('${p.id}')">${mine?'Update':'Lock in'}</button>
+      </div>
+      <button class="predict-del" onclick="deletePrediction('${p.id}')" title="Remove this prompt">Remove prompt</button>
+    </div>`;
+  }).join('');
+}
+
+async function lockPrediction(pid) {
+  const input = document.getElementById('pguess-' + pid);
+  const text = input ? input.value.trim() : '';
+  if (!text) return;
+  const slug = nameSlug(getMyName());
+  const existing = livePredictions[pid]?.guesses?.[slug];
+  await set(ref(db, `predictions/${pid}/guesses/${slug}`), { author: getMyName(), text, nailed: existing?.nailed || false });
+  if (!existing) await addOpsLog(`<b>${getMyName()}</b> locked in a prediction 🔮`);
+  showStatus('Bet locked 🔒');
+}
+
+async function deletePrediction(pid) {
+  await remove(ref(db, 'predictions/' + pid));
+  showStatus('Prompt removed');
+}
+
+async function savePrediction() {
+  const input = document.getElementById('new-prediction-input');
+  const text = input ? input.value.trim() : '';
+  if (!text) return;
+  const newRef = push(ref(db, 'predictions'));
+  await set(newRef, { id: newRef.key, prompt: text });
+  input.value = '';
+  document.getElementById('addPredictionModal').classList.remove('open');
+  showStatus('Prompt added 🔮');
+}
+
+async function toggleNailed(pid, gid) {
+  const cur = livePredictions[pid]?.guesses?.[gid];
+  if (!cur) return;
+  const nv = !cur.nailed;
+  cur.nailed = nv; // optimistic — same object ref, lets openReveal re-render instantly
+  await set(ref(db, `predictions/${pid}/guesses/${gid}/nailed`), nv);
+  if (document.getElementById('revealOverlay')?.classList.contains('open')) openReveal();
+}
+
+/* --- Quote Wall --- */
+async function addQuote() {
+  const input = document.getElementById('new-quote-input');
+  const text = input ? input.value.trim() : '';
+  if (!text) return;
+  const newRef = push(ref(db, 'quotes'));
+  await set(newRef, { id: newRef.key, text, ts: Date.now() });
+  input.value = '';
+  showStatus('Quote saved 💬');
+}
+
+function renderQuotes() {
+  const list = document.getElementById('quotes-list'); if (!list) return;
+  const quotes = Object.values(liveQuotes || {}).sort((a,b) => (b.ts||0) - (a.ts||0));
+  if (!quotes.length) { list.innerHTML = '<div class="notes-hint">No quotes yet — catch her first iconic line!</div>'; return; }
+  list.innerHTML = quotes.map(q => {
+    const safe = (q.text || '').replace(/</g,'&lt;');
+    return `<div class="quote-pill"><span class="quote-mark">&ldquo;</span>${safe}<span class="quote-mark">&rdquo;</span><button class="quote-del" onclick="deleteQuote('${q.id||''}')" title="Remove">✕</button></div>`;
+  }).join('');
+}
+
+async function deleteQuote(id) {
+  if (!id) return;
+  await remove(ref(db, 'quotes/' + id));
+}
+
 /* --- Stats bar (live, attendee view) --- */
 function updateStatsBar() {
   const missions = Object.values(liveMissions || {});
@@ -1244,6 +1430,43 @@ function openReveal() {
     }).join('');
   }
 
+  // --- Betting pool ---
+  const predEl = document.getElementById('reveal-predictions');
+  if (predEl) {
+    const prompts = Object.values(livePredictions || {}).sort((a,b) => String(a.id).localeCompare(String(b.id)));
+    const withGuesses = prompts.filter(p => p.guesses && Object.keys(p.guesses).length);
+    if (!withGuesses.length) {
+      predEl.innerHTML = '<div class="reveal-empty">No bets were placed 🤷</div>';
+    } else {
+      predEl.innerHTML = withGuesses.map(p => {
+        const safeP = (p.prompt || '').replace(/</g,'&lt;');
+        const rows = Object.entries(p.guesses).map(([gid, g]) => {
+          const safeA = (g.author || 'Someone').replace(/</g,'&lt;');
+          const safeT = (g.text || '').replace(/</g,'&lt;');
+          return `<div class="reveal-guess ${g.nailed?'nailed':''}">
+            <div class="reveal-guess-main"><span class="reveal-guess-author">${safeA}</span> <span class="reveal-guess-text">${safeT}</span></div>
+            <button class="reveal-nail-btn ${g.nailed?'on':''}" onclick="toggleNailed('${p.id}','${gid}')">${g.nailed?'🎯 Called it':'🎯 Nailed it?'}</button>
+          </div>`;
+        }).join('');
+        return `<div class="reveal-predict-block"><div class="reveal-predict-prompt">${safeP}</div>${rows}</div>`;
+      }).join('');
+    }
+  }
+
+  // --- Quote wall ---
+  const qEl = document.getElementById('reveal-quotes');
+  if (qEl) {
+    const quotes = Object.values(liveQuotes || {}).sort((a,b) => (a.ts||0) - (b.ts||0));
+    if (!quotes.length) {
+      qEl.innerHTML = '<div class="reveal-empty">No quotes were caught 🤐</div>';
+    } else {
+      qEl.innerHTML = quotes.map(q => {
+        const safe = (q.text || '').replace(/</g,'&lt;');
+        return `<div class="reveal-quote">&ldquo;${safe}&rdquo;</div>`;
+      }).join('');
+    }
+  }
+
   document.getElementById('revealOverlay').classList.add('open');
 }
 function closeReveal() { document.getElementById('revealOverlay').classList.remove('open'); }
@@ -1262,6 +1485,8 @@ function enterApp(asAttendee, doConfetti = true) {
     renderMissions();
     renderOpsLog();
     renderSecretNotes();
+    renderPredictions();
+    renderQuotes();
     renderSecretBudget();
     updateStatsBar();
   } else {
@@ -1542,6 +1767,12 @@ window.toggleMissionDone = toggleMissionDone;
 window.claimMission      = claimMission;
 window.unclaimMission    = unclaimMission;
 window.addSecretNote     = addSecretNote;
+window.lockPrediction    = lockPrediction;
+window.deletePrediction  = deletePrediction;
+window.savePrediction    = savePrediction;
+window.toggleNailed      = toggleNailed;
+window.addQuote          = addQuote;
+window.deleteQuote       = deleteQuote;
 window.openReveal         = openReveal;
 window.closeReveal        = closeReveal;
 window.toggleMissionEdit = toggleMissionEdit;
